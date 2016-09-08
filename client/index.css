@@ -1,0 +1,158 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Dosis', sans-serif;
+}
+
+:root {
+  --rail-max-size: calc(30vh + 30vw);
+  --letter-size: calc(4vh + 4vw);
+  --letter-font-size: calc(3vh + 3vw);
+  --letter-padding-top: calc(.4vh + .4vw);
+  --dark: #353c48;
+  --white: #FFFFFF;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  background-color: var(--dark);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > p {
+    color: var(--white);
+    font-size: 2rem;
+  }
+}
+
+form {
+  text-align: left;
+
+  & label,
+  & input {
+    display: block;
+    width: 100%;
+  }
+
+  & > div {
+    margin: 10px 0;
+  }
+
+  & input {
+    background-color: var(--white);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 0;
+    box-shadow: 0;
+    font-size: 1rem;
+  }
+
+  & input[type="submit"] {
+    margin-top: 35px;
+  }
+
+  & label {
+    margin-bottom: 5px;
+    color: var(--white);
+  }
+}
+
+.rail {
+  width: var(--rail-max-size);
+  height: var(--rail-max-size);
+  margin: auto;
+  position: relative;
+}
+
+.letter {
+  box-sizing: border-box;
+  border-radius: 50%;
+  position: absolute;
+  color: var(--white);
+  font-size: var(--letter-font-size);
+  width: var(--letter-size);
+  height: var(--letter-size);
+  text-align: center;
+  padding: var(--letter-padding-top) 0 0 0;
+  margin: 0;
+  transform: translate3d(-50%, -50%, 0);
+  line-height: 1;
+  display: block;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.letter--highlighted {
+  background-color: var(--white);
+  color: var(--dark);
+
+  &:hover {
+    background-color: var(--white);
+  }
+}
+
+.start {
+  text-align: center;
+
+  & form {
+    display: none;
+    max-width: 400px;
+  }
+
+  & h1 {
+    color: var(--white);
+    font-size: 4rem;
+    letter-spacing: .2rem;
+  }
+
+  & button {
+    cursor: pointer;
+    margin: auto;
+    padding: 10px 18px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 0;
+    background-color: var(--white);
+  }
+}
+
+.start--create-room {
+  & button {
+    display: none;
+  }
+
+  & form {
+    display: block;
+  }
+}
+
+.score-board {
+  opacity: .6;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  color: var(--white);
+  font-size: 1.25rem;
+  text-align: center;
+
+  @media screen and (min-width: 600px) {
+    font-size: 2rem;
+    text-align: left;
+    left: 20px;
+    top: 20px;
+  }
+}
+
+.score-board__item {
+  line-height: 1.35;
+  margin: 0;
+}

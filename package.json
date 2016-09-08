@@ -1,0 +1,67 @@
+{
+  "name": "WordSnake",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server/index.js",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-plugin-syntax-flow": "^6.13.0",
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-plugin-typecheck": "^3.9.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-register": "^6.14.0",
+    "body-parser": "^1.15.2",
+    "domready": "^1.0.8",
+    "express": "^4.14.0",
+    "express-ws": "^2.0.0",
+    "fastclick": "^1.0.6",
+    "immutable": "^3.8.1",
+    "mongoose": "^4.6.0",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "css-loader": "^0.25.0",
+    "dotenv": "^2.0.0",
+    "elm-webpack-loader": "^3.0.6",
+    "eslint": "^3.4.0",
+    "file-loader": "^0.9.0",
+    "nodemon": "^1.10.2",
+    "postcss": "^5.2.0",
+    "postcss-cssnext": "^2.8.0",
+    "postcss-import": "^8.0.4",
+    "postcss-loader": "^0.11.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1",
+    "webpack-dotenv-plugin": "^1.3.2",
+    "webpack-validator": "^2.2.7"
+  },
+  "scripts": {
+    "watch": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
+    "dev": "nodemon ./server",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "postinstall": "npm run build",
+    "start": "node ./server"
+  },
+  "author": "Peter Szerzo",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      [
+        "typecheck",
+        {
+          "disable": {
+            "development": true,
+            "production": true
+          }
+        }
+      ],
+      "syntax-flow",
+      "transform-flow-strip-types"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+html
+  head
+    title WordRail
+    link(href="https://fonts.googleapis.com/css?family=Dosis", rel="stylesheet")
+    script(src="/index.js")
+  body
+    script.
+      window.__initialRoomState = !{JSON.stringify(room)};
+    script.
+      domReady(function() {
+        attachFastClick.attach(document.body);
+        Elm.Main.fullscreen({
+          roomId: __initialRoomState.id,
+          playerId: '!{playerId}'
+        });
+      });

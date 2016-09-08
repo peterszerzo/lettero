@@ -1,0 +1,19 @@
+{
+  "id": "room",
+  "round": 0,
+  "word": "hedgehogs",
+  "players": [
+    {
+      "id": "alfred",
+      "guess": null,
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "id": "samantha",
+      "guess": null,
+      "score": 0,
+      "isReady": false
+    }
+  ]
+}
