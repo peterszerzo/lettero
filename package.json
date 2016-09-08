@@ -1,7 +1,7 @@
 {
   "name": "WordSnake",
   "version": "0.1.0",
-  "description": "",
+  "description": "Multiplayer wordgame in Elm",
   "main": "server/index.js",
   "dependencies": {
     "babel": "^6.5.2",
@@ -41,7 +41,7 @@
     "watch": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
     "dev": "nodemon ./server",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
-    "postinstall": "npm run build",
+    "postinstall": "npm i -g elm && npm run build",
     "start": "node ./server"
   },
   "author": "Peter Szerzo",

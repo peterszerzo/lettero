@@ -9,8 +9,8 @@ import Helpers exposing (getWebSocketUrl)
 subscriptions : Model -> Sub Msg
 subscriptions model =
   let
-    webSocketUrl = getWebSocketUrl model.roomId
+    webSocketUrl = getWebSocketUrl model
   in
     Sub.batch
-      [ listen (getWebSocketUrl model.roomId) ReceiveRoomState
+      [ listen webSocketUrl ReceiveRoomState
       ]

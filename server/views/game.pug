@@ -6,11 +6,14 @@ html
   body
     script.
       window.__initialRoomState = !{JSON.stringify(room)};
+      window.__env = !{JSON.stringify(env)};
     script.
       domReady(function() {
         attachFastClick.attach(document.body);
         Elm.Main.fullscreen({
           roomId: __initialRoomState.id,
-          playerId: '!{playerId}'
+          playerId: '!{playerId}',
+          host: __env.host,
+          envPort: __env.port
         });
       });

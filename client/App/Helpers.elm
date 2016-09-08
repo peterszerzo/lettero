@@ -2,12 +2,11 @@ module Helpers exposing (..)
 
 import Models exposing (Model)
 import Room.Helpers exposing (setGuess, getGuess)
-import Room.Models exposing (RoomId)
-import Constants exposing (host)
+import Models exposing (Model)
 
-getWebSocketUrl : RoomId -> String
-getWebSocketUrl roomId =
-  "ws://" ++ host ++ "/ws/" ++ roomId
+getWebSocketUrl : Model -> String
+getWebSocketUrl model =
+  "ws://" ++ model.host ++ ":" ++ model.envPort ++ "/ws/" ++ model.roomId
 
 setOwnGuess : Int -> Model -> Model
 setOwnGuess guess model =

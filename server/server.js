@@ -5,6 +5,8 @@ import api from './api';
 
 const app = express();
 
+const {NODE_ENV, PORT} = process.env;
+
 const wsConnectionsByRoomId = {};
 
 require('express-ws')(app);
@@ -51,6 +53,10 @@ app.get('/:roomId/:playerId', (req, res) => {
   }
   res.render('game', {
     room,
+    env: {
+      port: PORT,
+      host: NODE_ENV === 'development' ? 'localhost' : 'wordsnake.herokuapp.com'
+    },
     playerId
   });
 });

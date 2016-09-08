@@ -18,14 +18,14 @@ sendPlayerStatusUpdate model =
       Just room ->
         getPlayerStatusUpdate model.playerId room
           |> encodePlayerStatusUpdate
-    webSocketUrl = getWebSocketUrl model.roomId
+    webSocketUrl = getWebSocketUrl model
   in
     send webSocketUrl encodedPlayerStatusUpdate
 
-requestRoomState : String -> Cmd Msg
-requestRoomState roomId =
+requestRoomState : Model -> Cmd Msg
+requestRoomState model =
   let
-    webSocketUrl = getWebSocketUrl roomId
+    webSocketUrl = getWebSocketUrl model
   in
     send webSocketUrl "requestRoomState"
 
