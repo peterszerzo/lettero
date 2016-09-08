@@ -13,7 +13,6 @@ html
         Elm.Main.fullscreen({
           roomId: __initialRoomState.id,
           playerId: '!{playerId}',
-          host: __env.host,
-          envPort: __env.port
+          host: location.origin.replace(/^http/, 'ws')
         });
       });

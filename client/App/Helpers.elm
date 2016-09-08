@@ -6,7 +6,7 @@ import Models exposing (Model)
 
 getWebSocketUrl : Model -> String
 getWebSocketUrl model =
-  "ws://" ++ model.host ++ ":" ++ model.envPort ++ "/ws/" ++ model.roomId
+  model.host ++ "/ws/" ++ model.roomId
 
 setOwnGuess : Int -> Model -> Model
 setOwnGuess guess model =

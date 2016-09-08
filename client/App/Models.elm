@@ -9,7 +9,6 @@ type alias Flags =
   { roomId : RoomId
   , playerId : PlayerId
   , host : String
-  , envPort : String
   }
 
 type alias Model =
@@ -18,5 +17,4 @@ type alias Model =
   , playerId : PlayerId
   , angle : Int
   , host : String
-  , envPort : String
   }
