@@ -1,7 +1,7 @@
 {
   "name": "WordSnake",
   "version": "0.1.0",
-  "description": "Multiplayer wordgame in Elm",
+  "description": "Multiplayer wordgame",
   "main": "server/index.js",
   "dependencies": {
     "babel": "^6.5.2",

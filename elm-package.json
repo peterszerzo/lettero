@@ -1,6 +1,6 @@
 {
     "version": "0.1.0",
-    "summary": "Multiplayer wordgame in Elm",
+    "summary": "Multiplayer wordgame",
     "repository": "https://github.com/user/project.git",
     "license": "ISC",
     "source-directories": [
