@@ -8,6 +8,7 @@ import Models exposing (Model)
 import Helpers exposing (setOwnGuess, getOwnGuess)
 import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
 import Room.Decoders exposing (roomDecoder)
+import Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -16,9 +17,11 @@ update msg model =
       let
         newRoom = decodeString roomDecoder roomState
           |> Result.toMaybe
+        didRoundChange = (Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom)
+        newTime = if didRoundChange then 0 else model.time
         cmd = case model.room of
           Just room ->
-            if ((Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom))
+            if didRoundChange
               then
                 getRandomAngle ()
               else
@@ -26,9 +29,9 @@ update msg model =
           Nothing ->
             getRandomAngle ()
       in
-      ( { model | room = newRoom }
-      , cmd
-      )
+        ( { model | room = newRoom, time = newTime }
+        , cmd
+        )
     ReceiveRandomAngle angle ->
       ( { model | angle = angle }
       , Cmd.none
@@ -40,3 +43,5 @@ update msg model =
         command  = if canGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
         (newModel, command)
+    Tick tick ->
+      ({ model | time = model.time + tickDuration }, Cmd.none)

@@ -1,5 +1,7 @@
 module Models exposing (..)
 
+import Time exposing (Time)
+
 import Player.Models exposing (Player, PlayerId)
 import Room.Models exposing (Room, RoomId)
 
@@ -17,4 +19,5 @@ type alias Model =
   , playerId : PlayerId
   , angle : Int
   , host : String
+  , time : Time
   }
