@@ -3,7 +3,8 @@ import type {Player} from './player';
 import {
   create as createPlayer,
   winRound,
-  loseRound
+  loseRound,
+  eraseGuess
 } from './player';
 import words from '../fixtures/words';
 
@@ -23,13 +24,11 @@ export function create(id, playerIds) : Room {
   };
 }
 
-export function endRound(room : Room, winnerPlayerId : String) : Room {
+export function endRound(room : Room, winnerPlayerId : string) : Room {
   return Object.assign(
     {},
     room,
     {
-      round: room.round + 1,
-      word: words[Math.floor(Math.random() * words.length)],
       players: room.players.map(
         player =>
           (
@@ -39,6 +38,18 @@ export function endRound(room : Room, winnerPlayerId : String) : Room {
               :
               loseRound(player)
           )
+    }
+  );
+}
+
+export function startNewRound(room : Room) : Room {
+  return Object.assign(
+    {},
+    room,
+    {
+      round: room.round + 1,
+      word: words[Math.floor(Math.random() * words.length)],
+      players: room.players.map(eraseGuess)
     }
   );
 }

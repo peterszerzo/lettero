@@ -2,7 +2,7 @@
 
 import type {Room} from './models/room';
 import testRoom from './fixtures/test-room';
-import {endRound} from './models/room';
+import {endRound, startNewRound} from './models/room';
 
 let state : Array<Room> = [testRoom];
 
@@ -18,16 +18,17 @@ function getRoom(roomId : string, playerId : string) : ?Room {
   return room;
 }
 
-function applyPlayerStatusUpdate({roomId, playerId, round, guess}) {
+function applyPlayerStatusUpdate({roomId, playerId, round, guess}, next) {
   const room = getRoom(roomId, playerId);
   if (room.round !== round || guess !== 0) {
     return;
   }
   state = state.map(rm => rm.id === room.id ? endRound(rm, playerId) : rm);
-}
-
-function changeWord(roomId) {
-
+  next();
+  setTimeout(() => {
+    state = state.map(rm => rm.id === room.id ? startNewRound(rm) : rm);
+    next();
+  }, 3000);
 }
 
 export default {
@@ -35,6 +36,5 @@ export default {
     return state;
   },
   applyPlayerStatusUpdate,
-  getRoom,
-  changeWord
+  getRoom
 };

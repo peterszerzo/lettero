@@ -1,13 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import api from './api';
-
 const app = express();
 
-const {PORT} = process.env;
+import api from './api';
+import webSocketController from './websocket';
 
-const wsConnectionsByRoomId = {};
+const {PORT} = process.env;
 
 require('express-ws')(app);
 
@@ -21,29 +20,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.ws('/ws/:roomId', (ws, req) => {
-  const {roomId} = req.params;
-  if (wsConnectionsByRoomId[roomId]) {
-    wsConnectionsByRoomId[roomId].push(ws);
-  } else {
-    wsConnectionsByRoomId[roomId] = [ws];
-  }
-  ws.on('message', (msg) => {
-    if (msg === 'requestRoomState') {
-      return ws.send(JSON.stringify(api.getState().filter(({id}) => id === roomId)[0]));
-    }
-    const playerStatusUpdate = JSON.parse(msg);
-    api.applyPlayerStatusUpdate(playerStatusUpdate);
-    wsConnectionsByRoomId[roomId].forEach((ws) => {
-      try {
-        console.log('Sending to open connection');
-        ws.send(JSON.stringify(api.getState().filter(({id}) => id === roomId)[0]));
-      } catch(err) {
-        console.log('Tried to send to closed connection.');
-      }
-    });
-  });
-});
+app.ws('/ws/:roomId', webSocketController);
 
 app.get('/:roomId/:playerId', (req, res) => {
   const {roomId, playerId} = req.params;

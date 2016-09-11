@@ -13,12 +13,21 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     ReceiveRoomState roomState ->
-      ( { model
-            | room =
-                decodeString roomDecoder roomState
-                  |> Result.toMaybe
-        }
-      , getRandomAngle ()
+      let
+        newRoom = decodeString roomDecoder roomState
+          |> Result.toMaybe
+        cmd = case model.room of
+          Just room ->
+            if ((Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom))
+              then
+                getRandomAngle ()
+              else
+                Cmd.none
+          Nothing ->
+            getRandomAngle ()
+      in
+      ( { model | room = newRoom }
+      , cmd
       )
     ReceiveRandomAngle angle ->
       ( { model | angle = angle }
@@ -26,7 +35,7 @@ update msg model =
       )
     Guess guess ->
       let
-        canGuess = (getOwnGuess model) == Nothing
+        canGuess = (getOwnGuess model) /= Just 0
         newModel = if canGuess then (setOwnGuess guess model) else model
         command  = if canGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in

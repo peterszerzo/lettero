@@ -24,12 +24,15 @@ export function setGuess(player : Player, guess : number) : Player {
 
 export function winRound(player : Player) : Player {
   return Object.assign({}, player, {
-    score: player.score + 1,
-    guess: null
+    score: player.score + 1
   });
 }
 
 export function loseRound(player : Player) : Player {
+  return player;
+}
+
+export function eraseGuess(player : Player) : Player {
   return Object.assign({}, player, {
     guess: null
   });
