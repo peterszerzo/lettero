@@ -22,6 +22,17 @@ app.get('/', (req, res) => {
 
 app.ws('/ws/:roomId', webSocketController);
 
+app.get('/:roomId', (req, res) => {
+  const {roomId} = req.params;
+  const room = api.getRoom(roomId);
+  if (!room) {
+    return res.redirect(301, '/not-found');
+  }
+  res.render('room', {
+    room
+  });
+});
+
 app.get('/:roomId/:playerId', (req, res) => {
   const {roomId, playerId} = req.params;
   const room = api.getRoom(roomId, playerId);

@@ -6,10 +6,10 @@ import {endRound, startNewRound} from './models/room';
 
 let state : Array<Room> = [testRoom];
 
-function getRoom(roomId : string, playerId : string) : ?Room {
+function getRoom(roomId : string, playerId : ?string) : ?Room {
   const room = state.filter(({id}) => id === roomId)[0];
-  if (!room) {
-    return null;
+  if (!playerId) {
+    return room;
   }
   const player = room.players.filter(({id}) => id === playerId)[0];
   if (!player) {

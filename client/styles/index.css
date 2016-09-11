@@ -129,24 +129,21 @@ form {
 
   & form {
     display: none;
-    max-width: 400px;
   }
+}
 
-  & h1 {
-    color: var(--white);
-    font-size: 4rem;
-    letter-spacing: .2rem;
-  }
-
-  & button {
-    cursor: pointer;
-    margin: auto;
-    padding: 10px 18px;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 0;
-    background-color: var(--white);
-  }
+.button {
+  cursor: pointer;
+  margin: auto;
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 600;
+  letter-spacing: .05rem;
+  padding: 10px 18px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 0;
+  background-color: var(--white);
 }
 
 .start--create-room {
@@ -156,5 +153,34 @@ form {
 
   & form {
     display: block;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 300px;
+  color: var(--white);
+  text-align: center;
+
+  & h1 {
+    color: var(--white);
+    font-size: 4rem;
+    letter-spacing: .2rem;
+  }
+
+  & h2 {
+    color: var(--white);
+    font-size: 3rem;
+    letter-spacing: .2rem;
+  }
+
+  & ul {
+    padding: 0;
+  }
+
+  & li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 10px;
   }
 }

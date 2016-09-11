@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  .container
+    .content
+      h2 Welcome to room #{room.id}
+      ul
+        each player in room.players
+          li
+            a.button(href=`/${room.id}/${player.id}`) #{player.id}
