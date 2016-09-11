@@ -1,21 +1,7 @@
-html
-  head
-    title WordRail
-    meta(charset='utf-8')
-    meta(name='HandheldFriendly', content='True')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href="https://fonts.googleapis.com/css?family=Dosis", rel="stylesheet")
-    script(src="/index.js")
-  body
-    script.
-      window.__initialRoomState = !{JSON.stringify(room)};
-      window.__env = !{JSON.stringify(env)};
-    script.
-      domReady(function() {
-        attachFastClick.attach(document.body);
-        Elm.Main.fullscreen({
-          roomId: __initialRoomState.id,
-          playerId: '!{playerId}',
-          host: location.origin.replace(/^http/, 'ws')
-        });
-      });
+extends layout.pug
+
+block scripts
+  script.
+    window.__initialRoomState = !{JSON.stringify(room)};
+  script.
+    domReady(start.game);

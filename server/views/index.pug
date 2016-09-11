@@ -1,31 +1,23 @@
-html
-  head
-    title WordSnake
-    link(href="https://fonts.googleapis.com/css?family=Dosis", rel="stylesheet")
-    script(src="/index.js")
-  body
-    .container
-      div.start
-        h1 WordSnake
-        button Create room
-        form(action="/create", method="post")
-          div
-            label(for="roomId") Room name
-            input(type="text", id="roomId", name="roomId", required)
-          div
-            label(for="players0") Player 1
-            input(type="text", id="players0", name="players[0]", required)
-          div
-            label(for="players1") Player 2
-            input(type="text", id="players1", name="players[1]", required)
-          div
-            input(type="submit")
-    script.
-      (function() {
-        var form = document.querySelector('form');
-        var start = document.querySelector('.start');
-        var button = document.querySelector('button');
-        button.addEventListener('click', function() {
-          start.classList.add('start--create-room');
-        });
-      }())
+extends layout.pug
+
+block content
+  .container
+    .start
+      h1 WordSnake
+      button Create room
+      form(action="/create", method="post")
+        div
+          label(for="roomId") Room name
+          input(type="text", id="roomId", name="roomId", required)
+        div
+          label(for="players0") Player 1
+          input(type="text", id="players0", name="players[0]", required)
+        div
+          label(for="players1") Player 2
+          input(type="text", id="players1", name="players[1]", required)
+        div
+          input(type="submit")
+
+block scripts
+  script.
+    domReady(start.homePage);

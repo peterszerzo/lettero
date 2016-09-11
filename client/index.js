@@ -1,5 +1,12 @@
-require('./index.css');
+import domReady from 'domready';
 
-global.Elm = require('./App/Main.elm');
-global.domReady = require('domready');
-global.attachFastClick = require('fastclick');
+import './styles/index.css';
+import game from './game';
+import homePage from './home-page';
+
+global.domReady = domReady;
+
+global.start = {
+  game: game,
+  homePage: homePage
+};

@@ -17,6 +17,10 @@ const config = {
   module: {
     loaders: [
       {
+        test: /\.js/,
+        loader: 'babel'
+      },
+      {
         test: /\.css/,
         loader: 'style!css!postcss'
       },

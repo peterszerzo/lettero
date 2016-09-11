@@ -5,7 +5,7 @@ import api from './api';
 
 const app = express();
 
-const {NODE_ENV, PORT} = process.env;
+const {PORT} = process.env;
 
 const wsConnectionsByRoomId = {};
 
@@ -53,10 +53,6 @@ app.get('/:roomId/:playerId', (req, res) => {
   }
   res.render('game', {
     room,
-    env: {
-      port: PORT,
-      host: NODE_ENV === 'development' ? 'localhost' : 'wordsnake.herokuapp.com'
-    },
     playerId
   });
 });
@@ -69,10 +65,10 @@ app.get('*', (req, res) => {
   res.redirect(301, '/not-found');
 });
 
-app.listen(process.env.PORT, (err) => {
+app.listen(PORT, (err) => {
   if (err) {
     console.log('Error starting the server.');
     return;
   }
-  console.log(`Listening at port ${process.env.PORT}.`);
+  console.log(`Listening at port ${PORT}.`);
 });
