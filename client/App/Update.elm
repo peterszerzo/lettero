@@ -7,7 +7,7 @@ import Messages exposing (Msg(..))
 import Models exposing (Model)
 import Helpers exposing (setOwnGuess, getOwnGuess)
 import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
-import Room.Decoders exposing (roomDecoder)
+import Room.Models exposing (roomDecoder)
 import Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)

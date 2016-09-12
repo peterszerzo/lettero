@@ -2,6 +2,7 @@ module Room.Helpers exposing (..)
 
 import Player.Models exposing (PlayerId)
 import Room.Models exposing (Room)
+import Guess.Models exposing (Guess)
 import PlayerStatusUpdate.Models exposing (PlayerStatusUpdate)
 
 areAllPlayersReady : Room -> Bool
@@ -13,12 +14,14 @@ areAllPlayersReady room =
 getPlayerStatusUpdate : PlayerId -> Room -> PlayerStatusUpdate
 getPlayerStatusUpdate playerId room =
   let
-    guess =
+    player =
       room.players
         |> List.filter (\player -> player.id == playerId)
         |> List.head
+    guess =
+      player
         |> Maybe.map (.guess)
-        |> Maybe.withDefault (Just 0)
+        |> Maybe.withDefault Nothing
   in
     { roomId = room.id
     , playerId = playerId
@@ -26,7 +29,7 @@ getPlayerStatusUpdate playerId room =
     , guess = guess
     }
 
-setGuess : Int -> PlayerId -> Room -> Room
+setGuess : Guess -> PlayerId -> Room -> Room
 setGuess guess playerId room =
   let
     players =
@@ -35,7 +38,7 @@ setGuess guess playerId room =
   in
     {room | players = players}
 
-getGuess : PlayerId -> Room -> Maybe Int
+getGuess : PlayerId -> Room -> Maybe Guess
 getGuess playerId room =
   room.players
     |> List.filter (\player -> player.id == playerId)

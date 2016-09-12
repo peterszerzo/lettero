@@ -5,7 +5,7 @@ import Messages exposing (Msg(..))
 import Random
 
 import Room.Helpers exposing (getPlayerStatusUpdate)
-import PlayerStatusUpdate.Encoders exposing (encodePlayerStatusUpdate)
+import PlayerStatusUpdate.Models exposing (encodePlayerStatusUpdate)
 import Models exposing (Model)
 import Helpers exposing (getWebSocketUrl)
 

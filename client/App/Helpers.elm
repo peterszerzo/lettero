@@ -2,21 +2,22 @@ module Helpers exposing (..)
 
 import Models exposing (Model)
 import Room.Helpers exposing (setGuess, getGuess)
+import Guess.Models exposing (Guess, GuessValue)
 import Models exposing (Model)
 
 getWebSocketUrl : Model -> String
 getWebSocketUrl model =
   model.host ++ "/ws/" ++ model.roomId
 
-setOwnGuess : Int -> Model -> Model
-setOwnGuess guess model =
+setOwnGuess : GuessValue -> Model -> Model
+setOwnGuess guessValue model =
   { model
       | room =
           model.room
-            |> Maybe.map (setGuess guess model.playerId)
+            |> Maybe.map (setGuess (Guess guessValue model.time) model.playerId)
   }
 
-getOwnGuess : Model -> Maybe Int
+getOwnGuess : Model -> Maybe Guess
 getOwnGuess model =
   model.room
     |> Maybe.map (getGuess model.playerId)

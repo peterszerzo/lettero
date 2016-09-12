@@ -1,6 +1,8 @@
+import type {Guess} from './guess';
+
 export type Player = {
   id : string,
-  guess : ?number,
+  guess : ?Guess,
   score : number,
   isReady : boolean
 };
@@ -18,7 +20,7 @@ export function setReady(player : Player) : Player {
   return Object.assign({}, player, {isReady: true});
 }
 
-export function setGuess(player : Player, guess : number) : Player {
+export function setGuess(player : Player, guess : Guess) : Player {
   return Object.assign({}, player, {guess});
 }
 

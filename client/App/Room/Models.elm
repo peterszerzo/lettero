@@ -1,6 +1,8 @@
 module Room.Models exposing (..)
 
-import Player.Models exposing (Player)
+import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, bool)
+
+import Player.Models exposing (Player, playersDecoder)
 
 type alias RoomId = String
 
@@ -10,3 +12,11 @@ type alias Room =
   , word : String
   , players : List Player
   }
+
+roomDecoder : Decoder Room
+roomDecoder =
+  object4 Room
+    ("id" := string)
+    ("round" := int)
+    ("word" := string)
+    ("players" := playersDecoder)
