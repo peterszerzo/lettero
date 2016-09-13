@@ -6,15 +6,17 @@ import Html.Events exposing (onClick)
 import Styles
 import String
 
-import Models exposing (Model)
-import Room.Models exposing (Room)
-import Player.Models exposing (Player, PlayerId)
+import Models.App exposing (Model, getOwnGuess)
+import Models.Room exposing (Room)
+import Models.Player exposing (Player, PlayerId)
 import Messages exposing (Msg(..))
-import Helpers exposing (getOwnGuess)
 
 viewLetter : Model -> Int -> Int -> String -> Html Msg
 viewLetter model len index letter =
   let
+    guessIndex =
+      getOwnGuess model
+        |> Maybe.map (.value)
     angle = 2 * pi * (toFloat index) / toFloat(len)
       |> (+) (toFloat(model.angle) * pi / 180)
     top =
@@ -33,8 +35,11 @@ viewLetter model len index letter =
     rotate = angle + pi / 2
   in
     p
-      [ classList [("letter", True), ("letter--highlighted", getOwnGuess model == Just index)]
-      , onClick (Guess index)
+      [ classList
+          [ ("letter", True)
+          , ("letter--highlighted", guessIndex == Just index)
+          ]
+      , onClick (MakeGuess index)
       , style
           (Styles.letter left top rotate)
       ]

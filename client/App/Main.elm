@@ -3,7 +3,7 @@ module Main exposing (main)
 import Html.App exposing (programWithFlags)
 import Views exposing (view)
 import Update exposing (update)
-import Models exposing (Flags)
+import Models.App exposing (Flags)
 import Init exposing (init)
 import Subscriptions exposing (subscriptions)
 

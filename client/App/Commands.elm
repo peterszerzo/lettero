@@ -4,10 +4,9 @@ import WebSocket exposing (send)
 import Messages exposing (Msg(..))
 import Random
 
-import Room.Helpers exposing (getPlayerStatusUpdate)
-import PlayerStatusUpdate.Models exposing (encodePlayerStatusUpdate)
-import Models exposing (Model)
-import Helpers exposing (getWebSocketUrl)
+import Models.Room exposing (getPlayerStatusUpdate)
+import Models.PlayerStatusUpdate exposing (encodePlayerStatusUpdate)
+import Models.App exposing (Model, getWebSocketUrl)
 
 sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =

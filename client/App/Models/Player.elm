@@ -1,9 +1,8 @@
-module Player.Models exposing (..)
+module Models.Player exposing (..)
 
-import Time exposing (Time)
 import Json.Decode exposing (Decoder, (:=), object4, maybe, string, int, float, bool, list)
 
-import Guess.Models exposing (Guess, guessDecoder)
+import Models.Guess exposing (Guess, guessDecoder)
 
 type alias PlayerId = String
 

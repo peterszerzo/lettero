@@ -3,9 +3,8 @@ module Subscriptions exposing (..)
 import WebSocket exposing (listen)
 import Time exposing (every)
 
-import Models exposing (Model)
+import Models.App exposing (Model, getWebSocketUrl)
 import Messages exposing (Msg(..))
-import Helpers exposing (getWebSocketUrl)
 import Constants exposing (tickDuration)
 
 subscriptions : Model -> Sub Msg

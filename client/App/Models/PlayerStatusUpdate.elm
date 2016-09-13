@@ -1,9 +1,8 @@
-module PlayerStatusUpdate.Models exposing (..)
+module Models.PlayerStatusUpdate exposing (..)
 
-import Time exposing (Time)
 import Json.Encode exposing (encode, object, string, null, int, float)
 
-import Guess.Models exposing (Guess, guessEncoder)
+import Models.Guess exposing (Guess, guessEncoder)
 
 type alias PlayerStatusUpdate =
   { roomId : String

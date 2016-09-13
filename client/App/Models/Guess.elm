@@ -1,7 +1,7 @@
-module Guess.Models exposing (..)
+module Models.Guess exposing (..)
 
 import Time exposing (Time)
-import Json.Encode as Encode exposing (encode, object)
+import Json.Encode as Encode exposing (Value, encode, object)
 import Json.Decode as Decode exposing (Decoder, (:=), object2)
 
 type alias GuessValue = Int
@@ -11,6 +11,7 @@ type alias Guess =
   , time : Time
   }
 
+guessEncoder : Guess -> Value
 guessEncoder {value, time} =
   object
     [ ("value", Encode.int value)

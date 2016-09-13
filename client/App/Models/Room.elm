@@ -1,9 +1,33 @@
-module Room.Helpers exposing (..)
+module Models.Room exposing (..)
 
-import Player.Models exposing (PlayerId)
-import Room.Models exposing (Room)
-import Guess.Models exposing (Guess)
-import PlayerStatusUpdate.Models exposing (PlayerStatusUpdate)
+import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, bool)
+
+import Models.Player exposing (Player, PlayerId, playersDecoder)
+import Models.Guess exposing (Guess)
+import Models.PlayerStatusUpdate exposing (PlayerStatusUpdate)
+
+type alias RoomId = String
+
+type alias Room =
+  { id : RoomId
+  , round : Int
+  , word : String
+  , players : List Player
+  }
+
+
+-- Decoders
+
+roomDecoder : Decoder Room
+roomDecoder =
+  object4 Room
+    ("id" := string)
+    ("round" := int)
+    ("word" := string)
+    ("players" := playersDecoder)
+
+
+-- Helpers
 
 areAllPlayersReady : Room -> Bool
 areAllPlayersReady room =

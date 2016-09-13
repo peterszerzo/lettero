@@ -4,10 +4,9 @@ import Json.Decode exposing (decodeString)
 import Result
 
 import Messages exposing (Msg(..))
-import Models exposing (Model)
-import Helpers exposing (setOwnGuess, getOwnGuess)
+import Models.App exposing (Model, setOwnGuess, getOwnGuess)
+import Models.Room exposing (roomDecoder)
 import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
-import Room.Models exposing (roomDecoder)
 import Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -36,10 +35,10 @@ update msg model =
       ( { model | angle = angle }
       , Cmd.none
       )
-    Guess guess ->
+    MakeGuess guessValue ->
       let
-        canGuess = (getOwnGuess model) /= Just 0
-        newModel = if canGuess then (setOwnGuess guess model) else model
+        canGuess = (getOwnGuess model) /= Nothing
+        newModel = if canGuess then (setOwnGuess guessValue model) else model
         command  = if canGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
         (newModel, command)

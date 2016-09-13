@@ -1,6 +1,6 @@
 module Init exposing (init)
 
-import Models exposing (Flags, Model)
+import Models.App exposing (Flags, Model)
 import Messages exposing (Msg)
 import Commands exposing (requestRoomState)
 
