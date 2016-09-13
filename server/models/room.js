@@ -44,6 +44,20 @@ export function setGuess(guess, playerId, room) {
   );
 }
 
+export function closeRound(winnerId, room : Room) : Room {
+  return Object.assign(
+    {},
+    room,
+    {
+      players: room.players.map(
+        player =>
+        (
+          (player.id === winnerId) ? winRound(player) : loseRound(player))
+        )
+    }
+  );
+}
+
 export function startNewRound(room : Room) : Room {
   return Object.assign(
     {},
