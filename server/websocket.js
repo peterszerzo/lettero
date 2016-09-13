@@ -5,6 +5,7 @@ const wsConnectionsByRoomId = {};
 function notifyRoom(roomId) {
   wsConnectionsByRoomId[roomId].forEach((ws) => {
     const room = api.getState().filter(({id}) => id === roomId)[0];
+    console.log(JSON.stringify(room));
     try {
       ws.send(JSON.stringify(room));
     } catch(err) {

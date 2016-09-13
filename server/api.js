@@ -2,7 +2,7 @@
 
 import type {Room} from './models/room';
 import testRoom from './fixtures/test-room';
-import {endRound, startNewRound} from './models/room';
+import {setGuess} from './models/room';
 
 let state : Array<Room> = [testRoom];
 
@@ -20,15 +20,11 @@ function getRoom(roomId : string, playerId : ?string) : ?Room {
 
 function applyPlayerStatusUpdate({roomId, playerId, round, guess}, next) {
   const room = getRoom(roomId, playerId);
-  if (room.round !== round || guess !== 0) {
+  if (room.round !== round) {
     return;
   }
-  state = state.map(rm => rm.id === room.id ? endRound(rm, playerId) : rm);
+  state = state.map(rm => rm.id === room.id ? setGuess(guess, playerId, rm) : rm);
   next();
-  setTimeout(() => {
-    state = state.map(rm => rm.id === room.id ? startNewRound(rm) : rm);
-    next();
-  }, 3000);
 }
 
 export default {

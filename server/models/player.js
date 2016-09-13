@@ -20,8 +20,14 @@ export function setReady(player : Player) : Player {
   return Object.assign({}, player, {isReady: true});
 }
 
-export function setGuess(player : Player, guess : Guess) : Player {
-  return Object.assign({}, player, {guess});
+export function setGuess(guess : Guess, player : Player) : Player {
+  return Object.assign({}, player, {
+    guess
+  });
+}
+
+export function eraseGuess(player : Player) : Player {
+  return setGuess(null, player);
 }
 
 export function winRound(player : Player) : Player {
@@ -32,10 +38,4 @@ export function winRound(player : Player) : Player {
 
 export function loseRound(player : Player) : Player {
   return player;
-}
-
-export function eraseGuess(player : Player) : Player {
-  return Object.assign({}, player, {
-    guess: null
-  });
 }

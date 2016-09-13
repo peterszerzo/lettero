@@ -28,4 +28,4 @@ guessDecoder : Decoder Guess
 guessDecoder =
   object2 Guess
     ("value" := Decode.int)
-    ("score" := Decode.float)
+    ("time" := Decode.float)

@@ -37,7 +37,8 @@ update msg model =
       )
     MakeGuess guessValue ->
       let
-        canGuess = (getOwnGuess model) /= Nothing
+        ownGuess = getOwnGuess model
+        canGuess = (ownGuess == Nothing)
         newModel = if canGuess then (setOwnGuess guessValue model) else model
         command  = if canGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
