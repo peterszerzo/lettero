@@ -1,14 +1,36 @@
-module Views.Word exposing (..)
+module Views.Word exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList, attribute)
 import Html.Events exposing (onClick)
-import Styles
 import String
 
 import Models.App exposing (Model, getOwnGuess)
 import Models.Room exposing (Room)
 import Messages exposing (Msg(..))
+
+type alias StyleDec = List (String, String)
+
+letterStyle : Float -> Float -> Float -> StyleDec
+letterStyle left top angle =
+  let
+    leftVal =
+      left
+        |> (*) 100
+        |> toString
+    topVal =
+      top
+        |> (*) 100
+        |> toString
+    rotateVal =
+      angle
+        |> (*) (180 / pi)
+        |> toString
+  in
+    [ ("top", topVal ++ "%")
+    , ("left", leftVal ++ "%")
+    , ("transform", "translate3d(-50%, -50%, 0) rotate(" ++ rotateVal ++ "deg)")
+    ]
 
 viewLetter : Model -> Int -> Int -> String -> Html Msg
 viewLetter model len index letter =
@@ -40,13 +62,13 @@ viewLetter model len index letter =
           ]
       , onClick (MakeGuess index)
       , style
-          (Styles.letter left top rotate)
+          (letterStyle left top rotate)
       ]
       [ text letter
       ]
 
-viewWord : Model -> Room -> Html Msg
-viewWord model room =
+view : Model -> Room -> Html Msg
+view model room =
   let
     letters : List String
     letters = String.split "" room.word

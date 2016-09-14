@@ -45,3 +45,5 @@ update msg model =
         (newModel, command)
     Tick tick ->
       ({ model | time = model.time + tickDuration }, Cmd.none)
+    SetReady ->
+      (model, Cmd.none)

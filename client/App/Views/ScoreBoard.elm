@@ -1,4 +1,4 @@
-module Views.ScoreBoard exposing (..)
+module Views.ScoreBoard exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList)
@@ -15,8 +15,8 @@ viewPlayer { id, score } =
     , p [ class "score-board__score" ] [ text (toString score) ]
     ]
 
-viewScoreBoard : PlayerId -> List Player -> Html Msg
-viewScoreBoard playerId players =
+view : PlayerId -> List Player -> Html Msg
+view playerId players =
   div
     [ class "score-board"
     ]

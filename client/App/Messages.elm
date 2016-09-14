@@ -9,3 +9,4 @@ type Msg =
   | MakeGuess GuessValue
   | ReceiveRandomAngle Int
   | Tick Time
+  | SetReady
