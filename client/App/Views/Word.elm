@@ -1,4 +1,4 @@
-module Views exposing (view)
+module Views.Word exposing (..)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList, attribute)
@@ -8,7 +8,6 @@ import String
 
 import Models.App exposing (Model, getOwnGuess)
 import Models.Room exposing (Room)
-import Models.Player exposing (Player, PlayerId)
 import Messages exposing (Msg(..))
 
 viewLetter : Model -> Int -> Int -> String -> Html Msg
@@ -53,44 +52,6 @@ viewWord model room =
     letters = String.split "" room.word
   in
     div
-      [ class "rail"
+      [ class "word"
       ]
       (List.indexedMap (viewLetter model (List.length letters)) letters)
-
-viewSpinner : Html Msg
-viewSpinner =
-  p [] [text "hang in there..."]
-
-viewPlayer : Player -> Html Msg
-viewPlayer { id, score } =
-  p [class "score-board__item"] [text (id ++ ": " ++ (toString score))]
-
-viewScoreBoard : PlayerId -> Maybe (List Player) -> Html Msg
-viewScoreBoard playerId players =
-  let
-    content = case players of
-      Nothing ->
-        []
-      Just players ->
-        (List.map viewPlayer players)
-  in
-  div
-    [ class "score-board"
-    ]
-    content
-
-view : Model -> Html Msg
-view model =
-  let
-    content = case model.room of
-      Nothing ->
-        viewSpinner
-      Just room ->
-        viewWord model room
-  in
-    div
-      [ class "container"
-      ]
-      [ content
-      , viewScoreBoard model.playerId (Maybe.map (.players) model.room)
-      ]

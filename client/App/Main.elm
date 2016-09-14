@@ -1,7 +1,7 @@
 module Main exposing (main)
 
 import Html.App exposing (programWithFlags)
-import Views exposing (view)
+import Views.App exposing (view)
 import Update exposing (update)
 import Models.App exposing (Flags)
 import Init exposing (init)
