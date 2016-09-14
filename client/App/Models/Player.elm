@@ -24,3 +24,9 @@ playerDecoder =
 playersDecoder : Decoder (List Player)
 playersDecoder =
   list playerDecoder
+
+areAllReady : (List Player) -> Bool
+areAllReady players =
+  players
+    |> List.map (.isReady)
+    |> List.foldl (&&) True

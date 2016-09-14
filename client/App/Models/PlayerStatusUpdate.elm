@@ -1,6 +1,6 @@
 module Models.PlayerStatusUpdate exposing (..)
 
-import Json.Encode exposing (encode, object, string, null, int, float)
+import Json.Encode exposing (encode, object, string, null, int, float, bool)
 
 import Models.Guess exposing (Guess, guessEncoder)
 
@@ -9,10 +9,11 @@ type alias PlayerStatusUpdate =
   , playerId : String
   , round : Int
   , guess : Maybe Guess
+  , isReady : Bool
   }
 
 encodePlayerStatusUpdate : PlayerStatusUpdate -> String
-encodePlayerStatusUpdate {roomId, playerId, round, guess} =
+encodePlayerStatusUpdate {roomId, playerId, round, guess, isReady} =
   let
     encodedGuess = case guess of
       Just guess' ->
@@ -25,5 +26,6 @@ encodePlayerStatusUpdate {roomId, playerId, round, guess} =
       , ("playerId", string playerId)
       , ("round", int round)
       , ("guess", encodedGuess)
+      , ("isReady", bool isReady)
       ]
       |> encode 0

@@ -5,7 +5,7 @@ import Result
 
 import Messages exposing (Msg(..))
 import Models.App exposing (Model, setOwnGuess, getOwnGuess)
-import Models.Room exposing (roomDecoder)
+import Models.Room exposing (roomDecoder, setReady)
 import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
 import Constants exposing (tickDuration)
 
@@ -46,4 +46,12 @@ update msg model =
     Tick tick ->
       ({ model | time = model.time + tickDuration }, Cmd.none)
     SetReady ->
-      (model, Cmd.none)
+      let
+        newRoom =
+          model.room
+            |> Maybe.map (setReady model.playerId)
+        newModel =
+          {model | room = newRoom}
+        command = sendPlayerStatusUpdate newModel
+      in
+        (newModel, command)

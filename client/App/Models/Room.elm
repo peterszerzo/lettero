@@ -46,11 +46,16 @@ getPlayerStatusUpdate playerId room =
       player
         |> Maybe.map (.guess)
         |> Maybe.withDefault Nothing
+    isReady =
+      player
+        |> Maybe.map (.isReady)
+        |> Maybe.withDefault False
   in
     { roomId = room.id
     , playerId = playerId
     , round = room.round
     , guess = guess
+    , isReady = isReady
     }
 
 setGuess : Guess -> PlayerId -> Room -> Room
@@ -61,6 +66,13 @@ setGuess guess playerId room =
         |> List.map (\player -> if player.id == playerId then {player | guess = Just guess} else player)
   in
     {room | players = players}
+
+setReady : PlayerId -> Room -> Room
+setReady playerId room =
+  { room |
+      players =
+        List.map (\player -> if (playerId == player.id) then {player | isReady = True} else player) room.players
+  }
 
 getGuess : PlayerId -> Room -> Maybe Guess
 getGuess playerId room =

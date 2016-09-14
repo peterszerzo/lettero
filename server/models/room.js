@@ -4,7 +4,6 @@ import {
   create as createPlayer,
   winRound,
   loseRound,
-  setGuess as setPlayerGuess,
   eraseGuess
 } from './player';
 import words from '../fixtures/words';
@@ -25,7 +24,7 @@ export function create(id, playerIds) : Room {
   };
 }
 
-export function setGuess(guess, playerId, room) {
+export function setPlayerStatus(playerId, statusChange, room) {
   return Object.assign(
     {},
     room,
@@ -35,7 +34,7 @@ export function setGuess(guess, playerId, room) {
         (
           (player.id === playerId)
             ?
-            setPlayerGuess(guess, player)
+            Object.assign({}, player, statusChange)
             :
             player
         )

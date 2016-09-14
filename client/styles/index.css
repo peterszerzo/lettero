@@ -6,6 +6,13 @@
   --dark: #353c48;
   --black: #000000;
   --white: #FFFFFF;
+
+  --border-radius: 6px;
+
+  --panel-skin {
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 6px color(var(--black) alpha(-50%)), 0 0 12px color(var(--black) alpha(-80%));
+  }
 }
 
 * {
@@ -18,15 +25,23 @@ body {
   overflow: hidden;
 }
 
-.container {
+.app {
   position: relative;
   background-color: var(--dark);
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+}
+
+.app__page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 0;
+  left: 0;
 
   & > p {
     color: var(--white);
@@ -50,7 +65,7 @@ form {
   & input {
     background-color: var(--white);
     padding: 5px 10px;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     border: 0;
     box-shadow: 0;
     font-size: 1rem;
@@ -67,9 +82,9 @@ form {
 }
 
 .score-board {
-  border-radius: 4px;
+  @apply --panel-skin;
   width: 200px;
-  height: 70px;
+  height: 80px;
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -79,7 +94,6 @@ form {
   font-size: 1.75rem;
   text-align: center;
   display: flex;
-  box-shadow: 0 0 6px color(var(--black) alpha(-30%)), 0 0 10px color(var(--black) alpha(-70%));
 
   @media screen and (min-width: 600px) {
     font-size: 2.5rem;
@@ -88,7 +102,7 @@ form {
     left: 20px;
     top: 20px;
     width: 240px;
-    height: 100px;
+    height: 110px;
   }
 }
 
@@ -105,11 +119,11 @@ form {
   flex-direction: column;
 
   &:nth-of-type(1) {
-    border-right: 1px solid var(--dark);
+    border-right: 2px solid var(--dark);
   }
 
   &:nth-of-type(2) {
-    border-left: 1px solid var(--dark);
+    border-left: 2px solid var(--dark);
   }
 }
 
@@ -202,26 +216,32 @@ form {
   max-width: 300px;
   color: var(--white);
   text-align: center;
+}
 
-  & h1 {
+h1 {
+  color: var(--white);
+  font-size: 4rem;
+  letter-spacing: .2rem;
+}
+
+h2 {
+  color: var(--white);
+  font-size: 3rem;
+  letter-spacing: .2rem;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.ready-screen {
+  & > p {
     color: var(--white);
-    font-size: 4rem;
-    letter-spacing: .2rem;
-  }
-
-  & h2 {
-    color: var(--white);
-    font-size: 3rem;
-    letter-spacing: .2rem;
-  }
-
-  & ul {
-    padding: 0;
-  }
-
-  & li {
-    list-style-type: none;
-    display: inline-block;
-    margin: 0 10px;
   }
 }
