@@ -49,6 +49,11 @@ app.get('/not-found', (req, res) => {
   res.render('404');
 });
 
+app.post('/rooms/create', (req, res) => {
+  console.log(req.body);
+  res.send('successfully created');
+});
+
 app.get('*', (req, res) => {
   res.redirect(301, '/not-found');
 });

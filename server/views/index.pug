@@ -4,8 +4,8 @@ block content
   .container
     .start.content
       h1 WordSnake
-      button Create room
-      form(action="/create", method="post")
+      button.button Create room
+      form(action="/rooms/create", method="post")
         div
           label(for="roomId") Room name
           input(type="text", id="roomId", name="roomId", required)
