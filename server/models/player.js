@@ -36,7 +36,7 @@ export function loseRound(player : Player) : Player {
   });
 }
 
-export function getWinnerId(players : Players) : PlayerId {
+export function getWinnerId(players : Players) : ?PlayerId {
   const winner =
     players
       .filter(player => player.guess && player.guess.value === 0)

@@ -3,6 +3,7 @@
 import type {Room} from './models/room';
 import testRoom from './fixtures/test-room';
 import {setPlayerStatus} from './models/room';
+import {getWinnerId} from './models/player';
 
 let state : Array<Room> = [testRoom];
 
@@ -24,6 +25,7 @@ function applyPlayerStatusUpdate({roomId, playerId, round, guess, isReady}, next
     return;
   }
   state = state.map(rm => rm.id === room.id ? setPlayerStatus(playerId, {guess, isReady}, rm) : rm);
+  console.log(JSON.stringify(state));
   next();
 }
 
