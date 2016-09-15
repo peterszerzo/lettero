@@ -35,7 +35,7 @@ view model =
   let
     content = case model.room of
       Nothing ->
-        Sr.view
+        div [ class "app__page" ] [ Sr.view ]
       Just room ->
         viewGame model room
   in

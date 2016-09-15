@@ -13,7 +13,9 @@ require('express-ws')(app);
 app.set('views', './server/views');
 app.set('view engine', 'pug');
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/../public', {
+  redirect : false
+}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -50,12 +52,11 @@ app.get('/not-found', (req, res) => {
 });
 
 app.post('/rooms/create', (req, res) => {
-  console.log(req.body);
   res.send('successfully created');
 });
 
 app.get('*', (req, res) => {
-  res.redirect(301, '/not-found');
+  res.redirect(404, '/not-found');
 });
 
 app.listen(PORT, (err) => {

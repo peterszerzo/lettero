@@ -20,4 +20,6 @@ view playerId players =
   div
     [ class "score-board"
     ]
-    (List.map viewPlayer players)
+    [ div [ class "score-board__items" ]
+        (List.map viewPlayer players)
+    ]
