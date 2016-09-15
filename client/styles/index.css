@@ -1,5 +1,5 @@
 :root {
-  --rail-max-size: calc(30vh + 30vw);
+  --word-max-size: calc(30vh + 30vw);
   --letter-size: calc(5.5vh + 5.5vw);
   --letter-font-size: calc(4vh + 4vw);
   --letter-padding-top: calc(.7vh + .7vw);
@@ -170,12 +170,23 @@ form {
   font-size: 1em;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .word {
-  width: var(--rail-max-size);
-  height: var(--rail-max-size);
+  width: var(--word-max-size);
+  height: var(--word-max-size);
   margin: auto;
   position: relative;
   top: -40px;
+  animation: spin 30s linear;
 
   @media screen and (min-width: 600px) {
     top: 0;
