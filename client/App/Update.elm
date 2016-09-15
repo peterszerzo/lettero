@@ -41,7 +41,6 @@ update msg model =
           model.room
             |> Maybe.map (canGuess model.playerId)
             |> Maybe.withDefault False
-            |> Debug.log "canMakeGuess"
         newModel = if canMakeGuess then (setOwnGuess guessValue model) else model
         command  = if canMakeGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
