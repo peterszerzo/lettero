@@ -42,13 +42,19 @@ export function eraseGuess(player : Player) : Player {
   });
 }
 
-export function getWinnerId(players : ?Players) : ?PlayerId {
-  if (!players) {
-    return;
-  }
+export function getWinnerId(players : Players) : ?PlayerId {
   const winner =
     players
       .filter(player => player.guess && player.guess.value === 0)
       .sort((a, b) => (a.guess.time - b.guess.time))[0];
   return winner && winner.id;
+}
+
+export function isDraw(players : Players) : boolean {
+  return players.reduce(
+    (accumulator, player) => {
+      return (accumulator && (!!player.guess && player.guess.value !== 0));
+    },
+    true
+  );
 }
