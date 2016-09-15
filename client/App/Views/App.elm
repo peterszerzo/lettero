@@ -8,10 +8,11 @@ import Models.Room exposing (Room)
 import Models.Player exposing (areAllReady)
 import Messages exposing (Msg(..))
 
-import Views.ScoreBoard as Sd
-import Views.Spinner as Sr
-import Views.Word as Wd
-import Views.ReadyScreen as Rn
+import Views.ScoreBoard as ScoreBoard
+import Views.Spinner as Spinner
+import Views.Word as Word
+import Views.ReadyScreen as ReadyScreen
+import Views.Notification as Notification
 
 viewGame : Model -> Room -> Html Msg
 viewGame model room =
@@ -19,11 +20,12 @@ viewGame model room =
     content =
       if areAllReady room.players
         then
-          [ Wd.view model room
-          , Sd.view model.playerId room.players
+          [ Word.view model room
+          , ScoreBoard.view model.playerId room.players
+          , Notification.view model room
           ]
         else
-          [ Rn.view room.players model.playerId
+          [ ReadyScreen.view room.players model.playerId
           ]
   in
     div
@@ -35,7 +37,7 @@ view model =
   let
     content = case model.room of
       Nothing ->
-        div [ class "app__page" ] [ Sr.view ]
+        div [ class "app__page" ] [ Spinner.view ]
       Just room ->
         viewGame model room
   in

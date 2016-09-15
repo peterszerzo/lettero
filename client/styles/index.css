@@ -1,5 +1,6 @@
 :root {
   --word-max-size: calc(30vh + 30vw);
+  --word-offset-mobile: 40px;
   --letter-size: calc(5.5vh + 5.5vw);
   --letter-font-size: calc(4vh + 4vw);
   --letter-padding-top: calc(.7vh + .7vw);
@@ -15,6 +16,8 @@
     background-color: var(--white);
   }
 }
+
+@custom-media --desktop (min-width: 600px);
 
 * {
   -webkit-font-smoothing: antialiased;
@@ -122,7 +125,7 @@ form {
   font-size: 1.75rem;
   text-align: center;
 
-  @media screen and (min-width: 600px) {
+  @media (--desktop) {
     font-size: 2.5rem;
     text-align: left;
     transform: none;
@@ -189,12 +192,18 @@ form {
   height: var(--word-max-size);
   margin: auto;
   position: relative;
-  top: -40px;
+  top: calc(-var(--word-offset-mobile));
   animation: spin 30s linear infinite;
+  transition: opacity .3s;
 
-  @media screen and (min-width: 600px) {
+  @media (--desktop) {
     top: 0;
   }
+}
+
+.word--disabled {
+  opacity: .2;
+  transition: opacity 1.5s;
 }
 
 .letter {
@@ -213,6 +222,12 @@ form {
   display: block;
   text-transform: uppercase;
   cursor: pointer;
+
+  @nest .word--disabled &:nth-of-type(1) {
+    border: 3px solid var(--white);
+    transform: scale(1.2);
+    transition: transform .3s;
+  }
 }
 
 .letter--highlighted {
@@ -268,4 +283,41 @@ form {
   max-width: 300px;
   color: var(--white);
   text-align: center;
+}
+
+.notification {
+  width: 140px;
+  height: 45px;
+  @apply --panel-skin;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: calc(50% - var(--word-offset-mobile));
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  display: flex;
+  opacity: 0;
+
+  & p {
+    text-align: center;
+    color: var(--dark);
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .05rem;
+
+    @media (--desktop) {
+      font-size: 1rem;
+    }
+  }
+
+  @media (--desktop) {
+    top: 50%;
+    width: 200px;
+    height: 60px;
+  }
+}
+
+.notification--active {
+  opacity: 1;
+  transition: opacity .3s;
 }

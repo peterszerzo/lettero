@@ -7,6 +7,7 @@ import String
 
 import Models.App exposing (Model, getOwnGuess)
 import Models.Room exposing (Room)
+import Models.Player exposing (isDraw, getWinnerId)
 import Messages exposing (Msg(..))
 
 type alias StyleDec = List (String, String)
@@ -72,8 +73,12 @@ view model room =
   let
     letters : List String
     letters = String.split "" room.word
+    isDisabled = (isDraw room.players) || ((getWinnerId room.players) /= Nothing)
   in
     div
-      [ class "word"
+      [ classList
+          [ ("word", True)
+          , ("word--disabled", isDisabled)
+          ]
       ]
       (List.indexedMap (viewLetter model (List.length letters)) letters)

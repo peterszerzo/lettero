@@ -85,16 +85,6 @@ setReady playerId room =
         List.map (\player -> if (playerId == player.id) then {player | isReady = True} else player) room.players
   }
 
-isDraw : Room -> Bool
-isDraw room =
-  -- TODO: Implement
-  False
-
-getWinnerId : Room -> Maybe PlayerId
-getWinnerId room =
-  -- TODO: Implement
-  Nothing
-
 
 -- Decoders
 
