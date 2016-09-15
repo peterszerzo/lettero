@@ -36,10 +36,19 @@ export function loseRound(player : Player) : Player {
   });
 }
 
-export function getWinnerId(players : Players) : ?PlayerId {
+export function eraseGuess(player : Player) : Player {
+  return Object.assign({}, player, {
+    guess: null
+  });
+}
+
+export function getWinnerId(players : ?Players) : ?PlayerId {
+  if (!players) {
+    return;
+  }
   const winner =
     players
       .filter(player => player.guess && player.guess.value === 0)
-      .sort((a, b) => (a.time - b.time))[0];
+      .sort((a, b) => (a.guess.time - b.guess.time))[0];
   return winner && winner.id;
 }

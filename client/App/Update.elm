@@ -5,7 +5,7 @@ import Result
 
 import Messages exposing (Msg(..))
 import Models.App exposing (Model, setOwnGuess, getOwnGuess)
-import Models.Room exposing (roomDecoder, setReady)
+import Models.Room exposing (roomDecoder, setReady, canGuess)
 import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
 import Constants exposing (tickDuration)
 
@@ -37,10 +37,13 @@ update msg model =
       )
     MakeGuess guessValue ->
       let
-        ownGuess = getOwnGuess model
-        canGuess = (ownGuess == Nothing)
-        newModel = if canGuess then (setOwnGuess guessValue model) else model
-        command  = if canGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
+        canMakeGuess =
+          model.room
+            |> Maybe.map (canGuess model.playerId)
+            |> Maybe.withDefault False
+            |> Debug.log "canMakeGuess"
+        newModel = if canMakeGuess then (setOwnGuess guessValue model) else model
+        command  = if canMakeGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
         (newModel, command)
     Tick tick ->

@@ -11,6 +11,16 @@ type alias Guess =
   , time : Time
   }
 
+
+-- Helpers
+
+isCorrect : Guess -> Bool
+isCorrect guess =
+  guess.value == 0
+
+
+-- Encoders
+
 guessEncoder : Guess -> Value
 guessEncoder {value, time} =
   object
@@ -23,6 +33,9 @@ encodeGuess guess =
   guess
     |> guessEncoder
     |> encode 0
+
+
+-- Decoders
 
 guessDecoder : Decoder Guess
 guessDecoder =

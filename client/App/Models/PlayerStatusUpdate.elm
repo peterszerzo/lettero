@@ -12,6 +12,9 @@ type alias PlayerStatusUpdate =
   , isReady : Bool
   }
 
+
+-- Encoders
+
 encodePlayerStatusUpdate : PlayerStatusUpdate -> String
 encodePlayerStatusUpdate {roomId, playerId, round, guess, isReady} =
   let

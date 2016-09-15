@@ -16,17 +16,6 @@ type alias Room =
   }
 
 
--- Decoders
-
-roomDecoder : Decoder Room
-roomDecoder =
-  object4 Room
-    ("id" := string)
-    ("round" := int)
-    ("word" := string)
-    ("players" := playersDecoder)
-
-
 -- Helpers
 
 areAllPlayersReady : Room -> Bool
@@ -67,13 +56,6 @@ setGuess guess playerId room =
   in
     {room | players = players}
 
-setReady : PlayerId -> Room -> Room
-setReady playerId room =
-  { room |
-      players =
-        List.map (\player -> if (playerId == player.id) then {player | isReady = True} else player) room.players
-  }
-
 getGuess : PlayerId -> Room -> Maybe Guess
 getGuess playerId room =
   room.players
@@ -81,3 +63,35 @@ getGuess playerId room =
     |> List.head
     |> Maybe.map .guess
     |> Maybe.withDefault Nothing
+
+isGuessOk : PlayerId -> Player -> Bool
+isGuessOk playerId player =
+  case player.guess of
+    Just guess ->
+      (player.id /= playerId) && (guess.value /= 0)
+    Nothing ->
+      True
+
+canGuess : PlayerId -> Room -> Bool
+canGuess playerId room =
+  room.players
+    |> List.map (isGuessOk playerId)
+    |> List.foldl (&&) True
+
+setReady : PlayerId -> Room -> Room
+setReady playerId room =
+  { room |
+      players =
+        List.map (\player -> if (playerId == player.id) then {player | isReady = True} else player) room.players
+  }
+
+
+-- Decoders
+
+roomDecoder : Decoder Room
+roomDecoder =
+  object4 Room
+    ("id" := string)
+    ("round" := int)
+    ("word" := string)
+    ("players" := playersDecoder)
