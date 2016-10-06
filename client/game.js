@@ -1,6 +1,6 @@
 import attachFastClick from 'fastclick';
 
-import Elm from './App/Main.elm';
+import Elm from './Game/Main.elm';
 
 export default function game() {
   attachFastClick.attach(document.body);

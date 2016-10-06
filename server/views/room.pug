@@ -2,9 +2,11 @@ extends layout.pug
 
 block content
   .app
-    .content
-      h2 Welcome to room #{room.id}
-      ul
-        each player in room.players
-          li
-            a.button(href=`/${room.id}/${player.id}`) #{player.id}
+    .app__page
+      .content
+        h2 Welcome to<br>-- #{room.id} --
+        p Follow the appropriate link below to your place in combat.
+        ul
+          each player in room.players
+            li
+              a.button(href=`/${room.id}/${player.id}`) #{player.id}

@@ -4,7 +4,7 @@
     "repository": "https://github.com/user/project.git",
     "license": "ISC",
     "source-directories": [
-        "./client/App"
+        "./client/Game"
     ],
     "exposed-modules": [],
     "dependencies": {

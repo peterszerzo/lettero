@@ -6,20 +6,9 @@ block content
       div.start
         h1 WordSnake
         p A mildly frustrating word game
-        button.button#create-room Create room
-        button.button Explore
-        form(action="/rooms/create", method="post")
-          div
-            label(for="roomId") Room name
-            input(type="text", id="roomId", name="roomId", required)
-          div
-            label(for="players0") Player 1
-            input(type="text", id="players0", name="players[0]", required)
-          div
-            label(for="players1") Player 2
-            input(type="text", id="players1", name="players[1]", required)
-          div
-            input(type="submit")
+        nav
+          a.button(href="/theroom") Play
+          a.button(href="/about") About
 
 block scripts
   script.

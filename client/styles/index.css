@@ -39,22 +39,24 @@ h1 {
 h2 {
   color: var(--white);
   font-size: 3rem;
+  margin: 1rem;
   letter-spacing: .2rem;
 }
 
 ul {
+  margin-top: 2rem;
   padding: 0;
 }
 
 li {
   list-style-type: none;
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 .5rem;
 }
 
 p {
   font-size: 1.5rem;
-  margin: 1rem;
+  margin: .5rem;
   color: var(--white);
 }
 
@@ -280,7 +282,7 @@ form {
 
 .content {
   width: 100%;
-  max-width: 300px;
+  max-width: 600px;
   color: var(--white);
   text-align: center;
 }

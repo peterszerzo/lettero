@@ -31,6 +31,10 @@ const config = {
       {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'
+      },
+      {
+        test: /\.md/,
+        loader: 'raw'
       }
     ]
   },

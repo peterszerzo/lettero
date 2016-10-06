@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import fs from 'fs';
+import marked from 'marked';
 
 const app = express();
 
@@ -23,6 +25,17 @@ app.get('/', (req, res) => {
 });
 
 app.ws('/ws/:roomId', webSocketController);
+
+app.get('/about', (req, res) => {
+  fs.readFile(`${__dirname}/readme.md`, 'utf8', (err, file) => {
+    if (err) {
+      return res.redirect(404, '/not-found');
+    }
+    res.render('about', {
+      readme: marked(file)
+    });
+  });
+});
 
 app.get('/:roomId', (req, res) => {
   const {roomId} = req.params;
@@ -49,10 +62,6 @@ app.get('/:roomId/:playerId', (req, res) => {
 
 app.get('/not-found', (req, res) => {
   res.render('404');
-});
-
-app.post('/rooms/create', (req, res) => {
-  res.send('successfully created');
 });
 
 app.get('*', (req, res) => {
