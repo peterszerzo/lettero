@@ -6,7 +6,7 @@ import marked from 'marked';
 const app = express();
 
 import api from './api';
-import webSocketController from './websocket';
+import webSocketController from './controllers/websocket';
 
 const {PORT} = process.env;
 

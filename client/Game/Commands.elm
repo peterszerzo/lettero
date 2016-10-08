@@ -4,22 +4,24 @@ import WebSocket exposing (send)
 import Messages exposing (Msg(..))
 import Random
 
-import Models.Room exposing (getPlayerStatusUpdate)
-import Models.PlayerStatusUpdate exposing (encodePlayerStatusUpdate)
+import Models.Player exposing (encodePlayer)
 import Models.App exposing (Model, getWebSocketUrl)
 
 sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =
   let
-    encodedPlayerStatusUpdate = case model.room of
+    encodedPlayer = case model.room of
       Nothing ->
         ""
       Just room ->
-        getPlayerStatusUpdate model.playerId room
-          |> encodePlayerStatusUpdate
+        room.players
+          |> List.filter (\p -> p.id == model.playerId)
+          |> List.head
+          |> Maybe.map encodePlayer
+          |> Maybe.withDefault ""
     webSocketUrl = getWebSocketUrl model
   in
-    send webSocketUrl encodedPlayerStatusUpdate
+    send webSocketUrl encodedPlayer
 
 requestRoomState : Model -> Cmd Msg
 requestRoomState model =

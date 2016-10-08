@@ -52,7 +52,7 @@ setGuess guess playerId room =
   let
     players =
       room.players
-        |> List.map (\player -> if player.id == playerId then {player | guess = Just guess} else player)
+        |> List.map (\p -> if p.id == playerId then {p | guess = Just guess} else p)
   in
     {room | players = players}
 

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "alfred",
+    "roomId": "theroom",
+    "guess": null,
+    "score": 0,
+    "isReady": false
+  },
+  {
+    "id": "samantha",
+    "roomId": "theroom",
+    "guess": null,
+    "score": 0,
+    "isReady": false
+  }
+]

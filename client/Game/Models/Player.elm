@@ -1,13 +1,15 @@
 module Models.Player exposing (..)
 
-import Json.Decode exposing (Decoder, (:=), object4, maybe, string, int, float, bool, list)
+import Json.Decode exposing (Decoder, (:=), object5, maybe, string, int, float, bool, list)
+import Json.Encode as JE
 
-import Models.Guess exposing (Guess, isCorrect, guessDecoder)
+import Models.Guess exposing (Guess, isCorrect, guessDecoder, guessEncoder)
 
 type alias PlayerId = String
 
 type alias Player =
   { id : PlayerId
+  , roomId : String
   , score : Int
   , guess : Maybe Guess
   , isReady : Bool
@@ -52,7 +54,7 @@ compareByGuessTime player1 player2 =
   in
     if (time1 - time2 < 0) then LT else (if time1 == time2 then EQ else GT)
 
-getWinnerId : (List Player) -> Maybe PlayerId
+getWinnerId : (List Player) -> Maybe String
 getWinnerId players =
   players
     |> List.filter hasCorrectGuess
@@ -71,8 +73,9 @@ isDraw players =
 
 playerDecoder : Decoder Player
 playerDecoder =
-  object4 Player
+  object5 Player
     ("id" := string)
+    ("roomId" := string)
     ("score" := int)
     (maybe ("guess" := guessDecoder))
     ("isReady" := bool)
@@ -80,3 +83,24 @@ playerDecoder =
 playersDecoder : Decoder (List Player)
 playersDecoder =
   list playerDecoder
+
+
+-- Encoders
+
+encodePlayer : Player -> String
+encodePlayer {id, roomId, score, guess, isReady} =
+  let
+    encodedGuess = case guess of
+      Just guess' ->
+        guessEncoder guess'
+      Nothing ->
+        JE.null
+  in
+    JE.object
+      [ ("roomId", JE.string roomId)
+      , ("id", JE.string id)
+      , ("score", JE.int score)
+      , ("guess", encodedGuess)
+      , ("isReady", JE.bool isReady)
+      ]
+      |> JE.encode 0

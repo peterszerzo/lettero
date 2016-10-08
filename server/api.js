@@ -19,12 +19,9 @@ function getRoom(roomId : string, playerId : ?string) : ?Room {
   return room;
 }
 
-function applyPlayerStatusUpdate({roomId, playerId, round, guess, isReady}, next) {
-  const room = getRoom(roomId, playerId);
-  if (room.round !== round) {
-    return;
-  }
-  let newRoom = setPlayerStatus(playerId, {guess, isReady}, room);
+function applyPlayerStatusUpdate({roomId, id, guess, isReady}, next) {
+  const room = getRoom(roomId, id);
+  let newRoom = setPlayerStatus(id, {guess, isReady}, room);
   const winnerId = getWinnerId(newRoom.players);
   if (winnerId || isDraw(newRoom.players)) {
     newRoom = closeRound(winnerId, newRoom);
