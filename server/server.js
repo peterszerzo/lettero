@@ -24,22 +24,20 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
-app.get('/:roomId', (req, res) => {
-  console.log(req.url);
-  const {roomId} = req.params;
-  const room = api.getRoom(roomId);
-  console.log(room);
-  res.render('room', {
-    room
-  });
-});
-
 app.get('/:roomId/:playerId', (req, res) => {
   const {roomId, playerId} = req.params;
   const room = api.getRoom(roomId, playerId);
   res.render('game', {
     room,
     playerId
+  });
+});
+
+app.get('/:roomId', (req, res) => {
+  const {roomId} = req.params;
+  const room = api.getRoom(roomId);
+  res.render('room', {
+    room
   });
 });
 

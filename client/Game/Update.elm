@@ -14,7 +14,7 @@ update msg model =
   case msg of
     ReceiveRoomState roomState ->
       let
-        newRoom = decodeString roomDecoder roomState
+        newRoom = decodeString roomDecoder (roomState |> Debug.log "roomstate")
           |> Result.toMaybe
         didRoundChange = (Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom)
         newTime = if didRoundChange then 0 else model.time
