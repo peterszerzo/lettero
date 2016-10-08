@@ -1,4 +1,4 @@
 export type Guess = {
-  value : number,
+  value : 'pending' | 'idle' | number,
   time : number
 };
