@@ -4,7 +4,6 @@ import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, b
 
 import Models.Player exposing (Player, PlayerId, playersDecoder)
 import Models.Guess exposing (Guess)
-import Models.PlayerStatusUpdate exposing (PlayerStatusUpdate)
 
 type alias RoomId = String
 
@@ -23,29 +22,6 @@ areAllPlayersReady room =
   room.players
     |> List.map (.isReady)
     |> List.foldl (&&) True
-
-getPlayerStatusUpdate : PlayerId -> Room -> PlayerStatusUpdate
-getPlayerStatusUpdate playerId room =
-  let
-    player =
-      room.players
-        |> List.filter (\player -> player.id == playerId)
-        |> List.head
-    guess =
-      player
-        |> Maybe.map (.guess)
-        |> Maybe.withDefault Nothing
-    isReady =
-      player
-        |> Maybe.map (.isReady)
-        |> Maybe.withDefault False
-  in
-    { roomId = room.id
-    , playerId = playerId
-    , round = room.round
-    , guess = guess
-    , isReady = isReady
-    }
 
 setGuess : Guess -> PlayerId -> Room -> Room
 setGuess guess playerId room =
