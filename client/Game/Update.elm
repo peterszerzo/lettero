@@ -16,7 +16,6 @@ update msg model =
       let
         newRoom = decodeString roomDecoder roomState
           |> Result.toMaybe
-          |> Debug.log "roomstate"
         didRoundChange = (Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom)
         newTime = if didRoundChange then 0 else model.time
         cmd = case model.room of

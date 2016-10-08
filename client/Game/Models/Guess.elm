@@ -11,6 +11,12 @@ type alias Guess =
   , time : Time
   }
 
+getDummy : Time -> Guess
+getDummy time =
+  { value = Pending
+  , time = time
+  }
+
 
 -- Helpers
 
@@ -35,7 +41,6 @@ guessEncoder {value, time} =
       Pending -> JE.string "pending"
       Idle -> JE.string "idle"
       Made i -> JE.int i
-
   in
     JE.object
       [ ("value", encodedValue)

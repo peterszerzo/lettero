@@ -4,7 +4,7 @@ import Time exposing (Time)
 
 import Models.Player exposing (Player, PlayerId)
 import Models.Room exposing (Room, RoomId, setGuess, getGuess)
-import Models.Guess exposing (Guess, GuessValue)
+import Models.Guess as Guess
 
 type alias Flags =
   { roomId : RoomId
@@ -28,15 +28,15 @@ getWebSocketUrl : Model -> String
 getWebSocketUrl model =
   model.host ++ "/ws/" ++ model.roomId
 
-setOwnGuess : GuessValue -> Model -> Model
+setOwnGuess : Int -> Model -> Model
 setOwnGuess guessValue model =
   { model
       | room =
           model.room
-            |> Maybe.map (setGuess (Guess guessValue model.time) model.playerId)
+            |> Maybe.map (setGuess ({value = Guess.Made guessValue, time = model.time}) model.playerId)
   }
 
-getOwnGuess : Model -> Maybe Guess
+getOwnGuess : Model -> Maybe Guess.Guess
 getOwnGuess model =
   model.room
     |> Maybe.map (getGuess model.playerId)

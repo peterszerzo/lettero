@@ -3,7 +3,7 @@ module Models.Room exposing (..)
 import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, bool)
 
 import Models.Player exposing (Player, PlayerId, playersDecoder)
-import Models.Guess exposing (Guess)
+import Models.Guess as Guess
 
 type alias RoomId = String
 
@@ -23,30 +23,25 @@ areAllPlayersReady room =
     |> List.map (.isReady)
     |> List.foldl (&&) True
 
-setGuess : Guess -> PlayerId -> Room -> Room
+setGuess : Guess.Guess -> PlayerId -> Room -> Room
 setGuess guess playerId room =
   let
     players =
       room.players
-        |> List.map (\p -> if p.id == playerId then {p | guess = Just guess} else p)
+        |> List.map (\p -> if p.id == playerId then {p | guess = guess} else p)
   in
     {room | players = players}
 
-getGuess : PlayerId -> Room -> Maybe Guess
+getGuess : PlayerId -> Room -> Maybe Guess.Guess
 getGuess playerId room =
   room.players
     |> List.filter (\player -> player.id == playerId)
     |> List.head
     |> Maybe.map .guess
-    |> Maybe.withDefault Nothing
 
 isGuessOk : PlayerId -> Player -> Bool
 isGuessOk playerId player =
-  case player.guess of
-    Just guess ->
-      (player.id /= playerId) && (guess.value /= 0)
-    Nothing ->
-      True
+  (player.id /= playerId) && (player.guess.value /= Guess.Made 0)
 
 canGuess : PlayerId -> Room -> Bool
 canGuess playerId room =

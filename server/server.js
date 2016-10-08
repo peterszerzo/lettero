@@ -25,8 +25,10 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/:roomId', (req, res) => {
+  console.log(req.url);
   const {roomId} = req.params;
   const room = api.getRoom(roomId);
+  console.log(room);
   res.render('room', {
     room
   });
