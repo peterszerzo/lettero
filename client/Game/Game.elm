@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Game exposing (main)
 
 import Html.App exposing (programWithFlags)
 import Views.App exposing (view)
