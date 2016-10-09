@@ -2,11 +2,9 @@ module Messages exposing (..)
 
 import Time exposing (Time)
 
-import Models.Guess exposing (GuessValue)
-
 type Msg =
     ReceiveRoomState String
-  | MakeGuess GuessValue
+  | MakeGuess Int
   | ReceiveRandomAngle Int
   | Tick Time
   | SetReady

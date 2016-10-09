@@ -4,7 +4,7 @@ export type PlayerId = string;
 
 export type Player = {
   id : PlayerId,
-  guess : ?Guess,
+  guess : Guess,
   score : number,
   isReady : boolean
 };
@@ -38,14 +38,17 @@ export function loseRound(player : Player) : Player {
 
 export function eraseGuess(player : Player) : Player {
   return Object.assign({}, player, {
-    guess: null
+    guess: {
+      value: 'pending',
+      time: 0
+    }
   });
 }
 
 export function getWinnerId(players : Players) : ?PlayerId {
   const winner =
     players
-      .filter(player => player.guess && player.guess.value === 0)
+      .filter(player => player.guess.value === 0)
       .sort((a, b) => (a.guess.time - b.guess.time))[0];
   return winner && winner.id;
 }
@@ -53,7 +56,11 @@ export function getWinnerId(players : Players) : ?PlayerId {
 export function isDraw(players : Players) : boolean {
   return players.reduce(
     (accumulator, player) => {
-      return (accumulator && (!!player.guess && player.guess.value !== 0));
+      const guessValue = player.guess.value;
+      return (
+        accumulator &&
+        (guessValue === 'idle' || (guessValue !== 'pending' && guessValue > 0))
+      );
     },
     true
   );

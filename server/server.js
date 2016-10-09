@@ -16,20 +16,14 @@ app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 
+app.ws('/ws/:roomId', webSocketController);
+
 app.get('/', (req, res) => {
   res.render('index');
 });
 
 app.get('/about', (req, res) => {
   res.render('about');
-});
-
-app.get('/:roomId', (req, res) => {
-  const {roomId} = req.params;
-  const room = api.getRoom(roomId);
-  res.render('room', {
-    room
-  });
 });
 
 app.get('/:roomId/:playerId', (req, res) => {
@@ -41,11 +35,17 @@ app.get('/:roomId/:playerId', (req, res) => {
   });
 });
 
+app.get('/:roomId', (req, res) => {
+  const {roomId} = req.params;
+  const room = api.getRoom(roomId);
+  res.render('room', {
+    room
+  });
+});
+
 app.get('*', (req, res) => {
   res.render(404, '404');
 });
-
-app.ws('/ws/:roomId', webSocketController);
 
 app.listen(PORT, (err) => {
   if (err) {

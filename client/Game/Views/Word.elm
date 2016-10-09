@@ -8,6 +8,7 @@ import String
 import Models.App exposing (Model, getOwnGuess)
 import Models.Room exposing (Room)
 import Models.Player exposing (isDraw, getWinnerId)
+import Models.Guess as Guess
 import Messages exposing (Msg(..))
 
 type alias StyleDec = List (String, String)
@@ -38,7 +39,15 @@ viewLetter model len index letter =
   let
     guessIndex =
       getOwnGuess model
-        |> Maybe.map (.value)
+        |> Maybe.map .value
+        |> Maybe.map (
+              \val ->
+                case val of
+                  Guess.Pending -> Nothing
+                  Guess.Idle -> Nothing
+                  Guess.Made i -> Just i
+            )
+        |> Maybe.withDefault (Just 0)
     angle = 2 * pi * (toFloat index) / toFloat(len)
       |> (+) (toFloat(model.angle) * pi / 180)
     top =
