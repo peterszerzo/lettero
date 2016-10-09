@@ -29,7 +29,7 @@ const config = {
         loader: 'elm-webpack'
       },
       {
-        test: /\.html$/,
+        test: /\.ico$/,
         loader: 'file?name=[name].[ext]'
       },
       {

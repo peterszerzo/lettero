@@ -2,6 +2,7 @@ import domReady from 'domready';
 import attachFastClick from 'fastclick';
 
 import './styles/index.css';
+import './assets/favicon.ico';
 import game from './game';
 import home from './home';
 
