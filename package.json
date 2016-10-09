@@ -1,5 +1,5 @@
 {
-  "name": "WordSnake",
+  "name": "Lettero",
   "version": "0.2.0",
   "description": "Multiplayer wordgame",
   "main": "server/index.js",
