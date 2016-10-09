@@ -1,10 +1,11 @@
-module Views.Welcome exposing (view)
+module Views.Home exposing (view)
 
 import Html exposing (Html, div, text ,h1, p, button, nav)
 import Html.Attributes exposing (class, classList)
+import Html.Events exposing (onClick)
 
-view : Html a
-view =
+view : a -> Html a
+view goToAbout =
   div
     [ class "app__page"
     ]
@@ -21,7 +22,7 @@ view =
                 ]
                 [ text "Play"
                 ]
-            , button [ class "button" ] [ text "About" ]
+            , button [ class "button", onClick goToAbout ] [ text "About" ]
             ]
         ]
     ]
