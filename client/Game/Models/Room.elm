@@ -17,12 +17,6 @@ type alias Room =
 
 -- Helpers
 
-areAllPlayersReady : Room -> Bool
-areAllPlayersReady room =
-  room.players
-    |> List.map (.isReady)
-    |> List.foldl (&&) True
-
 setGuess : Guess.Guess -> PlayerId -> Room -> Room
 setGuess guess playerId room =
   let
@@ -32,22 +26,33 @@ setGuess guess playerId room =
   in
     {room | players = players}
 
-getGuess : PlayerId -> Room -> Maybe Guess.Guess
+getGuess : PlayerId -> Room -> Guess.Guess
 getGuess playerId room =
-  room.players
-    |> List.filter (\player -> player.id == playerId)
-    |> List.head
-    |> Maybe.map .guess
+  Models.Player.findById playerId room.players
+    |> .guess
 
-isGuessOk : PlayerId -> Player -> Bool
-isGuessOk playerId player =
-  (player.id /= playerId) && (player.guess.value /= Guess.Made 0)
+isRoundOver : Room -> Bool
+isRoundOver room =
+  let
+    didSomeoneWin =
+      room.players
+        |> List.map (((==) (Guess.Made 0)) << .value << .guess)
+        |> List.any identity
+    didAllGuess =
+      room.players
+        |> List.map ((/=) (Guess.Pending) << .value << .guess)
+        |> List.all identity
+  in
+    didSomeoneWin || didAllGuess
 
 canGuess : PlayerId -> Room -> Bool
 canGuess playerId room =
-  room.players
-    |> List.map (isGuessOk playerId)
-    |> List.foldl (&&) True
+  let
+    playerDidNotGuess =
+      Models.Player.findById playerId room.players
+        |> ((==) Guess.Pending << .value << .guess)
+  in
+    playerDidNotGuess && (not (isRoundOver room))
 
 setReady : PlayerId -> Room -> Room
 setReady playerId room =

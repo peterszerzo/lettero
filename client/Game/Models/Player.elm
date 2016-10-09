@@ -18,6 +18,18 @@ type alias Player =
 
 -- Helpers
 
+getDummy : String -> Player
+getDummy t =
+  Player "apples" "pears" 0 (Models.Guess.getDummy "") False
+
+-- Assumes the player is always found
+findById : PlayerId -> (List Player) -> Player
+findById playerId players =
+  players
+    |> List.filter ((==) playerId << .id)
+    |> List.head
+    |> Maybe.withDefault (getDummy "")
+
 areAllReady : (List Player) -> Bool
 areAllReady players =
   players

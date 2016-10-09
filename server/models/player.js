@@ -4,7 +4,7 @@ export type PlayerId = string;
 
 export type Player = {
   id : PlayerId,
-  guess : ?Guess,
+  guess : Guess,
   score : number,
   isReady : boolean
 };
@@ -38,7 +38,10 @@ export function loseRound(player : Player) : Player {
 
 export function eraseGuess(player : Player) : Player {
   return Object.assign({}, player, {
-    guess: 'pending'
+    guess: {
+      value: 'pending',
+      time: 0
+    }
   });
 }
 

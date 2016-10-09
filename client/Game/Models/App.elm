@@ -40,4 +40,3 @@ getOwnGuess : Model -> Maybe Guess.Guess
 getOwnGuess model =
   model.room
     |> Maybe.map (getGuess model.playerId)
-    |> Maybe.withDefault Nothing

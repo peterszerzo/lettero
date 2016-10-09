@@ -11,10 +11,10 @@ type alias Guess =
   , time : Time
   }
 
-getDummy : Time -> Guess
-getDummy time =
+getDummy : String -> Guess
+getDummy s =
   { value = Pending
-  , time = time
+  , time = 0
   }
 
 

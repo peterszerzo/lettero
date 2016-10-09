@@ -16,6 +16,8 @@ app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 
+app.ws('/ws/:roomId', webSocketController);
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -44,8 +46,6 @@ app.get('/:roomId', (req, res) => {
 app.get('*', (req, res) => {
   res.render(404, '404');
 });
-
-app.ws('/ws/:roomId', webSocketController);
 
 app.listen(PORT, (err) => {
   if (err) {
