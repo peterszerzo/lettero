@@ -12,6 +12,7 @@ import Views.Home
 import Views.About
 import Views.NotFound
 import Views.Rooms
+import Views.Background
 
 type alias Model =
   { route : Route
@@ -70,7 +71,8 @@ view model =
     div
       [ class "app"
       ]
-      [ content
+      [ Views.Background.view
+      , content
       ]
 
 main : Program Never

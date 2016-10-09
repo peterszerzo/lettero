@@ -331,3 +331,29 @@ form {
   opacity: 1;
   transition: opacity .3s;
 }
+
+@keyframes hover {
+  0% {
+    transform: translate3d(-calc(50% - 1.25%), -calc(50% + 5%), 0) rotate(15deg);
+  }
+
+  100% {
+    transform: translate3d(-calc(50% + 1.25%), -calc(50% - 5%), 0) rotate(15deg);
+  }
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .03;
+
+  & p {
+    position: absolute;
+    font-size: calc(4vw + 4vh);
+    transform: translate3d(-50%, -50%, 0) rotate(15deg);
+    animation: hover 2s ease-in-out infinite alternate;
+  }
+}
