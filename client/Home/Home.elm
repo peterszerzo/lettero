@@ -60,7 +60,6 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
   let
-    _ = Debug.log "rt" model.route
     content = case model.route of
       Router.Home -> Views.Home.view (ChangeRoute Router.About)
       Router.About -> Views.About.view
