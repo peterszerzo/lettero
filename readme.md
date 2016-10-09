@@ -1,4 +1,4 @@
-# WordSnake
+# Lettero
 
 A mildly frustrating multiplayer word game. Play as [Samantha](/theroom/samantha) or [Alfred](/theroom/alfred) (both need to be human). Click on the first letter of a word that is written in a circle. Now try faster. Watch out for mental blocks. Enjoy!
 
