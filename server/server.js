@@ -26,6 +26,10 @@ app.get('/about', (req, res) => {
   res.render('index');
 });
 
+app.get('/rooms', (req, res) => {
+  res.render('index');
+});
+
 app.get('/:roomId/:playerId', (req, res) => {
   const {roomId, playerId} = req.params;
   const room = api.getRoom(roomId, playerId);

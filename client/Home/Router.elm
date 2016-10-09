@@ -7,12 +7,14 @@ import String
 type Route
   = Home
   | About
+  | Rooms
   | NotFound
 
 routeUrls : List (Route, String)
 routeUrls =
   [ (Home, "")
   , (About, "about")
+  , (Rooms, "rooms")
   ]
 
 defaultRouteUrl : (Route, String)

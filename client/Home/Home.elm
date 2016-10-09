@@ -11,6 +11,7 @@ import Navigation exposing (program)
 import Views.Home
 import Views.About
 import Views.NotFound
+import Views.Rooms
 
 type alias Model =
   { route : Route
@@ -64,6 +65,7 @@ view model =
       Router.Home -> Views.Home.view (ChangeRoute Router.About)
       Router.About -> Views.About.view
       Router.NotFound -> Views.NotFound.view
+      Router.Rooms -> Views.Rooms.view
   in
     div
       [ class "app"
