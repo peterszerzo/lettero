@@ -26,7 +26,7 @@ app.get('/about', (req, res) => {
   res.render('index');
 });
 
-app.get('/rooms', (req, res) => {
+app.get('/rooms/:roomId', (req, res) => {
   res.render('index');
 });
 

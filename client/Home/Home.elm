@@ -36,24 +36,16 @@ urlUpdate result model =
 
 type Msg
   = NoOp
-  | ChangeRoute Router.Route
+  | ChangeRoute String
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     NoOp -> (model, Cmd.none)
-    ChangeRoute newRoute ->
-      let
-        newUrl =
-          Router.routeUrls
-            |> List.filter (\(rt, url) -> rt == newRoute)
-            |> List.head
-            |> Maybe.withDefault Router.defaultRouteUrl
-            |> snd
-      in
-        ( model
-        , Navigation.newUrl ("/" ++ newUrl)
-        )
+    ChangeRoute newUrl ->
+      ( model
+      , Navigation.newUrl newUrl
+      )
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -63,10 +55,14 @@ view : Model -> Html Msg
 view model =
   let
     content = case model.route of
-      Router.Home -> Views.Home.view (ChangeRoute Router.About)
-      Router.About -> Views.About.view
-      Router.NotFound -> Views.NotFound.view
-      Router.Rooms -> Views.Rooms.view
+      Router.Home ->
+        Views.Home.view (ChangeRoute "/about")
+      Router.About ->
+        Views.About.view
+      Router.NotFound ->
+        Views.NotFound.view
+      Router.Rooms roomId ->
+        Views.Rooms.view
   in
     div
       [ class "app"

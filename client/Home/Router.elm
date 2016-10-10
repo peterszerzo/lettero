@@ -1,21 +1,14 @@
 module Router exposing (..)
 
 import Navigation
-import UrlParser
+import UrlParser exposing (..)
 import String
 
 type Route
   = Home
   | About
-  | Rooms
+  | Rooms String
   | NotFound
-
-routeUrls : List (Route, String)
-routeUrls =
-  [ (Home, "")
-  , (About, "about")
-  , (Rooms, "rooms")
-  ]
 
 defaultRouteUrl : (Route, String)
 defaultRouteUrl =
@@ -23,9 +16,11 @@ defaultRouteUrl =
 
 matchers : UrlParser.Parser (Route -> a) a
 matchers =
-  routeUrls
-    |> List.map (\(rt, url) -> (UrlParser.format rt (UrlParser.s url)))
-    |> UrlParser.oneOf
+  UrlParser.oneOf
+    [ format Home (s "")
+    , format About (s "about")
+    , format Rooms (s "rooms" </> string)
+    ]
 
 pathnameParser : Navigation.Location -> (Result String Route)
 pathnameParser location =
