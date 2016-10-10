@@ -1,4 +1,4 @@
-module Home exposing (..)
+module Main exposing (..)
 
 import Html exposing (Html, div, text ,h1, p, button)
 import Html.Attributes exposing (class, classList)
@@ -13,6 +13,8 @@ import Views.About
 import Views.NotFound
 import Views.Rooms
 import Views.Background
+import Views.Room
+import Views.Game
 
 type alias Model =
   { route : Route
@@ -56,13 +58,17 @@ view model =
   let
     content = case model.route of
       Router.Home ->
-        Views.Home.view (ChangeRoute "/about")
+        Views.Home.view ChangeRoute
       Router.About ->
         Views.About.view
       Router.NotFound ->
         Views.NotFound.view
-      Router.Rooms roomId ->
+      Router.Rooms ->
         Views.Rooms.view
+      Router.Room roomId ->
+        Views.Room.view
+      Router.Game roomId playerId ->
+        Views.Game.view
   in
     div
       [ class "app"

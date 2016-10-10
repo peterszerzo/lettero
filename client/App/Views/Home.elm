@@ -4,8 +4,8 @@ import Html exposing (Html, div, text ,h1, p, button, nav)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
 
-view : a -> Html a
-view goToAbout =
+view : (String -> a) -> Html a
+view navigate =
   div
     [ class "app__page"
     ]
@@ -19,10 +19,16 @@ view goToAbout =
         , nav []
             [ button
                 [ class "button"
+                , onClick (navigate "/rooms")
                 ]
                 [ text "Play"
                 ]
-            , button [ class "button", onClick goToAbout ] [ text "About" ]
+            , button
+                [ class "button"
+                , onClick (navigate "/about")
+                ]
+                [ text "About"
+                ]
             ]
         ]
     ]

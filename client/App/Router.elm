@@ -7,7 +7,9 @@ import String
 type Route
   = Home
   | About
-  | Rooms String
+  | Rooms
+  | Room String
+  | Game String String
   | NotFound
 
 defaultRouteUrl : (Route, String)
@@ -19,7 +21,9 @@ matchers =
   UrlParser.oneOf
     [ format Home (s "")
     , format About (s "about")
-    , format Rooms (s "rooms" </> string)
+    , format Rooms (s "rooms")
+    , format Room (s "rooms" </> string)
+    , format Game (s "rooms" </> string </> string)
     ]
 
 pathnameParser : Navigation.Location -> (Result String Route)
