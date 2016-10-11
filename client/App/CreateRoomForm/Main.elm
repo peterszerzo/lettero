@@ -1,4 +1,4 @@
-module Modules.CreateRoomForm exposing (..)
+module CreateRoomForm.Main exposing (..)
 
 import Dict
 import Html exposing (Html, div, text ,h1, p, button, form, label, input)

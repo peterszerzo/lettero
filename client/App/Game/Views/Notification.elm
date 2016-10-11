@@ -1,12 +1,12 @@
-module Views.Notification exposing (view)
+module Game.Views.Notification exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (class, classList)
 
-import Models.App exposing (Model)
-import Models.Room exposing (Room)
-import Models.Player exposing (isDraw, getWinnerId)
-import Messages exposing (Msg)
+import Game.Models.App exposing (Model)
+import Game.Models.Room exposing (Room)
+import Game.Models.Player exposing (isDraw, getWinnerId)
+import Game.Messages exposing (Msg)
 
 view : Model -> Room -> Html Msg
 view model room =

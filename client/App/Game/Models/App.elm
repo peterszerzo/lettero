@@ -1,10 +1,10 @@
-module Models.App exposing (..)
+module Game.Models.App exposing (..)
 
 import Time exposing (Time)
 
-import Models.Player exposing (Player, PlayerId)
-import Models.Room exposing (Room, RoomId, setGuess, getGuess)
-import Models.Guess as Guess
+import Game.Models.Player exposing (Player, PlayerId)
+import Game.Models.Room exposing (Room, RoomId, setGuess, getGuess)
+import Game.Models.Guess as Guess
 
 type alias Flags =
   { roomId : RoomId

@@ -1,13 +1,13 @@
-module Update exposing (..)
+module Game.Update exposing (..)
 
 import Json.Decode exposing (decodeString)
 import Result
 
-import Messages exposing (Msg(..))
-import Models.App exposing (Model, setOwnGuess, getOwnGuess)
-import Models.Room exposing (roomDecoder, setReady, canGuess)
-import Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
-import Constants exposing (tickDuration)
+import Game.Messages exposing (Msg(..))
+import Game.Models.App exposing (Model, setOwnGuess, getOwnGuess)
+import Game.Models.Room exposing (roomDecoder, setReady, canGuess)
+import Game.Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
+import Game.Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =

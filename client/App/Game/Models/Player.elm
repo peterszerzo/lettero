@@ -1,9 +1,9 @@
-module Models.Player exposing (..)
+module Game.Models.Player exposing (..)
 
 import Json.Decode exposing (Decoder, (:=), object5, maybe, string, int, float, bool, list)
 import Json.Encode as JE
 
-import Models.Guess exposing (Guess, isCorrect, isIncorrect, guessDecoder, guessEncoder)
+import Game.Models.Guess as Guess
 
 type alias PlayerId = String
 
@@ -11,7 +11,7 @@ type alias Player =
   { id : PlayerId
   , roomId : String
   , score : Int
-  , guess : Guess
+  , guess : Guess.Guess
   , isReady : Bool
   }
 
@@ -20,7 +20,7 @@ type alias Player =
 
 getDummy : String -> Player
 getDummy t =
-  Player "apples" "pears" 0 (Models.Guess.getDummy "") False
+  Player "apples" "pears" 0 (Guess.getDummy "") False
 
 -- Assumes the player is always found
 findById : PlayerId -> (List Player) -> Player
@@ -37,10 +37,10 @@ areAllReady players =
     |> List.foldl (&&) True
 
 hasCorrectGuess : Player -> Bool
-hasCorrectGuess = isCorrect << .guess
+hasCorrectGuess = Guess.isCorrect << .guess
 
 hasIncorrectGuess : Player -> Bool
-hasIncorrectGuess = isIncorrect << .guess
+hasIncorrectGuess = Guess.isIncorrect << .guess
 
 compareByGuessTime : Player -> Player -> Order
 compareByGuessTime player1 player2 =
@@ -75,7 +75,7 @@ playerDecoder =
     ("id" := string)
     ("roomId" := string)
     ("score" := int)
-    ("guess" := guessDecoder)
+    ("guess" := Guess.guessDecoder)
     ("isReady" := bool)
 
 playersDecoder : Decoder (List Player)
@@ -91,7 +91,7 @@ encodePlayer {id, roomId, score, guess, isReady} =
     [ ("roomId", JE.string roomId)
     , ("id", JE.string id)
     , ("score", JE.int score)
-    , ("guess", guessEncoder guess)
+    , ("guess", Guess.guessEncoder guess)
     , ("isReady", JE.bool isReady)
     ]
     |> JE.encode 0

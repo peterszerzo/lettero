@@ -1,4 +1,4 @@
-module Constants exposing (..)
+module Game.Constants exposing (..)
 
 import Time exposing (Time, millisecond)
 

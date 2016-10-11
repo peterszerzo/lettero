@@ -1,15 +1,15 @@
-module Views.Word exposing (view)
+module Game.Views.Word exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList, attribute)
 import Html.Events exposing (onClick)
 import String
 
-import Models.App exposing (Model, getOwnGuess)
-import Models.Room exposing (Room)
-import Models.Player exposing (isDraw, getWinnerId)
-import Models.Guess as Guess
-import Messages exposing (Msg(..))
+import Game.Models.App exposing (Model, getOwnGuess)
+import Game.Models.Room exposing (Room)
+import Game.Models.Player exposing (isDraw, getWinnerId)
+import Game.Models.Guess as Guess
+import Game.Messages exposing (Msg(..))
 
 type alias StyleDec = List (String, String)
 

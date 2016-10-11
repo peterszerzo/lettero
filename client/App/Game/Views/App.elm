@@ -1,18 +1,18 @@
-module Views.App exposing (view)
+module Game.Views.App exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList, attribute)
 
-import Models.App exposing (Model, getOwnGuess)
-import Models.Room exposing (Room)
-import Models.Player exposing (areAllReady)
-import Messages exposing (Msg(..))
+import Game.Models.App exposing (Model, getOwnGuess)
+import Game.Models.Room exposing (Room)
+import Game.Models.Player exposing (areAllReady)
+import Game.Messages exposing (Msg(..))
 
-import Views.ScoreBoard as ScoreBoard
-import Views.Spinner as Spinner
-import Views.Word as Word
-import Views.ReadyScreen as ReadyScreen
-import Views.Notification as Notification
+import Game.Views.ScoreBoard as ScoreBoard
+import Game.Views.Spinner as Spinner
+import Game.Views.Word as Word
+import Game.Views.ReadyScreen as ReadyScreen
+import Game.Views.Notification as Notification
 
 viewGame : Model -> Room -> Html Msg
 viewGame model room =

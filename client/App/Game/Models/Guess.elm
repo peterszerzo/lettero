@@ -1,4 +1,4 @@
-module Models.Guess exposing (..)
+module Game.Models.Guess exposing (..)
 
 import Time exposing (Time)
 import Json.Encode as JE

@@ -1,9 +1,9 @@
-module Models.Room exposing (..)
+module Game.Models.Room exposing (..)
 
 import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, bool)
 
-import Models.Player exposing (Player, PlayerId, playersDecoder)
-import Models.Guess as Guess
+import Game.Models.Player as Player
+import Game.Models.Guess as Guess
 
 type alias RoomId = String
 
@@ -11,13 +11,13 @@ type alias Room =
   { id : RoomId
   , round : Int
   , word : String
-  , players : List Player
+  , players : List Player.Player
   }
 
 
 -- Helpers
 
-setGuess : Guess.Guess -> PlayerId -> Room -> Room
+setGuess : Guess.Guess -> Player.PlayerId -> Room -> Room
 setGuess guess playerId room =
   let
     players =
@@ -26,9 +26,9 @@ setGuess guess playerId room =
   in
     {room | players = players}
 
-getGuess : PlayerId -> Room -> Guess.Guess
+getGuess : Player.PlayerId -> Room -> Guess.Guess
 getGuess playerId room =
-  Models.Player.findById playerId room.players
+  Player.findById playerId room.players
     |> .guess
 
 isRoundOver : Room -> Bool
@@ -45,16 +45,16 @@ isRoundOver room =
   in
     didSomeoneWin || didAllGuess
 
-canGuess : PlayerId -> Room -> Bool
+canGuess : Player.PlayerId -> Room -> Bool
 canGuess playerId room =
   let
     playerDidNotGuess =
-      Models.Player.findById playerId room.players
+      Player.findById playerId room.players
         |> ((==) Guess.Pending << .value << .guess)
   in
     playerDidNotGuess && (not (isRoundOver room))
 
-setReady : PlayerId -> Room -> Room
+setReady : Player.PlayerId -> Room -> Room
 setReady playerId room =
   { room |
       players =
@@ -70,4 +70,4 @@ roomDecoder =
     ("id" := string)
     ("round" := int)
     ("word" := string)
-    ("players" := playersDecoder)
+    ("players" := Player.playersDecoder)

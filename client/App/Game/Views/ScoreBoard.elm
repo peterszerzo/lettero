@@ -1,10 +1,10 @@
-module Views.ScoreBoard exposing (view)
+module Game.Views.ScoreBoard exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList)
 
-import Models.Player exposing (Player, PlayerId)
-import Messages exposing (Msg(..))
+import Game.Models.Player exposing (Player, PlayerId)
+import Game.Messages exposing (Msg(..))
 
 viewPlayer : Player -> Html Msg
 viewPlayer { id, score } =

@@ -1,8 +1,8 @@
-module Init exposing (init)
+module Game.Init exposing (init)
 
-import Models.App exposing (Flags, Model)
-import Messages exposing (Msg)
-import Commands exposing (requestRoomState)
+import Game.Models.App exposing (Flags, Model)
+import Game.Messages exposing (Msg)
+import Game.Commands exposing (requestRoomState)
 
 init : Flags -> (Model, Cmd Msg)
 init {roomId, playerId, host} =

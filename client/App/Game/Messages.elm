@@ -1,4 +1,4 @@
-module Messages exposing (..)
+module Game.Messages exposing (..)
 
 import Time exposing (Time)
 
