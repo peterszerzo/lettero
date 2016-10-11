@@ -7,5 +7,5 @@ import Elm from './App/Main.elm';
 
 domReady(() => {
   attachFastClick.attach(document.body);
-  Elm.Main.fullscreen();
+  Elm.Main.embed(document.body);
 });

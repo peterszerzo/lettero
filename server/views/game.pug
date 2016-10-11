@@ -1,8 +1,0 @@
-extends layout.pug
-
-block scripts
-  script.
-    window.__initialRoomState = !{JSON.stringify(room)};
-    window.__playerId = '!{playerId}';
-  script.
-    domReady(start.game);

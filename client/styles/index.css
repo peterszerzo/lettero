@@ -82,6 +82,7 @@ p {
   justify-content: center;
   top: 0;
   left: 0;
+  z-index: 2;
 
   & > p {
     color: var(--white);
@@ -349,6 +350,7 @@ form {
   left: 0;
   top: 0;
   opacity: .03;
+  z-index: 1;
 
   & p {
     position: absolute;
