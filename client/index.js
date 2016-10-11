@@ -7,5 +7,7 @@ import Elm from './App/Main.elm';
 
 domReady(() => {
   attachFastClick.attach(document.body);
-  Elm.Main.embed(document.body);
+  Elm.Main.embed(document.body, {
+    websocketHost: location.origin.replace(/^http(s)/, 'ws')
+  });
 });

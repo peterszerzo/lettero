@@ -6,7 +6,7 @@ import Platform exposing (Program)
 
 import Router exposing (Route, parser)
 
-import Navigation exposing (program)
+import Navigation
 
 import Views.Home
 import Views.About
@@ -16,21 +16,27 @@ import Views.Background
 import Views.Room
 import Views.Game
 
-type alias Model =
-  { route : Route
+type alias Flags =
+  { websocketHost : String
   }
 
-init : Route -> (Model, Cmd Msg)
-init route =
+type alias Model =
+  { route : Route
+  , websocketHost : String
+  }
+
+init : Flags -> Route -> (Model, Cmd Msg)
+init flags route =
   ( { route = route
+    , websocketHost = flags.websocketHost
     }
   , Cmd.none
   )
 
-initWithRoute : Result a Route -> (Model, Cmd Msg)
-initWithRoute result =
+initWithRoute : Flags -> Result a Route -> (Model, Cmd Msg)
+initWithRoute flags result =
   Router.routeFromResult result
-    |> init
+    |> init flags
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate result model =
@@ -77,9 +83,9 @@ view model =
       , content
       ]
 
-main : Program Never
+main : Program Flags
 main =
-  Navigation.program parser
+  Navigation.programWithFlags parser
     { init = initWithRoute
     , view = view
     , update = update
