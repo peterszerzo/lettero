@@ -21,9 +21,9 @@ matchers =
   UrlParser.oneOf
     [ format Home (s "")
     , format About (s "about")
-    , format Rooms (s "rooms")
-    , format Room (s "rooms" </> string)
     , format Game (s "rooms" </> string </> string)
+    , format Room (s "rooms" </> string)
+    , format Rooms (s "rooms")
     ]
 
 pathnameParser : Navigation.Location -> (Result String Route)
