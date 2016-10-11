@@ -9,7 +9,7 @@ type Route
   | About
   | Rooms
   | Room String
-  | Game String String
+  | GamePlay String String
   | NotFound
 
 defaultRouteUrl : (Route, String)
@@ -21,7 +21,7 @@ matchers =
   UrlParser.oneOf
     [ format Home (s "")
     , format About (s "about")
-    , format Game (s "rooms" </> string </> string)
+    , format GamePlay (s "rooms" </> string </> string)
     , format Room (s "rooms" </> string)
     , format Rooms (s "rooms")
     ]

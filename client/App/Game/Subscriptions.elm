@@ -3,11 +3,11 @@ module Game.Subscriptions exposing (..)
 import WebSocket exposing (listen)
 import Time exposing (every)
 
-import Game.Models.App exposing (Model, getWebSocketUrl)
+import Game.Models.Main exposing (Game, getWebSocketUrl)
 import Game.Messages exposing (Msg(..))
 import Game.Constants exposing (tickDuration)
 
-subscriptions : Model -> Sub Msg
+subscriptions : Game -> Sub Msg
 subscriptions model =
   let
     webSocketUrl = getWebSocketUrl model

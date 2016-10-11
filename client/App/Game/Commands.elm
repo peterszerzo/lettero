@@ -5,9 +5,9 @@ import Random
 
 import Game.Messages exposing (Msg(..))
 import Game.Models.Player exposing (encodePlayer)
-import Game.Models.App exposing (Model, getWebSocketUrl)
+import Game.Models.Main exposing (Game, getWebSocketUrl)
 
-sendPlayerStatusUpdate : Model -> Cmd Msg
+sendPlayerStatusUpdate : Game -> Cmd Msg
 sendPlayerStatusUpdate model =
   let
     encodedPlayer = case model.room of
@@ -23,7 +23,7 @@ sendPlayerStatusUpdate model =
   in
     send webSocketUrl encodedPlayer
 
-requestRoomState : Model -> Cmd Msg
+requestRoomState : Game -> Cmd Msg
 requestRoomState model =
   let
     webSocketUrl = getWebSocketUrl model

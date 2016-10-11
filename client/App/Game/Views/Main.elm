@@ -1,9 +1,9 @@
-module Game.Views.App exposing (view)
+module Game.Views.Main exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList, attribute)
 
-import Game.Models.App exposing (Model, getOwnGuess)
+import Game.Models.Main exposing (Game, getOwnGuess)
 import Game.Models.Room exposing (Room)
 import Game.Models.Player exposing (areAllReady)
 import Game.Messages exposing (Msg(..))
@@ -14,7 +14,7 @@ import Game.Views.Word as Word
 import Game.Views.ReadyScreen as ReadyScreen
 import Game.Views.Notification as Notification
 
-viewGame : Model -> Room -> Html Msg
+viewGame : Game -> Room -> Html Msg
 viewGame model room =
   let
     content =
@@ -32,7 +32,7 @@ viewGame model room =
       [ class "app__page" ]
       content
 
-view : Model -> Html Msg
+view : Game -> Html Msg
 view model =
   let
     content = case model.room of

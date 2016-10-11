@@ -4,12 +4,12 @@ import Json.Decode exposing (decodeString)
 import Result
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.App exposing (Model, setOwnGuess, getOwnGuess)
+import Game.Models.Main exposing (Game, setOwnGuess, getOwnGuess)
 import Game.Models.Room exposing (roomDecoder, setReady, canGuess)
 import Game.Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
 import Game.Constants exposing (tickDuration)
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Game -> (Game, Cmd Msg)
 update msg model =
   case msg of
     ReceiveRoomState roomState ->
