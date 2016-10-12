@@ -1,9 +1,16 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const validate = require('webpack-validator');
 const postCssCssNext = require('postcss-cssnext');
 const postCssImport = require('postcss-import');
+
+const commonPlugins = [];
+
+const prodPlugins = [
+  new webpack.optimize.UglifyJsPlugin({})
+];
 
 const config = {
   entry: [
@@ -46,6 +53,7 @@ const config = {
       })
     ];
   },
+  plugins: commonPlugins.concat(process.env.NODE_ENV === 'production' ? prodPlugins : []),
   resolve: {
     extensions: ['', '.js', '.elm']
   },
