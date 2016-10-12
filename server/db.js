@@ -17,3 +17,21 @@ export function connect() {
     });
   });
 }
+
+export const createRooms = `
+CREATE TABLE rooms(
+  id varchar(50) primary key not null,
+  round int not null,
+  round_data json not null
+)
+`;
+
+export const createPlayers = `
+CREATE TABLE players(
+  id varchar(50) primary key not null,
+  room_id varchar(50) references rooms(id),
+  score int not null,
+  guess json,
+  is_ready boolean not null
+)
+`;
