@@ -8,14 +8,8 @@ import Router exposing (Route)
 import Game.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
-urlUpdate result model =
-  let
-    newModel = setRoute (Router.routeFromResult result) model
-      |> fst
-  in
-    ( newModel
-    , Cmd.none
-    )
+urlUpdate =
+  setRoute << Router.routeFromResult
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
