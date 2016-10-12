@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 
 const app = express();
 
-import api from './api';
 import webSocketController from './controllers/websocket';
 
 const {PORT} = process.env;
@@ -18,37 +17,8 @@ app.use(bodyParser.json());
 
 app.ws('/ws/:roomId', webSocketController);
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/about', (req, res) => {
-  res.render('index');
-});
-
-app.get('/rooms/:roomId', (req, res) => {
-  res.render('index');
-});
-
-app.get('/:roomId/:playerId', (req, res) => {
-  const {roomId, playerId} = req.params;
-  const room = api.getRoom(roomId, playerId);
-  res.render('game', {
-    room,
-    playerId
-  });
-});
-
-app.get('/:roomId', (req, res) => {
-  const {roomId} = req.params;
-  const room = api.getRoom(roomId);
-  res.render('room', {
-    room
-  });
-});
-
 app.get('*', (req, res) => {
-  res.render(404, '404');
+  res.render('index');
 });
 
 app.listen(PORT, (err) => {

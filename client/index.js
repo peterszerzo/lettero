@@ -3,16 +3,11 @@ import attachFastClick from 'fastclick';
 
 import './styles/index.css';
 import './assets/favicon.ico';
-import game from './game';
-import home from './home';
+import Elm from './App/Main.elm';
 
 domReady(() => {
   attachFastClick.attach(document.body);
+  Elm.Main.embed(document.body, {
+    websocketHost: location.origin.replace(/^http/, 'ws')
+  });
 });
-
-global.domReady = domReady;
-
-global.start = {
-  game,
-  home
-};
