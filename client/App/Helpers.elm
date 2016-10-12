@@ -1,20 +1,13 @@
 module Helpers exposing (..)
 
-import Router exposing (Route(..))
 import Game.Init
+import Game.Models.Main exposing (Game)
+import Game.Messages exposing (Msg)
 
-initGame model =
-  case model.route of
-    GamePlay roomId playerId ->
-      Game.Init.init {roomId = roomId, playerId = playerId, host = model.websocketHost}
-        |> Just
-    Home ->
-      Nothing
-    Rooms ->
-      Nothing
-    Room roomId ->
-      Nothing
-    About ->
-      Nothing
-    NotFound ->
-      Nothing
+initGame : String -> String -> String -> (Game, Cmd Msg)
+initGame roomId playerId websocketHost =
+  Game.Init.init
+    { roomId = roomId
+    , playerId = playerId
+    , host = websocketHost
+    }

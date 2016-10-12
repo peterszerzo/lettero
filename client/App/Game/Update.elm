@@ -31,10 +31,12 @@ update msg model =
         ( { model | room = newRoom, time = newTime }
         , cmd
         )
+
     ReceiveRandomAngle angle ->
       ( { model | angle = angle }
       , Cmd.none
       )
+
     MakeGuess guessValue ->
       let
         canMakeGuess =
@@ -45,8 +47,10 @@ update msg model =
         command  = if canMakeGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
       in
         (newModel, command)
+
     Tick tick ->
       ({ model | time = model.time + tickDuration }, Cmd.none)
+
     SetReady ->
       let
         newRoom =

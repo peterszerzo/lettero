@@ -2,21 +2,20 @@ module Update exposing (..)
 
 import Navigation
 
-import Models exposing (Model)
+import Models exposing (Model, setRoute)
 import Messages exposing (Msg(..))
 import Router exposing (Route)
+import Game.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate result model =
   let
-    newModel =
-      { model
-          | route = Router.routeFromResult result
-      }
+    newModel = setRoute (Router.routeFromResult result) model
+      |> fst
   in
-  ( newModel
-  , Cmd.none
-  )
+    ( newModel
+    , Cmd.none
+    )
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -25,3 +24,20 @@ update msg model =
       ( model
       , Navigation.newUrl newUrl
       )
+
+    GameMsg msg ->
+      let
+        (gameModel, gameCmd) = case model.game of
+          Just game ->
+            let
+              (gm, cmd) = Game.Update.update msg game
+            in
+              (Just gm, cmd)
+          Nothing ->
+            (model.game, Cmd.none)
+      in
+        ( { model
+              | game = gameModel
+          }
+        , Cmd.map GameMsg gameCmd
+        )
