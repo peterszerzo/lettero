@@ -24,6 +24,16 @@ type alias Game =
 
 -- Helpers
 
+getDummy : String -> Game
+getDummy s =
+  { room = Nothing
+  , roomId = "1"
+  , playerId = "2"
+  , angle = 0
+  , host = "3"
+  , time = 0
+  }
+
 getWebSocketUrl : Game -> String
 getWebSocketUrl model =
   model.host ++ "/ws/" ++ model.roomId
