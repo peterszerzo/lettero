@@ -81,7 +81,7 @@ view : Game -> Room -> Html Msg
 view model room =
   let
     letters : List String
-    letters = String.split "" room.word
+    letters = String.split "" room.roundData.word
     isDisabled = (isDraw room.players) || ((getWinnerId room.players) /= Nothing)
   in
     div

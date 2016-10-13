@@ -1,7 +1,6 @@
 import type {Player} from './player';
 
 import {
-  create as createPlayer,
   winRound,
   loseRound,
   eraseGuess
@@ -11,18 +10,9 @@ import words from '../fixtures/words';
 export type Room = {
   id : string,
   round : number,
-  word : string,
+  roundData : Object,
   players : Array<Player>
 };
-
-export function create(id, playerIds) : Room {
-  return {
-    id,
-    round: 0,
-    word: words[Math.floor(Math.random() * words.length)],
-    players: playerIds.map(createPlayer)
-  };
-}
 
 export function setPlayerStatus(playerId, statusChange, room) {
   return Object.assign(

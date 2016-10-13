@@ -4,13 +4,14 @@ import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, b
 
 import Game.Models.Player as Player
 import Game.Models.Guess as Guess
+import Game.Models.RoundData as RoundData
 
 type alias RoomId = String
 
 type alias Room =
   { id : RoomId
   , round : Int
-  , word : String
+  , roundData : RoundData.RoundData
   , players : List Player.Player
   }
 
@@ -69,5 +70,5 @@ roomDecoder =
   object4 Room
     ("id" := string)
     ("round" := int)
-    ("word" := string)
+    ("roundData" := RoundData.roundDataDecoder)
     ("players" := Player.playersDecoder)
