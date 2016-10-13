@@ -1,6 +1,6 @@
 import pg from 'pg';
 
-export function connect() {
+export default function connect() {
   return new Promise((resolve, reject) => {
     pg.connect(process.env.DATABASE_URL, (err, client, done) => {
       if (err) {
