@@ -1,7 +1,9 @@
 {
   "id": "theroom",
   "round": 0,
-  "word": "hedgehogs",
+  "roundData": {
+    "word": "hedgehogs"
+  },
   "players": [
     {
       "id": "alfred",

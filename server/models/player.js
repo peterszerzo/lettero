@@ -3,7 +3,8 @@ import type {Guess} from './guess';
 export type PlayerId = string;
 
 export type Player = {
-  id : PlayerId,
+  id : string,
+  roomId : string,
   guess : Guess,
   score : number,
   isReady : boolean
