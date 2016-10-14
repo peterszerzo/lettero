@@ -21,6 +21,9 @@
 
 @custom-media --desktop (min-width: 600px);
 
+
+/* Base */
+
 * {
   -webkit-font-smoothing: antialiased;
   font-family: var(--geometric-typeface);
@@ -64,6 +67,9 @@ p {
   color: var(--white);
 }
 
+
+/* App */
+
 .app {
   position: relative;
   background-color: var(--dark);
@@ -90,37 +96,38 @@ p {
   }
 }
 
-form {
-  text-align: left;
 
-  & label,
-  & input {
-    display: block;
-    width: 100%;
+/* Background */
+
+@keyframes background-float {
+  0% {
+    transform: translate3d(-calc(50% - 1.25%), -calc(50% + 5%), 0) rotate(15deg);
   }
 
-  & > div {
-    margin: 10px 0;
-  }
-
-  & input {
-    background-color: var(--white);
-    padding: 5px 10px;
-    border-radius: var(--border-radius);
-    border: 0;
-    box-shadow: 0;
-    font-size: 1rem;
-  }
-
-  & input[type='submit'] {
-    margin-top: 35px;
-  }
-
-  & label {
-    margin-bottom: 5px;
-    color: var(--white);
+  100% {
+    transform: translate3d(-calc(50% + 1.25%), -calc(50% - 5%), 0) rotate(15deg);
   }
 }
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .03;
+  z-index: 1;
+
+  & p {
+    position: absolute;
+    font-size: calc(4vw + 4vh);
+    transform: translate3d(-50%, -50%, 0) rotate(15deg);
+    animation: background-float 2s ease-in-out infinite alternate;
+  }
+}
+
+
+/* ScoreBoard */
 
 .score-board {
   @apply --panel-skin;
@@ -185,7 +192,10 @@ form {
   font-size: 1em;
 }
 
-@keyframes spin {
+
+/* Word */
+
+@keyframes word-spin {
   0% {
     transform: rotate(0deg);
   }
@@ -201,7 +211,7 @@ form {
   margin: auto;
   position: relative;
   top: calc(-var(--word-offset-mobile));
-  animation: spin 30s linear infinite;
+  animation: word-spin 30s linear infinite;
   transition: opacity .3s;
 
   @media (--desktop) {
@@ -214,7 +224,7 @@ form {
   transition: opacity 1.5s;
 }
 
-.letter {
+.word__letter {
   box-sizing: border-box;
   border-radius: 50%;
   position: absolute;
@@ -238,7 +248,7 @@ form {
   }
 }
 
-.letter--highlighted {
+.word__letter--highlighted {
   background-color: var(--white);
   color: var(--dark);
 
@@ -246,6 +256,9 @@ form {
     background-color: var(--white);
   }
 }
+
+
+/* Button */
 
 .button {
   cursor: pointer;
@@ -264,29 +277,7 @@ form {
   opacity: .4;
 }
 
-.start {
-  text-align: center;
-
-  & form {
-    display: none;
-  }
-
-  & p {
-    margin-bottom: 2.25rem;
-  }
-}
-
-.start--create-room {
-  & button {
-    display: none;
-  }
-
-  & form {
-    display: block;
-  }
-}
-
-.content {
+.static-content {
   width: 100%;
   max-width: 600px;
   max-height: 100%;
@@ -296,17 +287,35 @@ form {
   text-align: left;
 }
 
+
+/* Home */
+
+.home {
+  text-align: center;
+
+  & h1 {
+    margin: 0;
+  }
+
+  & p {
+    margin: 1rem 0 1.5rem;
+  }
+}
+
+
+/* Notification */
+
 .notification {
   width: 140px;
   height: 45px;
   @apply --panel-skin;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: calc(50% - var(--word-offset-mobile));
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
 
   & p {
@@ -331,31 +340,4 @@ form {
 .notification--active {
   opacity: 1;
   transition: opacity .3s;
-}
-
-@keyframes hover {
-  0% {
-    transform: translate3d(-calc(50% - 1.25%), -calc(50% + 5%), 0) rotate(15deg);
-  }
-
-  100% {
-    transform: translate3d(-calc(50% + 1.25%), -calc(50% - 5%), 0) rotate(15deg);
-  }
-}
-
-.background {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: .03;
-  z-index: 1;
-
-  & p {
-    position: absolute;
-    font-size: calc(4vw + 4vh);
-    transform: translate3d(-50%, -50%, 0) rotate(15deg);
-    animation: hover 2s ease-in-out infinite alternate;
-  }
 }

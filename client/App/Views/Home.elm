@@ -11,7 +11,7 @@ view navigate =
     ]
     [ div
         [ classList
-            [ ("start", True)
+            [ ("home", True)
             ]
         ]
         [ h1 [] [ text "Lettero" ]

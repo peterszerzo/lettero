@@ -1,51 +1,11 @@
-module CreateRoomForm.Main exposing (..)
+module CreateRoomForm.Views exposing (..)
 
-import Dict
 import Html exposing (Html, div, text ,h1, p, button, form, label, input)
 import Html.Attributes exposing (class, type', id, name, for, required)
 import Html.Events exposing (onInput)
 
-
--- Model
-
-type alias Model =
-  { fields : List String
-  , values : Dict.Dict String String
-  , isActive : Bool
-  , isSubmitted : Bool
-  }
-
-init : Model
-init =
-  { fields = [ "roomId", "player1", "player2" ]
-  , values = Dict.empty
-  , isActive = False
-  , isSubmitted = False
-  }
-
-
--- Messages
-
-type Msg =
-  Input String String |
-  Activate |
-  Deactivate
-
-
--- Update
-
-update : Msg -> Model -> Model
-update msg model =
-  case msg of
-    Input k v ->
-      {model | values = Dict.insert k v model.values}
-    Activate ->
-      {model | isActive = True}
-    Deactivate ->
-      {model | isActive = False}
-
-
--- View
+import CreateRoomForm.Models exposing (Model)
+import CreateRoomForm.Messages exposing (Msg)
 
 view : Model -> Html Msg
 view model =

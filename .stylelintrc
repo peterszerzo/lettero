@@ -15,7 +15,7 @@
     "declaration-block-trailing-semicolon": "always",
     "indentation": 2,
     "max-nesting-depth": 5,
-    "max-empty-lines": 1,
+    "max-empty-lines": 2,
     "number-leading-zero": "never",
     "number-no-trailing-zeros": true,
     "length-zero-no-unit": true,

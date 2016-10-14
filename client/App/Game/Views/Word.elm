@@ -67,8 +67,8 @@ viewLetter model len index letter =
   in
     p
       [ classList
-          [ ("letter", True)
-          , ("letter--highlighted", guessIndex == Just index)
+          [ ("word__letter", True)
+          , ("word__letter--highlighted", guessIndex == Just index)
           ]
       , onClick (MakeGuess index)
       , style
