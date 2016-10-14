@@ -1,3 +1,5 @@
+// This is an experiment - Lettero might or might not run on postgres :).
+
 import pg from 'pg';
 
 export default function connect() {
