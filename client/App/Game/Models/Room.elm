@@ -29,7 +29,7 @@ setGuess guess playerId room =
 
 getGuess : Player.PlayerId -> Room -> Guess.Guess
 getGuess playerId room =
-  Player.findById playerId room.players
+  Player.unsafeFindById playerId room.players
     |> .guess
 
 isRoundOver : Room -> Bool
@@ -50,7 +50,7 @@ canGuess : Player.PlayerId -> Room -> Bool
 canGuess playerId room =
   let
     playerDidNotGuess =
-      Player.findById playerId room.players
+      Player.unsafeFindById playerId room.players
         |> ((==) Guess.Pending << .value << .guess)
   in
     playerDidNotGuess && (not (isRoundOver room))
@@ -59,7 +59,7 @@ setReady : Player.PlayerId -> Room -> Room
 setReady playerId room =
   { room |
       players =
-        List.map (\player -> if (playerId == player.id) then {player | isReady = True} else player) room.players
+        Player.setReady playerId room.players
   }
 
 
