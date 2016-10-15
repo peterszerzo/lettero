@@ -6,6 +6,7 @@ import Models exposing (Model, setRoute)
 import Messages exposing (Msg(..))
 import Router exposing (Route)
 import Game.Update
+import CreateRoomForm.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate =
@@ -35,3 +36,10 @@ update msg model =
           }
         , Cmd.map GameMsg gameCmd
         )
+
+    CreateRoomFormMsg msg ->
+      ( { model
+            | createRoomForm = Maybe.map (CreateRoomForm.Update.update msg) model.createRoomForm
+        }
+      , Cmd.none
+      )

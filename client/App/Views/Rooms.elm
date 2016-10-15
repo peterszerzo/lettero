@@ -2,11 +2,16 @@ module Views.Rooms exposing (view)
 
 import Html exposing (Html, div, text ,h2, p, button, nav)
 import Html.Attributes exposing (class, classList)
+import Html.App exposing (map)
 
-view : Html a
-view =
+import Messages exposing (Msg(CreateRoomFormMsg))
+import CreateRoomForm.Views
+import CreateRoomForm.Models
+
+view : CreateRoomForm.Models.CreateRoomForm -> Html Msg
+view createRoomForm =
   div
     [ class "app__page"
     ]
-    [ h2 [] [ text "Create a room" ]
+    [ map CreateRoomFormMsg (CreateRoomForm.Views.view createRoomForm)
     ]

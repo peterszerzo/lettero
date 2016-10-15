@@ -1,18 +1,24 @@
-module CreateRoomForm exposing (..)
+module CreateRoomForm.Models exposing (..)
 
-import Dict
+type Status
+  = Editing
+  | Processing
+  | Error String
+  | Success
 
-type alias Model =
-  { fields : List String
-  , values : Dict.Dict String String
-  , isActive : Bool
-  , isSubmitted : Bool
+type alias CreateRoomForm =
+  { roomId : String
+  , playerIds : List String
+  , status : Status
   }
 
-init : Model
+init : CreateRoomForm
 init =
-  { fields = [ "roomId", "player1", "player2" ]
-  , values = Dict.empty
-  , isActive = False
-  , isSubmitted = False
+  { roomId = ""
+  , playerIds = []
+  , status = Editing
   }
+
+getDummy : String -> CreateRoomForm
+getDummy s =
+  init

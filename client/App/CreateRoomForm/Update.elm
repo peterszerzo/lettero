@@ -1,14 +1,10 @@
 module CreateRoomForm.Update exposing (..)
 
-import CreateRoomForm.Messages exposing (Msg)
-import CreateRoomForm.Models exposing (Model)
+import CreateRoomForm.Messages exposing (Msg(..))
+import CreateRoomForm.Models exposing (CreateRoomForm)
 
-update : Msg -> Model -> Model
+update : Msg -> CreateRoomForm -> CreateRoomForm
 update msg model =
   case msg of
-    Input k v ->
-      {model | values = Dict.insert k v model.values}
-    Activate ->
-      {model | isActive = True}
-    Deactivate ->
-      {model | isActive = False}
+    Input v ->
+      { model | roomId = v } |> Debug.log "formState"

@@ -41,5 +41,6 @@ routeFromResult result =
   case result of
     Ok route ->
       route
+
     Err string ->
       NotFound

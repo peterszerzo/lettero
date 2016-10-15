@@ -16,6 +16,7 @@ import Views.Background
 import Views.Room
 import Game.Views.Main
 import Game.Models.Main
+import CreateRoomForm.Models
 
 view : Model -> Html Msg
 view model =
@@ -31,7 +32,7 @@ view model =
         Views.NotFound.view
 
       Router.Rooms ->
-        Views.Rooms.view
+        Views.Rooms.view (model.createRoomForm |> Maybe.withDefault (CreateRoomForm.Models.getDummy "1"))
 
       Router.Room roomId ->
         Views.Room.view
