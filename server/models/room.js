@@ -38,7 +38,9 @@ export function startNewRound(room : Room) : Room {
     room,
     {
       round: room.round + 1,
-      word: words[Math.floor(Math.random() * words.length)],
+      roundData: {
+        word: words[Math.floor(Math.random() * words.length)]
+      },
       players: room.players.map(eraseGuess)
     }
   );

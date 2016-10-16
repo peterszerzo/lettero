@@ -4,9 +4,9 @@ import Json.Decode exposing (decodeString)
 import Result
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.Main exposing (Model, setOwnGuess, getOwnGuess)
-import Game.Models.Room exposing (roomDecoder, setReady, canGuess)
-import Game.Commands exposing (sendPlayerStatusUpdate, getRoundRandom)
+import Game.Models.Main exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
+import Game.Models.Room as Room
+import Game.Commands exposing (sendPlayerStatusUpdate, getRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -14,10 +14,14 @@ update msg model =
   case msg of
     ReceiveRoomState roomState ->
       let
-        newRoom = decodeString roomDecoder roomState
+        newRoom = decodeString Room.roomDecoder roomState
           |> Result.toMaybe
         didRoundChange = (Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom)
         newTime = if didRoundChange then 0 else model.time
+
+        newModel = { model | room = newRoom, time = newTime }
+        shouldCloseRound =
+          (isRoundJustOver model newModel) && (Just model.playerId == Maybe.map (.hostId) model.room)
         cmd = case model.room of
           Just room ->
             if didRoundChange
@@ -27,9 +31,10 @@ update msg model =
                 Cmd.none
           Nothing ->
             getRoundRandom ()
+        cmd' = Cmd.batch [cmd, if shouldCloseRound then (requestNewRound model) else Cmd.none]
       in
-        ( { model | room = newRoom, time = newTime }
-        , cmd
+        ( newModel
+        , cmd'
         )
 
     ReceiveRoundRandom roundRandom ->
@@ -41,12 +46,17 @@ update msg model =
       let
         canMakeGuess =
           model.room
-            |> Maybe.map (canGuess model.playerId)
+            |> Maybe.map (Room.canGuess model.playerId)
             |> Maybe.withDefault False
         newModel = if canMakeGuess then (setOwnGuess guessValue model) else model
-        command  = if canMakeGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
+        cmd  = if canMakeGuess then (sendPlayerStatusUpdate newModel) else Cmd.none
+        shouldCloseRound =
+          (isRoundJustOver model newModel) && (Just model.playerId == Maybe.map (.hostId) model.room)
+        cmd' = Cmd.batch [cmd, if shouldCloseRound then (requestNewRound model) else Cmd.none]
       in
-        (newModel, command)
+        ( newModel
+        , cmd'
+        )
 
     Tick tick ->
       ({ model | time = model.time + tickDuration }, Cmd.none)
@@ -55,7 +65,7 @@ update msg model =
       let
         newRoom =
           model.room
-            |> Maybe.map (setReady model.playerId)
+            |> Maybe.map (Room.setReady model.playerId)
         newModel =
           {model | room = newRoom}
         command = sendPlayerStatusUpdate newModel

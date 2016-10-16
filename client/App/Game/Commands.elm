@@ -24,6 +24,10 @@ requestRoomState : Model -> Cmd Msg
 requestRoomState model =
   send (getWebSocketUrl model) "requestRoomState"
 
+requestNewRound : Model -> Cmd Msg
+requestNewRound model =
+  send (getWebSocketUrl model) "requestNewRound"
+
 getRoundRandom : () -> Cmd Msg
 getRoundRandom _ =
   Random.int 0 1000

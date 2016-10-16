@@ -77,7 +77,7 @@ isDraw : List Player -> Bool
 isDraw players =
   players
     |> List.map hasIncorrectGuess
-    |> List.foldl (&&) True
+    |> List.all identity
 
 
 -- Decoders

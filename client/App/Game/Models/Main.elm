@@ -2,7 +2,7 @@ module Game.Models.Main exposing (..)
 
 import Time exposing (Time)
 
-import Game.Models.Player exposing (Player, PlayerId)
+import Game.Models.Player exposing (Player, PlayerId, getWinnerId)
 import Game.Models.Room exposing (Room, RoomId, setGuess, getGuess)
 import Game.Models.Guess as Guess
 
@@ -56,3 +56,11 @@ getOwnGuess : Model -> Maybe Guess.Guess
 getOwnGuess model =
   model.room
     |> Maybe.map (getGuess model.playerId)
+
+isRoundJustOver : Model -> Model -> Bool
+isRoundJustOver oldModel newModel =
+  Maybe.map2
+    (\oldRm newRm -> (getWinnerId oldRm.players == Nothing) && (getWinnerId newRm.players /= Nothing))
+    oldModel.room
+    newModel.room
+      |> (==) (Just True)

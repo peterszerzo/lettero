@@ -21,12 +21,16 @@ export default (ws, req) => {
   } else {
     wsConnectionsByRoomId[roomId] = [ws];
   }
+  const next = notifyRoom.bind(this, roomId);
   ws.on('message', (msg) => {
     const room = api.getState().filter(({id}) => id === roomId)[0];
     if (msg === 'requestRoomState') {
       return ws.send(JSON.stringify(room));
     }
+    if (msg === 'requestNewRound') {
+      return api.scheduleNewRound(roomId, next);
+    }
     const playerStatusUpdate = JSON.parse(msg);
-    api.applyPlayerStatusUpdate(playerStatusUpdate, notifyRoom.bind(this, roomId));
+    api.applyPlayerStatusUpdate(playerStatusUpdate, next);
   });
 };
