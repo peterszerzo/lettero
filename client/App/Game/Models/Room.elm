@@ -22,11 +22,19 @@ type alias Room =
 setGuess : Guess.Guess -> Player.PlayerId -> Room -> Room
 setGuess guess playerId room =
   let
+    previousWinnerId = Player.getWinnerId room.players
     players =
       room.players
         |> List.map (\p -> if p.id == playerId then {p | guess = guess} else p)
+    newWinnerId = Player.getWinnerId players
+    players' = if (previousWinnerId == Nothing && newWinnerId == (Just playerId))
+      then
+        players
+          |> List.map (\p -> if p.id == playerId then {p | score = p.score + 1} else p)
+      else
+        players
   in
-    {room | players = players}
+    { room | players = players' }
 
 getGuess : Player.PlayerId -> Room -> Guess.Guess
 getGuess playerId room =

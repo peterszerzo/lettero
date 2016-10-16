@@ -1,8 +1,6 @@
 import type {Player} from './player';
 
 import {
-  winRound,
-  loseRound,
   eraseGuess
 } from './player';
 import words from '../fixtures/words';
@@ -30,20 +28,6 @@ export function setPlayerStatus(playerId, statusChange, room) {
             player
         )
       )
-    }
-  );
-}
-
-export function closeRound(winnerId, room : Room) : Room {
-  return Object.assign(
-    {},
-    room,
-    {
-      players: room.players.map(
-        player =>
-        (
-          (player.id === winnerId) ? winRound(player) : loseRound(player))
-        )
     }
   );
 }

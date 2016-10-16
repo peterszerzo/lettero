@@ -2,7 +2,7 @@
 
 import type {Room} from './models/room';
 import testRoom from './fixtures/test-room';
-import {setPlayerStatus, closeRound, startNewRound} from './models/room';
+import {setPlayerStatus, startNewRound} from './models/room';
 import {getWinnerId, isDraw} from './models/player';
 
 let state : Array<Room> = [testRoom];
@@ -19,12 +19,11 @@ function getRoom(roomId : string, playerId : ?string) : ?Room {
   return room;
 }
 
-function applyPlayerStatusUpdate({roomId, id, guess, isReady}, next) {
+function applyPlayerStatusUpdate({roomId, id, guess, score, isReady}, next) {
   const room = getRoom(roomId, id);
-  let newRoom = setPlayerStatus(id, {guess, isReady}, room);
+  let newRoom = setPlayerStatus(id, {guess, isReady, score}, room);
   const winnerId = getWinnerId(newRoom.players);
   if (winnerId || isDraw(newRoom.players)) {
-    newRoom = closeRound(winnerId, newRoom);
     setTimeout(() => {
       newRound(roomId, next);
     }, 2500);
