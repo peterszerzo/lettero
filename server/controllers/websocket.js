@@ -4,7 +4,7 @@ const wsConnectionsByRoomId = {};
 
 function notifyRoom(roomId) {
   wsConnectionsByRoomId[roomId].forEach((ws) => {
-    const room = api.getState().filter(({id}) => id === roomId)[0];
+    const room = api.getRoom(roomId);
     try {
       ws.send(JSON.stringify(room));
     } catch(err) {
@@ -23,7 +23,7 @@ export default (ws, req) => {
   }
   const next = notifyRoom.bind(this, roomId);
   ws.on('message', (msg) => {
-    const room = api.getState().filter(({id}) => id === roomId)[0];
+    const room = api.getRoom(roomId);
     if (msg === 'requestRoomState') {
       return ws.send(JSON.stringify(room));
     }
