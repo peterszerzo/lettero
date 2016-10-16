@@ -9,44 +9,50 @@ import Game.Models.Guess as Guess
 type alias Flags =
   { roomId : RoomId
   , playerId : PlayerId
-  , host : String
+  , websocketHost : String
   }
 
-type alias Game =
+type alias Model =
   { room : Maybe Room
   , roomId : RoomId
   , playerId : PlayerId
-  , angle : Int
-  , host : String
+  , roundRandom : Int
+  , websocketHost : String
   , time : Time
   }
 
 
 -- Helpers
 
-getDummy : String -> Game
+getDummy : String -> Model
 getDummy s =
   { room = Nothing
   , roomId = "1"
   , playerId = "2"
-  , angle = 0
-  , host = "3"
+  , roundRandom = 0
+  , websocketHost = "3"
   , time = 0
   }
 
-getWebSocketUrl : Game -> String
+getWebSocketUrl : Model -> String
 getWebSocketUrl model =
-  model.host ++ "/ws/" ++ model.roomId
+  model.websocketHost ++ "/ws/" ++ model.roomId
 
-setOwnGuess : Int -> Game -> Game
+setOwnGuess : Int -> Model -> Model
 setOwnGuess guessValue model =
-  { model
-      | room =
-          model.room
-            |> Maybe.map (setGuess ({value = Guess.Made guessValue, time = model.time}) model.playerId)
-  }
+  let
+    guess =
+      { value = Guess.Made guessValue
+      , time = model.time
+      }
+  in
+    { model
+        | room =
+            model.room
+              |> Maybe.map (setGuess guess model.playerId)
+    }
 
-getOwnGuess : Game -> Maybe Guess.Guess
+getOwnGuess : Model -> Maybe Guess.Guess
 getOwnGuess model =
   model.room
     |> Maybe.map (getGuess model.playerId)

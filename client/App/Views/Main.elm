@@ -32,7 +32,9 @@ view model =
         Views.NotFound.view
 
       Router.Rooms ->
-        Views.Rooms.view (model.createRoomForm |> Maybe.withDefault (CreateRoomForm.Models.getDummy "1"))
+        model.createRoomForm
+          |> Maybe.withDefault (CreateRoomForm.Models.getDummy "1")
+          |> Views.Rooms.view
 
       Router.Room roomId ->
         Views.Room.view

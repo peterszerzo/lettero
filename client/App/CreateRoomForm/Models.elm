@@ -6,19 +6,19 @@ type Status
   | Error String
   | Success
 
-type alias CreateRoomForm =
+type alias Model =
   { roomId : String
   , playerIds : List String
   , status : Status
   }
 
-init : CreateRoomForm
+init : Model
 init =
   { roomId = ""
   , playerIds = []
   , status = Editing
   }
 
-getDummy : String -> CreateRoomForm
+getDummy : String -> Model
 getDummy s =
   init

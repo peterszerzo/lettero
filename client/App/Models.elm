@@ -1,7 +1,7 @@
 module Models exposing (..)
 
-import Game.Models.Main exposing (Game)
-import CreateRoomForm.Models exposing (CreateRoomForm)
+import Game.Models.Main
+import CreateRoomForm.Models
 import Router
 import Messages
 import Helpers
@@ -13,8 +13,8 @@ type alias Flags =
 type alias Model =
   { route : Router.Route
   , websocketHost : String
-  , game : Maybe Game
-  , createRoomForm : Maybe CreateRoomForm
+  , game : Maybe Game.Models.Main.Model
+  , createRoomForm : Maybe CreateRoomForm.Models.Model
   }
 
 setRoute : Router.Route -> Model -> (Model, Cmd Messages.Msg)

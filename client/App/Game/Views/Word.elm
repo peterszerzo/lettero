@@ -5,7 +5,7 @@ import Html.Attributes exposing (style, class, classList, attribute)
 import Html.Events exposing (onClick)
 import String
 
-import Game.Models.Main exposing (Game, getOwnGuess)
+import Game.Models.Main exposing (Model, getOwnGuess)
 import Game.Models.Room exposing (Room)
 import Game.Models.Player exposing (isDraw, getWinnerId)
 import Game.Models.Guess as Guess
@@ -34,7 +34,7 @@ letterStyle left top angle =
     , ("transform", "translate3d(-50%, -50%, 0) rotate(" ++ rotateVal ++ "deg)")
     ]
 
-viewLetter : Game -> Int -> Int -> String -> Html Msg
+viewLetter : Model -> Int -> Int -> String -> Html Msg
 viewLetter model len index letter =
   let
     guessIndex =
@@ -49,7 +49,7 @@ viewLetter model len index letter =
             )
         |> Maybe.withDefault (Just 0)
     angle = 2 * pi * (toFloat index) / toFloat(len)
-      |> (+) (toFloat(model.angle) * pi / 180)
+      |> (+) ((toFloat model.roundRandom) * 360 / 1000 * pi / 180)
     top =
       ( angle
           |> sin
@@ -77,7 +77,7 @@ viewLetter model len index letter =
       [ text letter
       ]
 
-view : Game -> Room -> Html Msg
+view : Model -> Room -> Html Msg
 view model room =
   let
     letters : List String

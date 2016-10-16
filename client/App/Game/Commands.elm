@@ -5,9 +5,9 @@ import Random
 
 import Game.Messages exposing (Msg(..))
 import Game.Models.Player as Player
-import Game.Models.Main exposing (Game, getWebSocketUrl)
+import Game.Models.Main exposing (Model, getWebSocketUrl)
 
-sendPlayerStatusUpdate : Game -> Cmd Msg
+sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =
   let
     encodedPlayer =
@@ -20,11 +20,11 @@ sendPlayerStatusUpdate model =
   in
     send webSocketUrl encodedPlayer
 
-requestRoomState : Game -> Cmd Msg
+requestRoomState : Model -> Cmd Msg
 requestRoomState model =
   send (getWebSocketUrl model) "requestRoomState"
 
-getRandomAngle : () -> Cmd Msg
-getRandomAngle _ =
-  Random.int 0 360
-    |> Random.generate ReceiveRandomAngle
+getRoundRandom : () -> Cmd Msg
+getRoundRandom _ =
+  Random.int 0 1000
+    |> Random.generate ReceiveRoundRandom

@@ -4,12 +4,12 @@ import Json.Decode exposing (decodeString)
 import Result
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.Main exposing (Game, setOwnGuess, getOwnGuess)
+import Game.Models.Main exposing (Model, setOwnGuess, getOwnGuess)
 import Game.Models.Room exposing (roomDecoder, setReady, canGuess)
-import Game.Commands exposing (sendPlayerStatusUpdate, getRandomAngle)
+import Game.Commands exposing (sendPlayerStatusUpdate, getRoundRandom)
 import Game.Constants exposing (tickDuration)
 
-update : Msg -> Game -> (Game, Cmd Msg)
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     ReceiveRoomState roomState ->
@@ -22,18 +22,18 @@ update msg model =
           Just room ->
             if didRoundChange
               then
-                getRandomAngle ()
+                getRoundRandom ()
               else
                 Cmd.none
           Nothing ->
-            getRandomAngle ()
+            getRoundRandom ()
       in
         ( { model | room = newRoom, time = newTime }
         , cmd
         )
 
-    ReceiveRandomAngle angle ->
-      ( { model | angle = angle }
+    ReceiveRoundRandom roundRandom ->
+      ( { model | roundRandom = roundRandom }
       , Cmd.none
       )
 

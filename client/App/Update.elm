@@ -28,6 +28,7 @@ update msg model =
               (gm, cmd) = Game.Update.update msg game
             in
               (Just gm, cmd)
+
           Nothing ->
             (model.game, Cmd.none)
       in
