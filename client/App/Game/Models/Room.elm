@@ -1,6 +1,6 @@
 module Game.Models.Room exposing (..)
 
-import Json.Decode exposing (Decoder, (:=), string, object4, int, maybe, null, bool)
+import Json.Decode exposing (Decoder, (:=), string, object5, int, maybe, null, bool)
 
 import Game.Models.Player as Player
 import Game.Models.Guess as Guess
@@ -12,6 +12,7 @@ type alias Room =
   { id : RoomId
   , round : Int
   , roundData : RoundData.RoundData
+  , hostId : Player.PlayerId
   , players : List Player.Player
   }
 
@@ -67,8 +68,9 @@ setReady playerId room =
 
 roomDecoder : Decoder Room
 roomDecoder =
-  object4 Room
+  object5 Room
     ("id" := string)
     ("round" := int)
     ("roundData" := RoundData.roundDataDecoder)
+    ("hostId" := string)
     ("players" := Player.playersDecoder)

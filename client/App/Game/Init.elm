@@ -7,7 +7,14 @@ import Game.Commands exposing (requestRoomState)
 init : Flags -> (Game, Cmd Msg)
 init {roomId, playerId, host} =
   let
-    model = Game Nothing roomId playerId 0 host 0
+    model =
+      { room = Nothing
+      , roomId = roomId
+      , playerId = playerId
+      , host = host
+      , angle = 0
+      , time = 0
+      }
   in
   ( model
   , requestRoomState model

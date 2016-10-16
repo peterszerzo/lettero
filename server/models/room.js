@@ -11,6 +11,7 @@ export type Room = {
   id : string,
   round : number,
   roundData : Object,
+  hostId : string,
   players : Array<Player>
 };
 
