@@ -1,12 +1,11 @@
 'use strict';
 
-import type {Room} from './models/room';
 import testRoom from './fixtures/test-room';
-import {setPlayerStatus, startNewRound} from './models/room';
+import words from './fixtures/words';
 
-let state : Array<Room> = [testRoom];
+let state = [testRoom];
 
-function getRoom(roomId : string, playerId : ?string) : ?Room {
+function getRoom(roomId, playerId) {
   const room = state.filter(({id}) => id === roomId)[0];
   if (!playerId) {
     return room;
@@ -18,29 +17,48 @@ function getRoom(roomId : string, playerId : ?string) : ?Room {
   return room;
 }
 
-function applyPlayerStatusUpdate({roomId, id, guess, score, isReady}, next) {
-  const room = getRoom(roomId, id);
-  let newRoom = setPlayerStatus(id, {guess, isReady, score}, room);
+function savePlayer(roomId, player, next) {
+  const room = getRoom(roomId, player.id);
+  const newRoom = Object.assign(
+    {},
+    room,
+    {
+      players: room.players.map(
+        p => ((p.id === player.id) ? player : p)
+      )
+    }
+  );
   state = state.map(rm => rm.id === newRoom.id ? newRoom : rm);
   next();
 }
 
 function scheduleNewRound(roomId, next) {
   setTimeout(() => {
-    newRound(roomId, next);
+    state = state.map(rm => rm.id === roomId ? Object.assign(
+      {},
+      rm,
+      {
+        round: rm.round + 1,
+        roundData: {
+          word: words[Math.floor(Math.random() * words.length)]
+        },
+        players: rm.players.map(player => Object.assign({}, player, {
+          guess: {
+            value: 'pending',
+            time: 0
+          }
+        }))
+      }
+    ) : rm);
+    next();
   }, 2500);
-}
-
-function newRound(roomId, next) {
-  state = state.map(rm => rm.id === roomId ? startNewRound(rm) : rm);
-  next();
 }
 
 export default {
   getState() {
     return state;
   },
-  applyPlayerStatusUpdate,
+  savePlayer,
   scheduleNewRound,
   getRoom
 };

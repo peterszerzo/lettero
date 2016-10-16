@@ -30,7 +30,7 @@ export default (ws, req) => {
     if (msg === 'requestNewRound') {
       return api.scheduleNewRound(roomId, next);
     }
-    const playerStatusUpdate = JSON.parse(msg);
-    api.applyPlayerStatusUpdate(playerStatusUpdate, next);
+    const player = JSON.parse(msg);
+    api.savePlayer(roomId, player, next);
   });
 };
