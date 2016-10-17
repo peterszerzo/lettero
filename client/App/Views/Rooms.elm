@@ -8,7 +8,7 @@ import Messages exposing (Msg(CreateRoomFormMsg))
 import CreateRoomForm.Views
 import CreateRoomForm.Models
 
-view : CreateRoomForm.Models.CreateRoomForm -> Html Msg
+view : CreateRoomForm.Models.Model -> Html Msg
 view createRoomForm =
   div
     [ class "app__page"

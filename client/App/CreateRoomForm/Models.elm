@@ -1,7 +1,8 @@
 module CreateRoomForm.Models exposing (..)
 
 type Status
-  = Editing
+  = Startup
+  | Editing
   | Processing
   | Error String
   | Success
@@ -16,7 +17,7 @@ init : Model
 init =
   { roomId = ""
   , playerIds = []
-  , status = Editing
+  , status = Startup
   }
 
 getDummy : String -> Model

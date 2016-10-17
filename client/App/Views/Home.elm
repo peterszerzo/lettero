@@ -11,7 +11,7 @@ view navigate =
     ]
     [ div
         [ classList
-            [ ("home", True)
+            [ ("basic-content", True)
             ]
         ]
         [ h1 [] [ text "Lettero" ]

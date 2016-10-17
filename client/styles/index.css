@@ -17,6 +17,12 @@
     box-shadow: 0 0 6px color(var(--black) alpha(-80%)), 0 0 12px color(var(--black) alpha(-90%));
     background-color: var(--white);
   }
+
+  --paragraph {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    letter-spacing: .05rem;
+  }
 }
 
 @custom-media --desktop (min-width: 600px);
@@ -39,6 +45,7 @@ h1 {
   font-size: 4rem;
   letter-spacing: .2rem;
   margin: 1rem 0;
+  text-align: center;
 }
 
 h2 {
@@ -46,6 +53,7 @@ h2 {
   font-size: 3rem;
   margin: 1rem 0;
   letter-spacing: .2rem;
+  text-align: center;
 }
 
 ul {
@@ -60,10 +68,8 @@ li {
 }
 
 p {
-  font-size: 1.5rem;
+  @apply (--paragraph);
   margin: 1.5rem 0;
-  line-height: 1.5;
-  letter-spacing: .05rem;
   color: var(--white);
 }
 
@@ -277,6 +283,9 @@ p {
   opacity: .4;
 }
 
+
+/* Static content */
+
 .static-content {
   width: 100%;
   max-width: 600px;
@@ -288,10 +297,11 @@ p {
 }
 
 
-/* Home */
+/* Basic Content */
 
-.home {
+.basic-content {
   text-align: center;
+  max-width: 520px;
 
   & h1 {
     margin: 0;
@@ -343,24 +353,32 @@ p {
 }
 
 
-/* Input */
+/* Forms */
+
+fieldset {
+  border: 0;
+  outline: 0;
+  margin: 40px 0;
+}
 
 input {
-  background: none;
   outline: 0;
   border: 0;
   display: block;
   width: 300px;
   margin: auto;
   padding: 15px;
-  border-bottom: 2px solid var(--white);
-  font-size: 1.5rem;
+  margin: 15px auto;
+  @apply (--paragraph);
+  background: color(var(--white) alpha(5%));
+  border-radius: var(--border-radius);
   color: var(--white);
 }
 
 label {
   width: 100%;
   display: block;
+  @apply (--paragraph);
   color: var(--white);
   text-align: center;
 }
