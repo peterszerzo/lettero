@@ -11,5 +11,5 @@ view =
   div
     [ class "app__page"
     ]
-    [ Markdown.toHtml [ class "static-content" ] (Content.about)
+    [ Markdown.toHtml [ class "basic-content" ] (Content.about)
     ]

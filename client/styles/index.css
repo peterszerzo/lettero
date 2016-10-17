@@ -267,6 +267,7 @@ p {
 /* Button */
 
 .button {
+  display: inline-block;
   cursor: pointer;
   margin: auto .5rem;
   text-decoration: none;
@@ -284,31 +285,26 @@ p {
 }
 
 
-/* Static content */
-
-.static-content {
-  width: 100%;
-  max-width: 600px;
-  max-height: 100%;
-  padding: 0 1rem;
-  overflow: auto;
-  color: var(--white);
-  text-align: left;
-}
-
-
 /* Basic Content */
 
 .basic-content {
   text-align: center;
-  max-width: 520px;
+  max-width: 600px;
+  padding: 0 1rem;
 
   & h1 {
     margin: 0;
   }
 
-  & p {
-    margin: 1rem 0 1.5rem;
+  & p,
+  & .button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  & .button {
+    margin-left: .5rem;
+    margin-right: .5rem;
   }
 }
 
