@@ -6,7 +6,7 @@ import Result
 import Game.Messages exposing (Msg(..))
 import Game.Models.Main exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
 import Game.Models.Room as Room
-import Game.Commands exposing (sendPlayerStatusUpdate, getRoundRandom, requestNewRound)
+import Game.Commands exposing (sendPlayerStatusUpdate, requestRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration)
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -22,15 +22,12 @@ update msg model =
         newModel = { model | room = newRoom, time = newTime }
         shouldCloseRound =
           (isRoundJustOver model newModel) && (Just model.playerId == Maybe.map (.hostId) model.room)
-        cmd = case model.room of
-          Just room ->
-            if didRoundChange
-              then
-                getRoundRandom ()
-              else
-                Cmd.none
-          Nothing ->
-            getRoundRandom ()
+        cmd =
+          if (didRoundChange || (model.room == Nothing))
+            then
+              requestRoundRandom ()
+            else
+              Cmd.none
         cmd' = Cmd.batch [cmd, if shouldCloseRound then (requestNewRound model) else Cmd.none]
       in
         ( newModel
@@ -59,7 +56,10 @@ update msg model =
         )
 
     Tick tick ->
-      ({ model | time = model.time + tickDuration }, Cmd.none)
+      ( { model
+            | time = model.time + tickDuration
+        }
+      , Cmd.none)
 
     SetReady ->
       let

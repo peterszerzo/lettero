@@ -56,8 +56,22 @@ encodeGuess guess =
 
 -- Decoders
 
+valueDecoder : Decoder GuessValue
+valueDecoder =
+  JD.oneOf
+    [ JD.int `JD.andThen` (\i -> Made i |> JD.succeed)
+    , JD.string `JD.andThen`
+        ( \s ->
+            if s == "pending"
+              then
+                JD.succeed Pending
+              else
+                JD.succeed Idle
+        )
+    ]
+
 guessDecoder : Decoder Guess
 guessDecoder =
   object2 Guess
-    ("value" := JD.oneOf [JD.int `JD.andThen` (\i -> Made i |> JD.succeed), JD.string `JD.andThen` (\s -> if s == "pending" then JD.succeed Pending else JD.succeed Idle)])
+    ("value" := valueDecoder)
     ("time" := JD.float)

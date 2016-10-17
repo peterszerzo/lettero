@@ -28,7 +28,7 @@ requestNewRound : Model -> Cmd Msg
 requestNewRound model =
   send (getWebSocketUrl model) "requestNewRound"
 
-getRoundRandom : () -> Cmd Msg
-getRoundRandom _ =
+requestRoundRandom : () -> Cmd Msg
+requestRoundRandom _ =
   Random.int 0 1000
     |> Random.generate ReceiveRoundRandom
