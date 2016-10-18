@@ -16,7 +16,7 @@ type alias Model =
 init : Model
 init =
   { roomId = ""
-  , playerIds = []
+  , playerIds = [ "", "" ]
   , status = Startup
   }
 

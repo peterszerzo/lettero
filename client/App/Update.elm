@@ -39,8 +39,25 @@ update msg model =
         )
 
     CreateRoomFormMsg msg ->
-      ( { model
-            | createRoomForm = Maybe.map (CreateRoomForm.Update.update msg) model.createRoomForm
-        }
-      , Cmd.none
-      )
+      let
+        (createRoomFormModel, createRoomFormCmd, newRoute) = case model.createRoomForm of
+          Just createRoomForm ->
+            let
+              (crf, cmd, newRoute) = CreateRoomForm.Update.update msg createRoomForm
+            in
+              (Just crf, cmd, newRoute)
+
+          Nothing ->
+            (model.createRoomForm, Cmd.none, Nothing)
+        _ = newRoute |> Debug.log "newroute"
+      in
+        ( { model
+              | createRoomForm = createRoomFormModel
+          }
+        , Cmd.batch
+            [ Cmd.map CreateRoomFormMsg createRoomFormCmd
+            , newRoute
+                |> Maybe.map (Navigation.newUrl)
+                |> Maybe.withDefault Cmd.none
+            ]
+        )

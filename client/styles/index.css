@@ -100,6 +100,12 @@ p {
     color: var(--white);
     font-size: 2rem;
   }
+
+  & > * {
+    max-height: 100%;
+    overflow: auto;
+    padding: 40px 0;
+  }
 }
 
 
@@ -290,7 +296,8 @@ p {
 .basic-content {
   text-align: center;
   max-width: 600px;
-  padding: 0 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   & h1 {
     margin: 0;

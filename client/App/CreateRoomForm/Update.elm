@@ -3,11 +3,29 @@ module CreateRoomForm.Update exposing (..)
 import CreateRoomForm.Messages exposing (Msg(..))
 import CreateRoomForm.Models exposing (Model, Status)
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =
   case msg of
-    Input v ->
-      { model | roomId = v }
+    InputRoomId v ->
+      ( { model | roomId = v }
+      , Cmd.none
+      , Nothing
+      )
+
+    InputPlayer index v ->
+      ( { model | playerIds = List.indexedMap (\i val -> if i == index then v else val) model.playerIds }
+      , Cmd.none
+      , Nothing
+      )
 
     ChangeStatus status ->
-      { model | status = status }
+      ( { model | status = status }
+      , Cmd.none
+      , Nothing
+      )
+
+    Navigate newUrl ->
+      ( model
+      , Cmd.none
+      , Just newUrl
+      )
