@@ -9,7 +9,7 @@ import Game.Models.Room as Room
 import Game.Commands exposing (sendPlayerStatusUpdate, requestRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration)
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =
   case msg of
     ReceiveRoomState roomState ->
@@ -32,11 +32,13 @@ update msg model =
       in
         ( newModel
         , cmd'
+        , Nothing
         )
 
     ReceiveRoundRandom roundRandom ->
       ( { model | roundRandom = roundRandom }
       , Cmd.none
+      , Nothing
       )
 
     MakeGuess guessValue ->
@@ -53,13 +55,16 @@ update msg model =
       in
         ( newModel
         , cmd'
+        , Nothing
         )
 
     Tick tick ->
       ( { model
             | time = model.time + tickDuration
         }
-      , Cmd.none)
+      , Cmd.none
+      , Nothing
+      )
 
     SetReady ->
       let
@@ -70,4 +75,13 @@ update msg model =
           {model | room = newRoom}
         command = sendPlayerStatusUpdate newModel
       in
-        (newModel, command)
+        ( newModel
+        , command
+        , Nothing
+        )
+
+    Navigate newUrl ->
+      ( model
+      , Cmd.none
+      , Just newUrl
+      )

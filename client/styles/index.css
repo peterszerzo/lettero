@@ -100,12 +100,6 @@ p {
     color: var(--white);
     font-size: 2rem;
   }
-
-  & > * {
-    max-height: 100%;
-    overflow: auto;
-    padding: 40px 0;
-  }
 }
 
 

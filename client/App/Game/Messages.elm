@@ -8,3 +8,4 @@ type Msg
   | ReceiveRoundRandom Int
   | Tick Time
   | SetReady
+  | Navigate String

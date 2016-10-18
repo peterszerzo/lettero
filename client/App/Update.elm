@@ -12,6 +12,10 @@ urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate =
   setRoute << Router.routeFromResult
 
+maybeLiftFirstInTuple : (a, b, c) -> (Maybe a, b, c)
+maybeLiftFirstInTuple (a, b, c) =
+  (Just a, b, c)
+
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
@@ -22,34 +26,30 @@ update msg model =
 
     GameMsg msg ->
       let
-        (gameModel, gameCmd) = case model.game of
-          Just game ->
-            let
-              (gm, cmd) = Game.Update.update msg game
-            in
-              (Just gm, cmd)
-
-          Nothing ->
-            (model.game, Cmd.none)
+        (game, gameCmd, newRoute) =
+          model.game
+            |> Maybe.map (Game.Update.update msg)
+            |> Maybe.map maybeLiftFirstInTuple
+            |> Maybe.withDefault (model.game, Cmd.none, Nothing)
       in
         ( { model
-              | game = gameModel
+              | game = game
           }
-        , Cmd.map GameMsg gameCmd
+        , Cmd.batch
+            [ Cmd.map GameMsg gameCmd
+            , newRoute
+                |> Maybe.map (Navigation.newUrl)
+                |> Maybe.withDefault Cmd.none
+            ]
         )
 
     CreateRoomFormMsg msg ->
       let
-        (createRoomFormModel, createRoomFormCmd, newRoute) = case model.createRoomForm of
-          Just createRoomForm ->
-            let
-              (crf, cmd, newRoute) = CreateRoomForm.Update.update msg createRoomForm
-            in
-              (Just crf, cmd, newRoute)
-
-          Nothing ->
-            (model.createRoomForm, Cmd.none, Nothing)
-        _ = newRoute |> Debug.log "newroute"
+        (createRoomFormModel, createRoomFormCmd, newRoute) =
+          model.createRoomForm
+            |> Maybe.map (CreateRoomForm.Update.update msg)
+            |> Maybe.map maybeLiftFirstInTuple
+            |> Maybe.withDefault (model.createRoomForm, Cmd.none, Nothing)
       in
         ( { model
               | createRoomForm = createRoomFormModel
