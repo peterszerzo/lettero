@@ -26,11 +26,12 @@ update msg model =
 
     GameMsg msg ->
       let
+        update = maybeLiftFirstInTuple << Game.Update.update msg
+        default = (model.game, Cmd.none, Nothing)
         (game, gameCmd, newRoute) =
           model.game
-            |> Maybe.map (Game.Update.update msg)
-            |> Maybe.map maybeLiftFirstInTuple
-            |> Maybe.withDefault (model.game, Cmd.none, Nothing)
+            |> Maybe.map update
+            |> Maybe.withDefault default
       in
         ( { model
               | game = game
@@ -45,14 +46,15 @@ update msg model =
 
     CreateRoomFormMsg msg ->
       let
-        (createRoomFormModel, createRoomFormCmd, newRoute) =
+        update = maybeLiftFirstInTuple << CreateRoomForm.Update.update msg
+        default = (model.createRoomForm, Cmd.none, Nothing)
+        (createRoomForm, createRoomFormCmd, newRoute) =
           model.createRoomForm
-            |> Maybe.map (CreateRoomForm.Update.update msg)
-            |> Maybe.map maybeLiftFirstInTuple
-            |> Maybe.withDefault (model.createRoomForm, Cmd.none, Nothing)
+            |> Maybe.map update
+            |> Maybe.withDefault default
       in
         ( { model
-              | createRoomForm = createRoomFormModel
+              | createRoomForm = createRoomForm
           }
         , Cmd.batch
             [ Cmd.map CreateRoomFormMsg createRoomFormCmd

@@ -24,6 +24,10 @@ isCorrect : Guess -> Bool
 isCorrect guess =
   guess.value == Made 0
 
+isPending : Guess -> Bool
+isPending guess =
+  guess.value == Pending
+
 isIncorrect : Guess -> Bool
 isIncorrect guess =
   case guess.value of

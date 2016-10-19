@@ -46,12 +46,13 @@ isRoundOver room =
   let
     didSomeoneWin =
       room.players
-        |> List.map (((==) (Guess.Made 0)) << .value << .guess)
+        |> List.map (Guess.isCorrect << .guess)
         |> List.any identity
     didAllGuess =
       room.players
-        |> List.map ((/=) (Guess.Pending) << .value << .guess)
-        |> List.all identity
+        |> List.map (Guess.isPending << .guess)
+        |> List.any identity
+        |> not
   in
     didSomeoneWin || didAllGuess
 

@@ -2,20 +2,20 @@ module Game.Models.Main exposing (..)
 
 import Time exposing (Time)
 
-import Game.Models.Player exposing (Player, PlayerId, getWinnerId)
-import Game.Models.Room exposing (Room, RoomId, setGuess, getGuess)
+import Game.Models.Player as Player
+import Game.Models.Room as Room
 import Game.Models.Guess as Guess
 
 type alias Flags =
-  { roomId : RoomId
-  , playerId : PlayerId
+  { roomId : Room.RoomId
+  , playerId : Player.PlayerId
   , websocketHost : String
   }
 
 type alias Model =
-  { room : Maybe Room
-  , roomId : RoomId
-  , playerId : PlayerId
+  { room : Maybe Room.Room
+  , roomId : Room.RoomId
+  , playerId : Player.PlayerId
   , roundRandom : Int
   , websocketHost : String
   , time : Time
@@ -49,18 +49,18 @@ setOwnGuess guessValue model =
     { model
         | room =
             model.room
-              |> Maybe.map (setGuess guess model.playerId)
+              |> Maybe.map (Room.setGuess guess model.playerId)
     }
 
 getOwnGuess : Model -> Maybe Guess.Guess
 getOwnGuess model =
   model.room
-    |> Maybe.map (getGuess model.playerId)
+    |> Maybe.map (Room.getGuess model.playerId)
 
 isRoundJustOver : Model -> Model -> Bool
 isRoundJustOver oldModel newModel =
   Maybe.map2
-    (\oldRm newRm -> (getWinnerId oldRm.players == Nothing) && (getWinnerId newRm.players /= Nothing))
+    (\oldRm newRm -> (not (Room.isRoundOver oldRm)) && (Room.isRoundOver newRm))
     oldModel.room
     newModel.room
       |> (==) (Just True)

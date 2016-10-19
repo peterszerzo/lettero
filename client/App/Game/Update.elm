@@ -18,7 +18,6 @@ update msg model =
           |> Result.toMaybe
         didRoundChange = (Maybe.map (.round) model.room) /= (Maybe.map (.round) newRoom)
         newTime = if didRoundChange then 0 else model.time
-
         newModel = { model | room = newRoom, time = newTime }
         shouldCloseRound =
           (isRoundJustOver model newModel) && (Just model.playerId == Maybe.map (.hostId) model.room)
@@ -28,7 +27,15 @@ update msg model =
               requestRoundRandom ()
             else
               Cmd.none
-        cmd' = Cmd.batch [cmd, if shouldCloseRound then (requestNewRound model) else Cmd.none]
+        cmd' =
+          Cmd.batch
+            [ cmd
+            , if shouldCloseRound
+                then
+                  requestNewRound model
+                else
+                  Cmd.none
+            ]
       in
         ( newModel
         , cmd'
