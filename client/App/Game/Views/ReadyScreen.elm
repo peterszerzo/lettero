@@ -9,16 +9,29 @@ import Game.Models.Player exposing (Player, PlayerId)
 
 viewPlayer : PlayerId -> Player -> Html Msg
 viewPlayer playerId player =
-  button
-    ([ classList [("button", True), ("button--disabled", (player.id /= playerId))] ] ++ (if player.id == playerId then [onClick SetReady] else []))
-    [ text (player.id ++ " " ++ (if player.isReady then "✓" else "..."))
-    ]
+  let
+    classAttributes =
+      [ classList [("button", True), ("button--disabled", (player.id /= playerId))]
+      ]
+    eventAttributes =
+      if player.id == playerId
+        then
+          [ onClick SetReady ]
+        else
+          []
+    content = player.id ++ " " ++ (if player.isReady then "✓" else "...")
+  in
+    button
+      (classAttributes ++ eventAttributes)
+      [ text content
+      ]
 
 view : (List Player) -> PlayerId -> Html Msg
 view players playerId =
   div
     [ class "ready-screen"
     ]
-    [ h2 [] [ text "Ready?" ]
+    [ h2 [] [ text "Ready, buddy?" ]
+    , p [] [ text "The game will start once all players marked ready." ]
     , div [] (List.map (viewPlayer playerId) players)
     ]

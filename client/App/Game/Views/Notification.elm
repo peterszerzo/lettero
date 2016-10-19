@@ -1,12 +1,13 @@
 module Game.Views.Notification exposing (view)
 
-import Html exposing (Html, div, p, text)
-import Html.Attributes exposing (class, classList)
+import Html exposing (Html)
 
 import Game.Models.Main exposing (Model)
 import Game.Models.Room exposing (Room)
 import Game.Models.Player exposing (isDraw, getWinnerId)
 import Game.Messages exposing (Msg)
+
+import UiKit.Notification
 
 view : Model -> Room -> Html Msg
 view model room =
@@ -16,15 +17,8 @@ view model room =
         then
           (True, "It's a tie, folks")
         else
-          (
-            case getWinnerId room.players of
-              Just id ->
-                (True, "Nice going, " ++ id)
-              Nothing ->
-                (False, "")
-          )
+          getWinnerId room.players
+            |> Maybe.map (\id -> (True, "Nice going, " ++ id))
+            |> Maybe.withDefault (False, "")
   in
-    div
-      [ classList [("notification", True), ("notification--active", isActive)]
-      ]
-      [ p [] [ text content ] ]
+    UiKit.Notification.view content isActive

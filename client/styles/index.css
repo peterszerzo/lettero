@@ -313,8 +313,10 @@ p {
 /* Notification */
 
 .notification {
-  width: 140px;
-  height: 45px;
+  width: auto;
+  max-width: 180px;
+  min-height: 30px;
+  height: auto;
   @apply --panel-skin;
   position: fixed;
   top: calc(50% - var(--word-offset-mobile));
@@ -326,6 +328,8 @@ p {
   opacity: 0;
 
   & p {
+    padding: 12px 30px;
+    margin: 0;
     text-align: center;
     color: var(--dark);
     font-size: .75rem;
@@ -339,8 +343,8 @@ p {
 
   @media (--desktop) {
     top: 50%;
-    width: 200px;
-    height: 60px;
+    max-width: 320px;
+    min-height: 40px;
   }
 }
 
