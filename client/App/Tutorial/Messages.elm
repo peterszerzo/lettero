@@ -1,7 +1,6 @@
 module Tutorial.Messages exposing (..)
 
-import Tutorial.Models
-
 type Msg
-  = ChangeStage Tutorial.Models.Stage
+  = StartTutorial
   | Navigate String
+  | ClickLetter Int
