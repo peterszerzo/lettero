@@ -6,9 +6,6 @@ import Game.Subscriptions exposing (subscriptions)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  case model.game of
-    Just game ->
-      Sub.map GameMsg (Game.Subscriptions.subscriptions game)
-
-    Nothing ->
-      Sub.none
+  model.game
+    |> Maybe.map (\g -> Sub.map GameMsg (Game.Subscriptions.subscriptions g))
+    |> Maybe.withDefault Sub.none

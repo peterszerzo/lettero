@@ -7,6 +7,7 @@ import Messages exposing (Msg(..))
 import Router exposing (Route)
 import Game.Update
 import RoomManager.Update
+import Tutorial.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate =
@@ -58,6 +59,26 @@ update msg model =
           }
         , Cmd.batch
             [ Cmd.map RoomManagerMsg roomManagerCmd
+            , newRoute
+                |> Maybe.map (Navigation.newUrl)
+                |> Maybe.withDefault Cmd.none
+            ]
+        )
+
+    TutorialMsg msg ->
+      let
+        update = maybeLiftFirstInTuple << Tutorial.Update.update msg
+        default = (model.tutorial, Cmd.none, Nothing)
+        (tutorial, tutorialCmd, newRoute) =
+          model.tutorial
+            |> Maybe.map update
+            |> Maybe.withDefault default
+      in
+        ( { model
+              | tutorial = tutorial
+          }
+        , Cmd.batch
+            [ Cmd.map TutorialMsg tutorialCmd
             , newRoute
                 |> Maybe.map (Navigation.newUrl)
                 |> Maybe.withDefault Cmd.none

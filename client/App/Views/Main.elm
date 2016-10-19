@@ -18,6 +18,7 @@ import Game.Models.Main
 import RoomManager.Views
 import RoomManager.Models
 import Tutorial.Views
+import Tutorial.Models
 
 view : Model -> Html Msg
 view model =
@@ -48,7 +49,11 @@ view model =
           |> map GameMsg
 
       Router.Tutorial ->
-        Tutorial.Views.view
+        model.tutorial
+          |> Maybe.withDefault (Tutorial.Models.getDummy "1")
+          |> Tutorial.Views.view
+          |> map TutorialMsg
+
   in
     div
       [ class "app"
