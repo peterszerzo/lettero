@@ -36,6 +36,10 @@ view model =
           ]
       , if model.stage /= Tutorial.Models.Start
           then
-            UiKit.Word.view "hedgehog" ClickLetter
+            UiKit.Word.view
+              { word = "hedgehog"
+              , onLetterClick = ClickLetter
+              , isDisabled = False
+              }
           else div [] []
       ]

@@ -7,6 +7,12 @@ import String
 
 type alias StyleDec = List (String, String)
 
+type alias Options a =
+  { word : String
+  , onLetterClick : (Int -> a)
+  , isDisabled : Bool
+  }
+
 letterStyle : Float -> Float -> Float -> StyleDec
 letterStyle left top angle =
   let
@@ -59,15 +65,15 @@ viewLetter onLetterClick len index letter =
       [ text letter
       ]
 
-view : String -> (Int -> a) -> Html a
-view word onLetterClick =
+view : Options a -> Html a
+view { word, isDisabled, onLetterClick } =
   let
     letters = String.split "" word
   in
     div
       [ classList
           [ ("word", True)
-          , ("word--disabled", False)
+          , ("word--disabled", isDisabled)
           ]
       ]
       (List.indexedMap (viewLetter onLetterClick (List.length letters)) letters)
