@@ -1,7 +1,7 @@
-module CreateRoomForm.Update exposing (..)
+module RoomManager.Update exposing (..)
 
-import CreateRoomForm.Messages exposing (Msg(..))
-import CreateRoomForm.Models exposing (Model, Status)
+import RoomManager.Messages exposing (Msg(..))
+import RoomManager.Models exposing (Model, Status)
 
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =

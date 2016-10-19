@@ -1,6 +1,6 @@
-module CreateRoomForm.Messages exposing (..)
+module RoomManager.Messages exposing (..)
 
-import CreateRoomForm.Models exposing (Status)
+import RoomManager.Models exposing (Status)
 
 type Msg
   = InputRoomId String

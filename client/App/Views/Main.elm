@@ -11,12 +11,13 @@ import Models exposing (Model)
 import Views.Home
 import Views.About
 import Views.NotFound
-import Views.Rooms
 import Views.Background
 import Views.Room
 import Game.Views.Main
 import Game.Models.Main
-import CreateRoomForm.Models
+import RoomManager.Views
+import RoomManager.Models
+import Tutorial.Views
 
 view : Model -> Html Msg
 view model =
@@ -32,9 +33,10 @@ view model =
         Views.NotFound.view
 
       Router.Rooms ->
-        model.createRoomForm
-          |> Maybe.withDefault (CreateRoomForm.Models.getDummy "1")
-          |> Views.Rooms.view
+        model.roomManager
+          |> Maybe.withDefault (RoomManager.Models.getDummy "1")
+          |> RoomManager.Views.view
+          |> map RoomManagerMsg
 
       Router.Room roomId ->
         Views.Room.view
@@ -44,6 +46,9 @@ view model =
           |> Maybe.withDefault (Game.Models.Main.getDummy "1")
           |> Game.Views.Main.view
           |> map GameMsg
+
+      Router.Tutorial ->
+        Tutorial.Views.view
   in
     div
       [ class "app"

@@ -6,7 +6,7 @@ import Models exposing (Model, setRoute)
 import Messages exposing (Msg(..))
 import Router exposing (Route)
 import Game.Update
-import CreateRoomForm.Update
+import RoomManager.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
 urlUpdate =
@@ -44,20 +44,20 @@ update msg model =
             ]
         )
 
-    CreateRoomFormMsg msg ->
+    RoomManagerMsg msg ->
       let
-        update = maybeLiftFirstInTuple << CreateRoomForm.Update.update msg
-        default = (model.createRoomForm, Cmd.none, Nothing)
-        (createRoomForm, createRoomFormCmd, newRoute) =
-          model.createRoomForm
+        update = maybeLiftFirstInTuple << RoomManager.Update.update msg
+        default = (model.roomManager, Cmd.none, Nothing)
+        (roomManager, roomManagerCmd, newRoute) =
+          model.roomManager
             |> Maybe.map update
             |> Maybe.withDefault default
       in
         ( { model
-              | createRoomForm = createRoomForm
+              | roomManager = roomManager
           }
         , Cmd.batch
-            [ Cmd.map CreateRoomFormMsg createRoomFormCmd
+            [ Cmd.map RoomManagerMsg roomManagerCmd
             , newRoute
                 |> Maybe.map (Navigation.newUrl)
                 |> Maybe.withDefault Cmd.none

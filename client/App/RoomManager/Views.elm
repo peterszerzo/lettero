@@ -1,11 +1,11 @@
-module CreateRoomForm.Views exposing (..)
+module RoomManager.Views exposing (..)
 
 import Html exposing (Html, div, text ,h1, h2, p, a, button, form, label, input, fieldset)
 import Html.Attributes exposing (class, type', id, name, for, required, autofocus, placeholder, href)
 import Html.Events exposing (onInput, onClick)
 
-import CreateRoomForm.Models exposing (Model, Status(..))
-import CreateRoomForm.Messages exposing (Msg(..))
+import RoomManager.Models exposing (Model, Status(..))
+import RoomManager.Messages exposing (Msg(..))
 
 viewContent : Model -> List (Html Msg)
 viewContent model =
@@ -85,6 +85,10 @@ viewContent model =
 view : Model -> Html Msg
 view model =
   div
-    [ class "basic-content"
+    [ class "app__page"
     ]
-    (viewContent model)
+    [ div
+        [ class "basic-content"
+        ]
+        (viewContent model)
+    ]

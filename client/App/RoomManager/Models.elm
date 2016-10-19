@@ -1,4 +1,4 @@
-module CreateRoomForm.Models exposing (..)
+module RoomManager.Models exposing (..)
 
 type Status
   = Startup

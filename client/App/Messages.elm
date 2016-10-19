@@ -1,9 +1,9 @@
 module Messages exposing (..)
 
 import Game.Messages
-import CreateRoomForm.Messages
+import RoomManager.Messages
 
 type Msg
   = ChangeRoute String
   | GameMsg Game.Messages.Msg
-  | CreateRoomFormMsg CreateRoomForm.Messages.Msg
+  | RoomManagerMsg RoomManager.Messages.Msg

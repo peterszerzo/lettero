@@ -34,15 +34,9 @@ viewGame model room =
 
 view : Model -> Html Msg
 view model =
-  let
-    content = case model.room of
-      Nothing ->
-        div [ class "app__page" ] [ Spinner.view ]
-      Just room ->
-        viewGame model room
-  in
-    div
-      [ class "app"
-      ]
-      [ content
-      ]
+  model.room
+    |> Maybe.map (viewGame model)
+    |> Maybe.withDefault
+         (
+           div [ class "app__page" ] [ Spinner.view ]
+         )

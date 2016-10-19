@@ -1,7 +1,7 @@
 module Models exposing (..)
 
 import Game.Models.Main
-import CreateRoomForm.Models
+import RoomManager.Models
 import Router
 import Messages
 import Helpers
@@ -14,7 +14,7 @@ type alias Model =
   { route : Router.Route
   , websocketHost : String
   , game : Maybe Game.Models.Main.Model
-  , createRoomForm : Maybe CreateRoomForm.Models.Model
+  , roomManager : Maybe RoomManager.Models.Model
   }
 
 setRoute : Router.Route -> Model -> (Model, Cmd Messages.Msg)
@@ -31,10 +31,10 @@ setRoute route model =
         _ ->
           (Nothing, Cmd.none)
 
-    (createRoomFormModel, createRoomFormCmd) =
+    (roomManagerModel, roomManagerCmd) =
       case route of
         Router.Rooms ->
-          (Just CreateRoomForm.Models.init, Cmd.none)
+          (Just RoomManager.Models.init, Cmd.none)
 
         _ ->
           (Nothing, Cmd.none)
@@ -42,7 +42,7 @@ setRoute route model =
     ( { model
           | route = route
           , game = gameModel
-          , createRoomForm = createRoomFormModel
+          , roomManager = roomManagerModel
       }
     , Cmd.map Messages.GameMsg gameCmd
     )
@@ -54,7 +54,7 @@ init flags route =
       { route = route
       , websocketHost = flags.websocketHost
       , game = Nothing
-      , createRoomForm = Nothing
+      , roomManager = Nothing
       }
     (gameModel, gameCmd) =
       setRoute route newModel

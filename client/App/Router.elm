@@ -7,6 +7,7 @@ import String
 type Route
   = Home
   | About
+  | Tutorial
   | Rooms
   | Room String
   | GamePlay String String
@@ -21,6 +22,7 @@ matchers =
   UrlParser.oneOf
     [ format Home (s "")
     , format About (s "about")
+    , format Tutorial (s "tutorial")
     , format GamePlay (s "rooms" </> string </> string)
     , format Room (s "rooms" </> string)
     , format Rooms (s "rooms")
