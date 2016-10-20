@@ -29,8 +29,7 @@ viewPlayer playerId player =
 view : (List Player) -> PlayerId -> Html Msg
 view players playerId =
   div
-    [ class "ready-screen"
-    ]
+    []
     [ h2 [] [ text "Ready, buddy?" ]
     , p [] [ text "The game will start once all players marked ready." ]
     , div [] (List.map (viewPlayer playerId) players)

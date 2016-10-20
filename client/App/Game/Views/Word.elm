@@ -19,7 +19,7 @@ view model room =
         |> Maybe.map Guess.getMadeValue
         |> Maybe.withDefault (Just 0)
     isDisabled = (Player.isDraw room.players) || ((Player.getWinnerId room.players) /= Nothing)
-    startAngle = (toFloat model.roundRandom) / 1000 * 2 * pi
+    startAngle = (toFloat model.currentRoundRandom) / 1000 * 2 * pi
     highlights =
       guessIndex
         |> Maybe.map (\i -> Dict.fromList [ (i, "highlighted") ])

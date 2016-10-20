@@ -12,8 +12,8 @@ init {roomId, playerId, websocketHost} =
       , roomId = roomId
       , playerId = playerId
       , websocketHost = websocketHost
-      , roundRandom = 0
-      , time = 0
+      , currentRoundRandom = 0
+      , currentRoundTime = 0
       }
   in
   ( model

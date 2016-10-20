@@ -16,9 +16,9 @@ type alias Model =
   { room : Maybe Room.Room
   , roomId : Room.RoomId
   , playerId : Player.PlayerId
-  , roundRandom : Int
   , websocketHost : String
-  , time : Time
+  , currentRoundRandom : Int
+  , currentRoundTime : Time
   }
 
 
@@ -29,9 +29,9 @@ getDummy s =
   { room = Nothing
   , roomId = "1"
   , playerId = "2"
-  , roundRandom = 0
   , websocketHost = "3"
-  , time = 0
+  , currentRoundRandom = 0
+  , currentRoundTime = 0
   }
 
 getWebSocketUrl : Model -> String
@@ -43,7 +43,7 @@ setOwnGuess guessValue model =
   let
     guess =
       { value = Guess.Made guessValue
-      , time = model.time
+      , time = model.currentRoundTime
       }
   in
     { model
