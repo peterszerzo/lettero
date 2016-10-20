@@ -35,6 +35,15 @@ isIncorrect guess =
     Idle -> True
     Made i -> i /= 0
 
+getMadeValue : Guess -> Maybe Int
+getMadeValue guess =
+  case guess.value of
+    Made i ->
+      Just i
+
+    _ ->
+      Nothing
+
 
 -- Encoders
 

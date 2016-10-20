@@ -1,7 +1,6 @@
 module Game.Views.Word exposing (view)
 
 import Html
-import String
 import Dict
 
 import Game.Models.Main exposing (Model, getOwnGuess)
@@ -17,15 +16,8 @@ view model room =
   let
     guessIndex =
       getOwnGuess model
-        |> Maybe.map .value
-        |> Maybe.map (
-              \val ->
-                case val of
-                  Guess.Made i -> Just i
-                  _ -> Nothing
-            )
+        |> Maybe.map Guess.getMadeValue
         |> Maybe.withDefault (Just 0)
-    letters = String.split "" room.roundData.word
     isDisabled = (Player.isDraw room.players) || ((Player.getWinnerId room.players) /= Nothing)
     startAngle = (toFloat model.roundRandom) / 1000 * 2 * pi
     highlights =
