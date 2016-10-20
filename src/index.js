@@ -6,7 +6,12 @@ import './styles/index.css';
 import './index.html';
 import './assets/favicon.ico';
 
-import {scheduleNewRound, findRoomById, savePlayer} from './controllers';
+import {
+  scheduleNewRound,
+  getRoom,
+  watchRoom,
+  updatePlayer
+} from './controllers';
 
 import Elm from './App/Main.elm';
 
@@ -34,13 +39,14 @@ domReady(() => {
   };
   elmApp.ports.send.subscribe(msg => {
     const roomId = getRoomId();
+    watchRoom(db, roomId, shipToElm);
     if (msg === 'requestRoomState') {
-      return findRoomById(db, roomId).then(shipToElm);
+      return getRoom(db, roomId).then(shipToElm);
     }
     if (msg === 'requestNewRound') {
-      return scheduleNewRound(db).then(shipToElm);
+      return scheduleNewRound(db, roomId).then(shipToElm);
     }
     const player = JSON.parse(msg);
-    savePlayer(db, roomId, player).then(shipToElm);
+    updatePlayer(db, roomId, player).then(shipToElm);
   });
 });

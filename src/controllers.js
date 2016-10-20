@@ -2,7 +2,7 @@ import curry from 'lodash/curry';
 
 let wordsCache;
 
-export const findRoomById = curry(
+export const getRoom = curry(
   (db, roomId) => {
     return db.ref(`/rooms/${roomId}`).once('value').then(s => s.val());
   }
@@ -28,9 +28,15 @@ export const saveRoom = curry(
   }
 );
 
+export const watchRoom = curry(
+  (db, roomId, onValue) => {
+    return db.ref(`/rooms/${roomId}`).on('value', s => onValue(s.val()));
+  }
+);
+
 export const updatePlayer = curry(
   (db, roomId, player) => {
-    return findRoomById(db, roomId)
+    return getRoom(db, roomId)
       .then(rm => {
         return Object.assign({}, rm, {
           players: rm.players.map(p => (p.id === player.id ? player : p))
@@ -41,7 +47,7 @@ export const updatePlayer = curry(
 
 export const setNewRound = curry(
   (db, roomId) => {
-    return findRoomById(db, roomId)
+    return getRoom(db, roomId)
       .then(rm => {
         return Promise.all([
           Promise.resolve(rm),
