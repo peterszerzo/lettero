@@ -23,4 +23,18 @@ update msg model =
       ( model, Cmd.none, Just newUrl )
 
     ClickLetter i ->
-      ( { model | stage = if i == 0 then CorrectGuess else IncorrectGuess }, Cmd.none, Nothing )
+      ( { model
+            | stage =
+                if model.stage == CorrectGuess
+                  then
+                    CorrectGuess 
+                  else
+                    if (i == 0)
+                      then
+                        CorrectGuess
+                      else
+                        IncorrectGuess
+        }
+      , Cmd.none
+      , Nothing
+      )

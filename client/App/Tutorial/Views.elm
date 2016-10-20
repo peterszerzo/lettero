@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import Dict
 
 import Tutorial.Messages exposing (Msg(..))
-import Tutorial.Models exposing (Model)
+import Tutorial.Models exposing (Model, getDialogContent)
 
 import UiKit.Notification
 import UiKit.Word
@@ -14,18 +14,12 @@ import UiKit.Word
 view : Model -> Html Msg
 view model =
   let
-    content = case model.stage of
-      Tutorial.Models.Start ->
-        "Heyyo. Ready for your word? Click me!"
-
-      Tutorial.Models.ShowWord ->
-        "Holy moly, who writes like that? It'll take decades to find the first letter of this word and click it!"
-
+    highlights = case model.stage of
       Tutorial.Models.CorrectGuess ->
-        "Right on, bud, right on. Honestly, there's nothing more to this game."
+        Dict.fromList [ (0, "highlighted") ]
 
-      Tutorial.Models.IncorrectGuess ->
-        "Not quite, not quite. Give it one more go?"
+      _ ->
+        Dict.empty
   in
     div
       [ class "app__page"
@@ -33,7 +27,7 @@ view model =
       [ div
           [ onClick StartTutorial
           ]
-          [ UiKit.Notification.view content True
+          [ UiKit.Notification.view (getDialogContent model) True
           ]
       , if model.stage /= Tutorial.Models.Start
           then
@@ -41,7 +35,8 @@ view model =
               { word = "hedgehog"
               , onLetterClick = ClickLetter
               , isDisabled = False
-              , highlights = Dict.empty
+              , startAngle = 0
+              , highlights = highlights
               }
           else div [] []
       ]
