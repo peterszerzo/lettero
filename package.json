@@ -15,6 +15,7 @@
     "express": "^4.14.0",
     "express-ws": "^2.0.0",
     "fastclick": "^1.0.6",
+    "firebase": "^3.5.1",
     "immutable": "^3.8.1",
     "marked": "^0.3.6",
     "mongoose": "^4.6.0",
@@ -43,8 +44,7 @@
     "webpack-validator": "^2.2.7"
   },
   "scripts": {
-    "watch": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "dev": "nodemon ./server",
+    "dev": "NODE_ENV=development ./node_modules/.bin/webpack-dev-server --content-base ./build --hot --open --port 3000 --config webpack.config.js --watch",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "postinstall": "npm i -g elm && npm run build",
     "start": "node ./server"
