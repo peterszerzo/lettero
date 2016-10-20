@@ -1,18 +1,19 @@
-module Views.Main exposing (view)
+module Root.Views.Main exposing (view)
 
 import Html exposing (Html, div, text ,h1, p, button)
 import Html.Attributes exposing (class, classList)
 import Html.App exposing (map)
 
 import Router
-import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Root.Messages exposing (Msg(..))
+import Root.Models exposing (Model)
 
-import Views.Home
-import Views.About
-import Views.NotFound
-import Views.Background
-import Views.Room
+import Root.Views.Home
+import Root.Views.About
+import Root.Views.NotFound
+import Root.Views.Background
+import Root.Views.Room
+
 import Game.Views.Main
 import Game.Models.Main
 import RoomManager.Views
@@ -25,13 +26,13 @@ view model =
   let
     content = case model.route of
       Router.Home ->
-        Views.Home.view Messages.ChangeRoute
+        Root.Views.Home.view Root.Messages.ChangeRoute
 
       Router.About ->
-        Views.About.view
+        Root.Views.About.view
 
       Router.NotFound ->
-        Views.NotFound.view
+        Root.Views.NotFound.view
 
       Router.Rooms ->
         model.roomManager
@@ -40,7 +41,7 @@ view model =
           |> map RoomManagerMsg
 
       Router.Room roomId ->
-        Views.Room.view
+        Root.Views.Room.view
 
       Router.GamePlay roomId playerId ->
         model.game
@@ -58,6 +59,6 @@ view model =
     div
       [ class "app"
       ]
-      [ Views.Background.view
+      [ Root.Views.Background.view
       , content
       ]

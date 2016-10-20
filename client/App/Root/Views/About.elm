@@ -1,4 +1,4 @@
-module Views.About exposing (view)
+module Root.Views.About exposing (view)
 
 import Html exposing (Html, div, text ,h1, p, button, nav)
 import Html.Attributes exposing (class, classList)

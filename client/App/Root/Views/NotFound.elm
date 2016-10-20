@@ -1,4 +1,4 @@
-module Views.NotFound exposing (view)
+module Root.Views.NotFound exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (class, classList)

@@ -1,11 +1,11 @@
-module Models exposing (..)
+module Root.Models exposing (..)
 
-import Game.Models.Main
 import RoomManager.Models
 import Tutorial.Models
 import Router
-import Messages
-import Helpers
+import Root.Messages
+import Game.Models.Main
+import Game.Init
 
 type alias Flags =
   { websocketHost : String
@@ -19,16 +19,22 @@ type alias Model =
   , tutorial : Maybe Tutorial.Models.Model
   }
 
-setRoute : Router.Route -> Model -> (Model, Cmd Messages.Msg)
+maybeLiftFirstInTuple : (a, b) -> (Maybe a, b)
+maybeLiftFirstInTuple (a, b) =
+  (Just a, b)
+
+setRoute : Router.Route -> Model -> (Model, Cmd Root.Messages.Msg)
 setRoute route model =
   let
     (gameModel, gameCmd) =
       case route of
         Router.GamePlay roomId playerId ->
-          let (gm, cmd) =
-            Helpers.initGame roomId playerId model.websocketHost
-          in
-            (Just gm, cmd)
+          Game.Init.init
+            { roomId = roomId
+            , playerId = playerId
+            , websocketHost = model.websocketHost
+            }
+            |> maybeLiftFirstInTuple
 
         _ ->
           (Nothing, Cmd.none)
@@ -56,13 +62,13 @@ setRoute route model =
           , tutorial = tutorialModel
       }
     , Cmd.batch
-        [ Cmd.map Messages.GameMsg gameCmd
-        , Cmd.map Messages.RoomManagerMsg roomManagerCmd
-        , Cmd.map Messages.TutorialMsg tutorialCmd
+        [ Cmd.map Root.Messages.GameMsg gameCmd
+        , Cmd.map Root.Messages.RoomManagerMsg roomManagerCmd
+        , Cmd.map Root.Messages.TutorialMsg tutorialCmd
         ]
     )
 
-init : Flags -> Router.Route -> (Model, Cmd Messages.Msg)
+init : Flags -> Router.Route -> (Model, Cmd Root.Messages.Msg)
 init flags route =
   setRoute route
     { route = route
@@ -72,7 +78,7 @@ init flags route =
     , tutorial = Nothing
     }
 
-initWithRoute : Flags -> Result a Router.Route -> (Model, Cmd Messages.Msg)
+initWithRoute : Flags -> Result a Router.Route -> (Model, Cmd Root.Messages.Msg)
 initWithRoute flags result =
   Router.routeFromResult result
     |> init flags
