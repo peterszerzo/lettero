@@ -3,6 +3,7 @@ module Tutorial.Views exposing (..)
 import Html exposing (Html, div, text, h2)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
+import Dict
 
 import Tutorial.Messages exposing (Msg(..))
 import Tutorial.Models exposing (Model)
@@ -40,6 +41,7 @@ view model =
               { word = "hedgehog"
               , onLetterClick = ClickLetter
               , isDisabled = False
+              , highlights = Dict.empty
               }
           else div [] []
       ]
