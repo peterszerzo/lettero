@@ -1,7 +1,7 @@
 module Game.Views.ReadyScreen exposing (view)
 
 import Html exposing (Html, div, p, h1, h2, text, button, span)
-import Html.Attributes exposing (class, classList)
+import Html.Attributes exposing (class, classList, disabled)
 import Html.Events exposing (onClick)
 
 import Game.Messages exposing (Msg(..))
@@ -11,7 +11,11 @@ viewPlayer : PlayerId -> Player -> Html Msg
 viewPlayer playerId player =
   let
     classAttributes =
-      [ classList [("button", True), ("button--disabled", (player.id /= playerId))]
+      [ classList
+          [ ("button", True)
+          , ("button--disabled", (player.id /= playerId))
+          ]
+      , disabled (player.id /= playerId)
       ]
     eventAttributes =
       if player.id == playerId

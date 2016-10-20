@@ -1,4 +1,7 @@
 :root {
+  --cooldown-duration: 3s;
+  --round-duration: 5s;
+
   --word-max-size: calc(30vh + 30vw);
   --word-offset-mobile: 40px;
   --letter-size: calc(5.5vh + 5.5vw);
@@ -11,6 +14,8 @@
   --geometric-typeface: 'Dosis', sans-serif;
 
   --border-radius: 6px;
+
+  --background-letter-opacity: .03;
 
   --panel-skin {
     border-radius: var(--border-radius);
@@ -122,7 +127,7 @@ p {
   position: absolute;
   left: 0;
   top: 0;
-  opacity: .03;
+  opacity: var(--background-letter-opacity);
   z-index: 1;
 
   & p {
@@ -227,8 +232,8 @@ p {
 }
 
 .word--disabled {
-  opacity: .2;
-  transition: opacity 1.5s;
+  opacity: var(--background-letter-opacity);
+  transition: opacity var(--cooldown-duration);
 }
 
 .word__letter {
@@ -247,12 +252,6 @@ p {
   display: block;
   text-transform: uppercase;
   cursor: pointer;
-
-  @nest .word--disabled &:nth-of-type(1) {
-    border: 3px solid var(--white);
-    transform: scale(1.2);
-    transition: transform .3s;
-  }
 }
 
 .word__letter--highlighted {
@@ -262,6 +261,13 @@ p {
   &:hover {
     background-color: var(--white);
   }
+}
+
+.word__letter--marked {
+  background: none;
+  border: 3px solid var(--white);
+  transform: scale(1.2);
+  transition: transform .3s;
 }
 
 

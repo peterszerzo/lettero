@@ -13,14 +13,14 @@ viewContent : Model -> List (Html Msg)
 viewContent model =
   if model.status == Startup
     then
-      [ p [] [ text "Let's do it! Wanna see a tutorial?" ]
+      [ p [] [ text "Let’s do it! Wanna see a tutorial?" ]
       , button
           [ class "button"
           , onClick (Navigate "/tutorial")
           ]
           [ text "Yes tutorial"
           ]
-      , p [] [ text "One day, you'll be able to create your very own game room and invite your friends to it. For now, though, we only have the test room open for you, where you can play as:" ]
+      , p [] [ text "One day, you’ll be able to create your very own game room and invite your friends to it. For now, though, we only have the test room open for you, where you can play as:" ]
       , a
           [ class "button"
           , onClick (Navigate "/rooms/theroom/alfred")
