@@ -1,6 +1,6 @@
 module Game.Commands exposing (..)
 
-import WebSocket exposing (send)
+import Ports exposing (send)
 import Random
 
 import Game.Messages exposing (Msg(..))
@@ -16,17 +16,16 @@ sendPlayerStatusUpdate model =
         |> Maybe.map (Player.unsafeFindById model.playerId)
         |> Maybe.map Player.encodePlayer
         |> Maybe.withDefault ""
-    webSocketUrl = getWebSocketUrl model
   in
-    send webSocketUrl encodedPlayer
+    send encodedPlayer
 
 requestRoomState : Model -> Cmd Msg
 requestRoomState model =
-  send (getWebSocketUrl model) "requestRoomState"
+  send "requestRoomState"
 
 requestNewRound : Model -> Cmd Msg
 requestNewRound model =
-  send (getWebSocketUrl model) "requestNewRound"
+  send "requestNewRound"
 
 requestRoundRandom : () -> Cmd Msg
 requestRoundRandom _ =

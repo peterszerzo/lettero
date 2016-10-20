@@ -6,7 +6,9 @@ import './styles/index.css';
 import './index.html';
 import './assets/favicon.ico';
 
-// import Elm from './App/Main.elm';
+import {scheduleNewRound, findRoomById, savePlayer} from './controllers';
+
+import Elm from './App/Main.elm';
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -16,9 +18,29 @@ const config = {
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
 };
 
+function getRoomId() {
+  return location.pathname.split('/')[2];
+}
+
 domReady(() => {
   attachFastClick.attach(document.body);
   const app = firebase.initializeApp(config);
   const db = app.database();
-  console.log(db);
+  const elmApp = Elm.Main.embed(document.body, {
+    websocketHost: 'apples'
+  });
+  const shipToElm = (obj) => {
+    elmApp.ports.getRoom.send(JSON.stringify(obj));
+  };
+  elmApp.ports.send.subscribe(msg => {
+    const roomId = getRoomId();
+    if (msg === 'requestRoomState') {
+      return findRoomById(db, roomId).then(shipToElm);
+    }
+    if (msg === 'requestNewRound') {
+      return scheduleNewRound(db).then(shipToElm);
+    }
+    const player = JSON.parse(msg);
+    savePlayer(db, roomId, player).then(shipToElm);
+  });
 });

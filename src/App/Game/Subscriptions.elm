@@ -1,7 +1,8 @@
 module Game.Subscriptions exposing (..)
 
-import WebSocket exposing (listen)
 import Time exposing (every)
+
+import Ports exposing (getRoom)
 
 import Game.Models.Main exposing (Model, getWebSocketUrl)
 import Game.Messages exposing (Msg(..))
@@ -13,6 +14,6 @@ subscriptions model =
     webSocketUrl = getWebSocketUrl model
   in
     Sub.batch
-      [ listen webSocketUrl ReceiveRoomState
+      [ getRoom ReceiveRoomState
       , every tickDuration Tick
       ]
