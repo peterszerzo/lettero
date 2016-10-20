@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const validate = require('webpack-validator');
 const postCssCssNext = require('postcss-cssnext');
-const postCssImport = require('postcss-import');
 const dotenv = require('dotenv');
 
 dotenv.load();
@@ -59,7 +58,6 @@ const config = {
   },
   postcss() {
     return [
-      postCssImport(),
       postCssCssNext({
         browsers: ['ie >= 10', 'last 3 versions']
       })

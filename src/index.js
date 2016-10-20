@@ -6,7 +6,7 @@ import './styles/index.css';
 import './index.html';
 import './assets/favicon.ico';
 
-import Elm from './App/Main.elm';
+// import Elm from './App/Main.elm';
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -19,5 +19,6 @@ const config = {
 domReady(() => {
   attachFastClick.attach(document.body);
   const app = firebase.initializeApp(config);
-  console.log(app, Elm);
+  const db = app.database();
+  console.log(db);
 });
