@@ -4,11 +4,8 @@ import Json.Decode exposing (Decoder, (:=), object5, maybe, string, int, float, 
 import Json.Encode as JE
 import Game.Models.Guess as Guess
 
-type alias PlayerId =
-  String
-
 type alias Player =
-  { id : PlayerId
+  { id : String
   , roomId : String
   , score : Int
   , guess : Guess.Guess
@@ -25,14 +22,14 @@ getDummy t =
 
 -- Assumes the player is always found
 
-unsafeFindById : PlayerId -> List Player -> Player
+unsafeFindById : String -> List Player -> Player
 unsafeFindById playerId players =
   players
     |> List.filter ((==) playerId << .id)
     |> List.head
     |> Maybe.withDefault (getDummy "")
 
-setReady : PlayerId -> List Player -> List Player
+setReady : String -> List Player -> List Player
 setReady playerId =
   List.map
     (\player -> if (playerId == player.id) then { player | isReady = True } else player)

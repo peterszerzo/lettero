@@ -6,20 +6,18 @@ import Game.Models.Player as Player
 import Game.Models.Guess as Guess
 import Game.Models.RoundData as RoundData
 
-type alias RoomId = String
-
 type alias Room =
-  { id : RoomId
+  { id : String
   , round : Int
   , roundData : RoundData.RoundData
-  , hostId : Player.PlayerId
+  , hostId : String
   , players : List Player.Player
   }
 
 
 -- Helpers
 
-setGuess : Guess.Guess -> Player.PlayerId -> Room -> Room
+setGuess : Guess.Guess -> String -> Room -> Room
 setGuess guess playerId room =
   let
     previousWinnerId = Player.getWinnerId room.players
@@ -36,7 +34,7 @@ setGuess guess playerId room =
   in
     { room | players = players' }
 
-getGuess : Player.PlayerId -> Room -> Guess.Guess
+getGuess : String -> Room -> Guess.Guess
 getGuess playerId room =
   Player.unsafeFindById playerId room.players
     |> .guess
@@ -56,7 +54,7 @@ isRoundOver room =
   in
     didSomeoneWin || didAllGuess
 
-canGuess : Player.PlayerId -> Room -> Bool
+canGuess : String -> Room -> Bool
 canGuess playerId room =
   let
     playerDidNotGuess =
@@ -65,7 +63,7 @@ canGuess playerId room =
   in
     playerDidNotGuess && (not (isRoundOver room))
 
-setReady : Player.PlayerId -> Room -> Room
+setReady : String -> Room -> Room
 setReady playerId room =
   { room |
       players =

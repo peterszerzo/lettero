@@ -2,14 +2,13 @@ module Game.Models.Main exposing (..)
 
 import Time exposing (Time)
 
-import Game.Models.Player as Player
 import Game.Models.Room as Room
 import Game.Models.Guess as Guess
 
 type alias Model =
   { room : Maybe Room.Room
-  , roomId : Room.RoomId
-  , playerId : Player.PlayerId
+  , roomId : String
+  , playerId : String
   , currentRoundRandom : Int
   , currentRoundTime : Time
   }

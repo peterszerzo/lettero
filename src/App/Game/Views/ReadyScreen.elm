@@ -5,9 +5,9 @@ import Html.Attributes exposing (class, classList, disabled)
 import Html.Events exposing (onClick)
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.Player exposing (Player, PlayerId)
+import Game.Models.Player exposing (Player)
 
-viewPlayer : PlayerId -> Player -> Html Msg
+viewPlayer : String -> Player -> Html Msg
 viewPlayer playerId player =
   let
     classAttributes =
@@ -30,7 +30,7 @@ viewPlayer playerId player =
       [ text content
       ]
 
-view : (List Player) -> PlayerId -> Html Msg
+view : (List Player) -> String -> Html Msg
 view players playerId =
   div
     []
