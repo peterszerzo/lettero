@@ -6,17 +6,10 @@ import Game.Models.Player as Player
 import Game.Models.Room as Room
 import Game.Models.Guess as Guess
 
-type alias Flags =
-  { roomId : Room.RoomId
-  , playerId : Player.PlayerId
-  , websocketHost : String
-  }
-
 type alias Model =
   { room : Maybe Room.Room
   , roomId : Room.RoomId
   , playerId : Player.PlayerId
-  , websocketHost : String
   , currentRoundRandom : Int
   , currentRoundTime : Time
   }
@@ -29,14 +22,9 @@ getDummy s =
   { room = Nothing
   , roomId = "1"
   , playerId = "2"
-  , websocketHost = "3"
   , currentRoundRandom = 0
   , currentRoundTime = 0
   }
-
-getWebSocketUrl : Model -> String
-getWebSocketUrl model =
-  model.websocketHost ++ "/ws/" ++ model.roomId
 
 setOwnGuess : Int -> Model -> Model
 setOwnGuess guessValue model =

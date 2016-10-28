@@ -5,13 +5,13 @@ import Navigation
 
 import Router exposing (Route, parser)
 import Root.Views.Main exposing (view)
-import Root.Models exposing (Flags, initWithRoute)
+import Root.Models exposing (initWithRoute)
 import Root.Subscriptions exposing (subscriptions)
 import Root.Update exposing (update, urlUpdate)
 
-main : Program Flags
+main : Program Never
 main =
-  Navigation.programWithFlags parser
+  Navigation.program parser
     { init = initWithRoute
     , view = view
     , update = update

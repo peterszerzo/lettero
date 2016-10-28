@@ -1,4 +1,4 @@
-port module Ports exposing (..)
+port module Game.Ports exposing (..)
 
 -- Inbound port
 port getRoom : (String -> msg) -> Sub msg

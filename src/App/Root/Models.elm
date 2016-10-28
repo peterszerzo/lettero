@@ -7,13 +7,8 @@ import Root.Messages
 import Game.Models.Main
 import Game.Init
 
-type alias Flags =
-  { websocketHost : String
-  }
-
 type alias Model =
   { route : Router.Route
-  , websocketHost : String
   , game : Maybe Game.Models.Main.Model
   , roomManager : Maybe RoomManager.Models.Model
   , tutorial : Maybe Tutorial.Models.Model
@@ -32,7 +27,6 @@ setRoute route model =
           Game.Init.init
             { roomId = roomId
             , playerId = playerId
-            , websocketHost = model.websocketHost
             }
             |> maybeLiftFirstInTuple
 
@@ -68,17 +62,16 @@ setRoute route model =
         ]
     )
 
-init : Flags -> Router.Route -> (Model, Cmd Root.Messages.Msg)
-init flags route =
+init : Router.Route -> (Model, Cmd Root.Messages.Msg)
+init route =
   setRoute route
     { route = route
-    , websocketHost = flags.websocketHost
     , game = Nothing
     , roomManager = Nothing
     , tutorial = Nothing
     }
 
-initWithRoute : Flags -> Result a Router.Route -> (Model, Cmd Root.Messages.Msg)
-initWithRoute flags result =
+initWithRoute : Result a Router.Route -> (Model, Cmd Root.Messages.Msg)
+initWithRoute result =
   Router.routeFromResult result
-    |> init flags
+    |> init

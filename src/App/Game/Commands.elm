@@ -1,11 +1,11 @@
 module Game.Commands exposing (..)
 
-import Ports exposing (send)
+import Game.Ports exposing (send)
 import Random
 
 import Game.Messages exposing (Msg(..))
 import Game.Models.Player as Player
-import Game.Models.Main exposing (Model, getWebSocketUrl)
+import Game.Models.Main exposing (Model)
 
 sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =

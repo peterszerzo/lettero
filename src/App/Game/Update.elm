@@ -50,7 +50,9 @@ update msg model =
         )
 
     ReceiveRoundRandom roundRandom ->
-      ( { model | currentRoundRandom = roundRandom }
+      ( { model
+            | currentRoundRandom = roundRandom
+        }
       , Cmd.none
       , Nothing
       )
