@@ -17,15 +17,21 @@ sendPlayerStatusUpdate model =
         |> Maybe.map Player.encodePlayer
         |> Maybe.withDefault ""
   in
-    send encodedPlayer
+    send
+      (
+        "{\"type\": \"player\"" ++
+        ", \"roomId\": \"" ++ model.roomId ++
+        "\", \"payload\": " ++ encodedPlayer ++
+        "}"
+      )
 
 requestRoomState : Model -> Cmd Msg
 requestRoomState model =
-  send "requestRoomState"
+  send ("{\"type\": \"requestRoomState\", \"roomId\": \"" ++ model.roomId ++ "\"}")
 
 requestNewRound : Model -> Cmd Msg
 requestNewRound model =
-  send "requestNewRound"
+  send ("{\"type\": \"requestNewRound\", \"roomId\": \"" ++ model.roomId ++ "\"}")
 
 requestRoundRandom : () -> Cmd Msg
 requestRoundRandom _ =

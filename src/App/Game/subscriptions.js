@@ -6,10 +6,6 @@ import {
 } from './controllers';
 import {getDb} from '../../utilities/firebase';
 
-function getRoomId() {
-  return location.pathname.split('/')[2];
-}
-
 export default (ports) => {
 
   const db = getDb();
@@ -17,16 +13,19 @@ export default (ports) => {
   const shipToElm = (obj) => {
     ports.getRoom.send(JSON.stringify(obj));
   };
-  ports.send.subscribe(msg => {
-    const roomId = getRoomId();
+  ports.send.subscribe((msgString) => {
+    console.log(msgString);
+    const {type, roomId, payload} = JSON.parse(msgString);
+    console.log(type, roomId, payload);
     watchRoom(db, roomId, shipToElm);
-    if (msg === 'requestRoomState') {
+    if (type === 'requestRoomState') {
       return getRoom(db, roomId).then(shipToElm);
     }
-    if (msg === 'requestNewRound') {
+    if (type === 'requestNewRound') {
       return scheduleNewRound(db, roomId).then(shipToElm);
     }
-    const player = JSON.parse(msg);
-    updatePlayer(db, roomId, player).then(shipToElm);
+    if (type === 'player') {
+      updatePlayer(db, roomId, payload).then(shipToElm);
+    }
   });
 };
