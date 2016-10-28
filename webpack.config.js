@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const validate = require('webpack-validator');
 const postCssCssNext = require('postcss-cssnext');
 const dotenv = require('dotenv');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 dotenv.load();
 
@@ -15,6 +16,10 @@ const commonPlugins = [
     'process.env.FIREBASE_DATABASE_URL': `"${process.env.FIREBASE_DATABASE_URL}"`,
     'process.env.FIREBASE_STORAGE_BUCKET': `"${process.env.FIREBASE_STORAGE_BUCKET}"`,
     'process.env.FIREBASE_MESSAGING_SENDER_ID': `"${process.env.FIREBASE_MESSAGING_SENDER_ID}"`
+  }),
+  new HtmlWebpackPlugin({
+    template: './src/index.pug',
+    inject: false
   })
 ];
 
@@ -53,6 +58,10 @@ const config = {
       {
         test: /\.md/,
         loader: 'raw'
+      },
+      {
+        test: /\.pug/,
+        loader: 'pug'
       }
     ]
   },

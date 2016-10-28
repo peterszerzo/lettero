@@ -3,7 +3,6 @@ import attachFastClick from 'fastclick';
 import firebase from 'firebase';
 
 import './styles/index.css';
-import './index.html';
 import './assets/favicon.ico';
 
 import {
