@@ -1,13 +1,14 @@
 module Game.Views.ReadyScreen exposing (view)
 
+import Dict
 import Html exposing (Html, div, p, h1, h2, text, button, span)
 import Html.Attributes exposing (class, classList, disabled)
 import Html.Events exposing (onClick)
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.Player exposing (Player)
+import Game.Models.Player as Player
 
-viewPlayer : String -> Player -> Html Msg
+viewPlayer : String -> Player.Player -> Html Msg
 viewPlayer playerId player =
   let
     classAttributes =
@@ -30,11 +31,17 @@ viewPlayer playerId player =
       [ text content
       ]
 
-view : (List Player) -> String -> Html Msg
+view : Player.Players -> String -> Html Msg
 view players playerId =
   div
     []
     [ h2 [] [ text "Ready, buddy?" ]
     , p [] [ text "The game will start once all players marked ready." ]
-    , div [] (List.map (viewPlayer playerId) players)
+    , div []
+        (
+          players
+            |> Dict.toList
+            |> List.map snd
+            |> List.map (viewPlayer playerId)
+        )
     ]

@@ -14,9 +14,7 @@ export default (ports) => {
     ports.getRoom.send(JSON.stringify(obj));
   };
   ports.send.subscribe((msgString) => {
-    console.log(msgString);
     const {type, roomId, payload} = JSON.parse(msgString);
-    console.log(type, roomId, payload);
     watchRoom(db, roomId, shipToElm);
     if (type === 'requestRoomState') {
       return getRoom(db, roomId).then(shipToElm);

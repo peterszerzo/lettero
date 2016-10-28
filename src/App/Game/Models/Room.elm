@@ -11,7 +11,7 @@ type alias Room =
   , round : Int
   , roundData : RoundData.RoundData
   , hostId : String
-  , players : List Player.Player
+  , players : Player.Players
   }
 
 
@@ -22,13 +22,11 @@ setGuess guess playerId room =
   let
     previousWinnerId = Player.getWinnerId room.players
     players =
-      room.players
-        |> List.map (\p -> if p.id == playerId then {p | guess = guess} else p)
+      Player.update (\p -> { p | guess = guess }) playerId players
     newWinnerId = Player.getWinnerId players
     players' = if (previousWinnerId == Nothing && newWinnerId == (Just playerId))
       then
-        players
-          |> List.map (\p -> if p.id == playerId then {p | score = p.score + 1} else p)
+        Player.update (\p -> { p | score = p.score + 1 }) playerId players
       else
         players
   in
@@ -41,18 +39,7 @@ getGuess playerId room =
 
 isRoundOver : Room -> Bool
 isRoundOver room =
-  let
-    didSomeoneWin =
-      room.players
-        |> List.map (Guess.isCorrect << .guess)
-        |> List.any identity
-    didAllGuess =
-      room.players
-        |> List.map (Guess.isPending << .guess)
-        |> List.any identity
-        |> not
-  in
-    didSomeoneWin || didAllGuess
+  (Player.didSomeoneWin room.players) || (Player.didAllGuess room.players)
 
 canGuess : String -> Room -> Bool
 canGuess playerId room =

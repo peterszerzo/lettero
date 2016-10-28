@@ -1,7 +1,9 @@
 module Game.Models.Player exposing (..)
 
-import Json.Decode exposing (Decoder, (:=), object5, maybe, string, int, float, bool, list)
+import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
+import Dict
+
 import Game.Models.Guess as Guess
 
 type alias Player =
@@ -11,6 +13,8 @@ type alias Player =
   , guess : Guess.Guess
   , isReady : Bool
   }
+
+type alias Players = Dict.Dict String Player
 
 
 -- Helpers
@@ -22,22 +26,27 @@ getDummy t =
 
 -- Assumes the player is always found
 
-unsafeFindById : String -> List Player -> Player
+unsafeFindById : String -> Players -> Player
 unsafeFindById playerId players =
   players
-    |> List.filter ((==) playerId << .id)
-    |> List.head
+    |> Dict.get playerId
     |> Maybe.withDefault (getDummy "")
 
-setReady : String -> List Player -> List Player
-setReady playerId =
-  List.map
-    (\player -> if (playerId == player.id) then { player | isReady = True } else player)
+update : (Player -> Player) -> String -> Players -> Players
+update fn playerId players =
+  let
+    player = unsafeFindById playerId players
+  in
+    Dict.insert playerId (fn player) players
 
-areAllReady : List Player -> Bool
+setReady : String -> Players -> Players
+setReady = update (\p -> { p | isReady = True })
+
+areAllReady : Players -> Bool
 areAllReady players =
   players
-    |> List.map (.isReady)
+    |> Dict.toList
+    |> List.map (.isReady << snd)
     |> List.all identity
 
 hasCorrectGuess : Player -> Bool
@@ -61,36 +70,50 @@ compareByGuessTime player1 player2 =
     else
       (if time1 == time2 then EQ else GT)
 
-getWinnerId : List Player -> Maybe String
+getWinnerId : Players -> Maybe String
 getWinnerId players =
   players
+    |> Dict.toList
+    |> List.map snd
     |> List.filter hasCorrectGuess
     |> List.sortWith compareByGuessTime
     |> List.head
     |> Maybe.map (.id)
 
-
-isDraw : List Player -> Bool
+isDraw : Players -> Bool
 isDraw players =
   players
+    |> Dict.toList
+    |> List.map snd
     |> List.map hasIncorrectGuess
     |> List.all identity
 
+didSomeoneWin : Players -> Bool
+didSomeoneWin players =
+  (getWinnerId players) /= Nothing
+
+didAllGuess : Players -> Bool
+didAllGuess players =
+  players
+    |> Dict.toList
+    |> List.map (Guess.isPending << .guess << snd)
+    |> List.any identity
+    |> not
 
 -- Decoders
 
-playerDecoder : Decoder Player
+playerDecoder : JD.Decoder Player
 playerDecoder =
-  object5 Player
-    ( "id" := string )
-    ( "roomId" := string )
-    ( "score" := int )
+  JD.object5 Player
+    ( "id" := JD.string )
+    ( "roomId" := JD.string )
+    ( "score" := JD.int )
     ( "guess" := Guess.guessDecoder )
-    ( "isReady" := bool )
+    ( "isReady" := JD.bool )
 
-playersDecoder : Decoder (List Player)
+playersDecoder : JD.Decoder Players
 playersDecoder =
-  list playerDecoder
+  JD.dict playerDecoder
 
 
 -- Encoders

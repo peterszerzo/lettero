@@ -2,11 +2,12 @@ module Game.Views.ScoreBoard exposing (view)
 
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList)
+import Dict
 
-import Game.Models.Player exposing (Player)
+import Game.Models.Player as Player
 import Game.Messages exposing (Msg(..))
 
-viewPlayer : Player -> Html Msg
+viewPlayer : Player.Player -> Html Msg
 viewPlayer { id, score } =
   div
     [ class "score-board__item"
@@ -15,11 +16,16 @@ viewPlayer { id, score } =
     , p [ class "score-board__score" ] [ text (toString score) ]
     ]
 
-view : String -> List Player -> Html Msg
+view : String -> Player.Players -> Html Msg
 view playerId players =
   div
     [ class "score-board"
     ]
     [ div [ class "score-board__items" ]
-        (List.map viewPlayer players)
+        (
+          players
+            |> Dict.toList
+            |> List.map snd
+            |> List.map viewPlayer
+        )
     ]
