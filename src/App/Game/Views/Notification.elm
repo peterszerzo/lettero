@@ -21,6 +21,7 @@ getContent winner self =
 view : Model -> Room -> Html Msg
 view model room =
   let
+    ownGuess = getOwnGuess model
     (isActive, content) =
       if Player.isDraw room.players then
         (True, "It’s a tie, folks")
@@ -28,8 +29,10 @@ view model room =
         Player.getWinnerId room.players
           |> Maybe.map (\id -> (True, getContent id model.playerId))
           |> Maybe.withDefault (False, "")
-      else if (getOwnGuess model |> Maybe.map .value |> (==) (Just Guess.Idle)) then
-        (True, "You ran out of time!")
+      else if (ownGuess |> Maybe.map .value |> (==) (Just Guess.Idle)) then
+        (True, "Oupsie, ran out of time there :/")
+      else if (ownGuess |> Maybe.map Guess.isIncorrect |> (==) (Just True)) then
+        (True, "Not quite what we were looking for :(")
       else
         (False, "")
   in
