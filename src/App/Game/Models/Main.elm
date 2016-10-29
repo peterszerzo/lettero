@@ -19,7 +19,7 @@ type alias Model =
 getDummy : String -> Model
 getDummy s =
   { room = Nothing
-  , roomId = "1"
+  , roomId = s
   , playerId = "2"
   , currentRoundRandom = 0
   , currentRoundTime = 0

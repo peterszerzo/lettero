@@ -52,18 +52,23 @@ export const setNewRound = curry(
         ]);
       })
       .then(([rm, words]) => {
-        return Object.assign({}, rm, {
-          round: rm.round + 1,
-          roundData: {
-            word: words[Math.floor(Math.random() * words.length)]
-          },
-          players: rm.players.map(player => Object.assign({}, player, {
+        const newPlayers = {};
+        Object.keys(rm.players).forEach(key => {
+          newPlayers[key] = Object.assign({}, rm.players[key], {
             guess: {
               value: 'pending',
               time: 0
             }
-          }))
+          });
         });
+        const newRm = Object.assign({}, rm, {
+          round: rm.round + 1,
+          roundData: {
+            word: words[Math.floor(Math.random() * words.length)]
+          },
+          players: newPlayers
+        });
+        return newRm;
       })
       .then(saveRoom(db));
   }

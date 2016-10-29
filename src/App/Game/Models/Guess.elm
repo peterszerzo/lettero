@@ -4,7 +4,10 @@ import Time exposing (Time)
 import Json.Encode as JE
 import Json.Decode as JD exposing (Decoder, (:=), object2)
 
-type GuessValue = Pending | Idle | Made Int
+type GuessValue
+  = Pending
+  | Idle
+  | Made Int
 
 type alias Guess =
   { value : GuessValue

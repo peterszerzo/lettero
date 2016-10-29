@@ -20,8 +20,8 @@ type alias Players = Dict.Dict String Player
 -- Helpers
 
 getDummy : String -> Player
-getDummy t =
-  { id = "apples"
+getDummy id' =
+  { id = id'
   , roomId = "pears"
   , score = 0
   , guess = Guess.getDummy ""

@@ -59,7 +59,6 @@ update msg model =
 
     MakeGuess guessValue ->
       let
-        _ = guessValue |> Debug.log "guessvalue"
         canMakeGuess =
           model.room
             |> Maybe.map (Room.canGuess model.playerId)
