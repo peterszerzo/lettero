@@ -1,8 +1,8 @@
 module Game.Models.Player exposing (..)
 
+import Dict
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
-import Dict
 
 import Game.Models.Guess as Guess
 
@@ -28,14 +28,15 @@ getDummy t =
   , isReady = False
   }
 
-
--- Assumes the player is always found
-
 unsafeFindById : String -> Players -> Player
 unsafeFindById playerId players =
   players
     |> Dict.get playerId
     |> Maybe.withDefault (getDummy "")
+
+toList : Players -> List Player
+toList =
+  (List.map snd) << Dict.toList
 
 update : (Player -> Player) -> String -> Players -> Players
 update fn playerId players =
@@ -44,14 +45,11 @@ update fn playerId players =
   in
     Dict.insert playerId (fn player) players
 
-setReady : String -> Players -> Players
-setReady = update (\p -> { p | isReady = True })
-
 areAllReady : Players -> Bool
 areAllReady players =
   players
-    |> Dict.toList
-    |> List.map (.isReady << snd)
+    |> toList
+    |> List.map .isReady
     |> List.all identity
 
 hasCorrectGuess : Player -> Bool
@@ -78,8 +76,7 @@ compareByGuessTime player1 player2 =
 getWinnerId : Players -> Maybe String
 getWinnerId players =
   players
-    |> Dict.toList
-    |> List.map snd
+    |> toList
     |> List.filter hasCorrectGuess
     |> List.sortWith compareByGuessTime
     |> List.head
@@ -100,8 +97,8 @@ didSomeoneWin players =
 didAllGuess : Players -> Bool
 didAllGuess players =
   players
-    |> Dict.toList
-    |> List.map (Guess.isPending << .guess << snd)
+    |> toList
+    |> List.map (Guess.isPending << .guess)
     |> List.any identity
     |> not
 

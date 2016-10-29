@@ -22,21 +22,21 @@ getDummy s =
 
 isCorrect : Guess -> Bool
 isCorrect guess =
-  guess.value == Made 0
+  guess.value == (Made 0)
+
 
 isPending : Guess -> Bool
 isPending guess =
   guess.value == Pending
 
+
 isIncorrect : Guess -> Bool
 isIncorrect guess =
-  case guess.value of
-    Pending -> False
-    Idle -> True
-    Made i -> i /= 0
+  not (isCorrect guess) && not (isPending guess)
 
-getMadeValue : Guess -> Maybe Int
-getMadeValue guess =
+
+toMaybe : Guess -> Maybe Int
+toMaybe guess =
   case guess.value of
     Made i ->
       Just i
@@ -46,6 +46,7 @@ getMadeValue guess =
 
 
 -- Encoders
+
 
 guessEncoder : Guess -> JE.Value
 guessEncoder {value, time} =
@@ -69,6 +70,7 @@ encodeGuess guess =
 
 -- Decoders
 
+
 valueDecoder : Decoder GuessValue
 valueDecoder =
   JD.oneOf
@@ -82,6 +84,7 @@ valueDecoder =
                 JD.succeed Idle
         )
     ]
+
 
 guessDecoder : Decoder Guess
 guessDecoder =

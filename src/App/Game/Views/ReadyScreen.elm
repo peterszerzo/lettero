@@ -1,6 +1,5 @@
 module Game.Views.ReadyScreen exposing (view)
 
-import Dict
 import Html exposing (Html, div, p, h1, h2, text, button, span)
 import Html.Attributes exposing (class, classList, disabled)
 import Html.Events exposing (onClick)
@@ -35,13 +34,18 @@ view : Player.Players -> String -> Html Msg
 view players playerId =
   div
     []
-    [ h2 [] [ text "Ready, buddy?" ]
-    , p [] [ text "The game will start once all players marked ready." ]
+    [ h2
+        []
+        [ text "Ready, fellas?"
+        ]
+    , p
+        []
+        [ text "The game will start once all players marked ready."
+        ]
     , div []
         (
           players
-            |> Dict.toList
-            |> List.map snd
+            |> Player.toList
             |> List.map (viewPlayer playerId)
         )
     ]

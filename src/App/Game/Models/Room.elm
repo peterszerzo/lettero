@@ -22,15 +22,16 @@ setGuess guess playerId room =
   let
     previousWinnerId = Player.getWinnerId room.players
     players =
-      Player.update (\p -> { p | guess = guess }) playerId players
+      Player.update (\p -> { p | guess = guess }) playerId room.players
     newWinnerId = Player.getWinnerId players
-    players' = if (previousWinnerId == Nothing && newWinnerId == (Just playerId))
-      then
-        Player.update (\p -> { p | score = p.score + 1 }) playerId players
-      else
-        players
   in
-    { room | players = players' }
+    { room
+        | players =
+            if (previousWinnerId == Nothing && newWinnerId == (Just playerId)) then
+              Player.update (\p -> { p | score = p.score + 1 }) playerId players
+            else
+              players
+    }
 
 getGuess : String -> Room -> Guess.Guess
 getGuess playerId room =
@@ -38,8 +39,8 @@ getGuess playerId room =
     |> .guess
 
 isRoundOver : Room -> Bool
-isRoundOver room =
-  (Player.didSomeoneWin room.players) || (Player.didAllGuess room.players)
+isRoundOver {players} =
+  (Player.didSomeoneWin players) || (Player.didAllGuess players)
 
 canGuess : String -> Room -> Bool
 canGuess playerId room =
@@ -54,7 +55,7 @@ setReady : String -> Room -> Room
 setReady playerId room =
   { room |
       players =
-        Player.setReady playerId room.players
+        Player.update (\p -> { p | isReady = True }) playerId room.players
   }
 
 

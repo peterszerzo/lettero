@@ -15,7 +15,7 @@ view model room =
   let
     guessIndex =
       getOwnGuess model
-        |> Maybe.map Guess.getMadeValue
+        |> Maybe.map Guess.toMaybe
         |> Maybe.withDefault (Just 0)
     startAngle = (toFloat model.currentRoundRandom) / 1000 * 2 * pi
     isRoundOver = Room.isRoundOver room
