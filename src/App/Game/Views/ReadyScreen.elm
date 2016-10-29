@@ -40,7 +40,7 @@ view players playerId =
         ]
     , p
         []
-        [ text "The game will start once all players marked ready."
+        [ text "The game will start as soon as everybody marks ready."
         ]
     , div []
         (

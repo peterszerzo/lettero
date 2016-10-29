@@ -14,9 +14,9 @@ getContent : String -> String -> String
 getContent winner self =
   if winner == self
     then
-      "Nice going, " ++ winner
+      "Nice going, " ++ winner ++ "!"
     else
-      "Looks like this one goes to " ++ winner
+      "This one goes to " ++ winner
 
 view : Model -> Room -> Html Msg
 view model room =
@@ -29,7 +29,7 @@ view model room =
           |> Maybe.map (\id -> (True, getContent id model.playerId))
           |> Maybe.withDefault (False, "")
       else if (getOwnGuess model |> Maybe.map .value |> (==) (Just Guess.Idle)) then
-        (True, "You’ve gone idle")
+        (True, "You ran out of time!")
       else
         (False, "")
   in

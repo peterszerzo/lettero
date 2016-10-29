@@ -6,6 +6,7 @@ const validate = require('webpack-validator');
 const postCssCssNext = require('postcss-cssnext');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 dotenv.load();
 
@@ -24,7 +25,11 @@ const commonPlugins = [
 ];
 
 const prodPlugins = [
-  new webpack.optimize.UglifyJsPlugin({})
+  new webpack.optimize.UglifyJsPlugin({}),
+  new FaviconsWebpackPlugin({
+    logo: './src/favicon.png',
+    inject: true
+  })
 ];
 
 const config = {

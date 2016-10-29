@@ -13,6 +13,7 @@ import Root.Views.About
 import Root.Views.NotFound
 import Root.Views.Background
 import Root.Views.Room
+import Root.Views.MobileNotification
 
 import Game.Views.Main
 import Game.Models.Main
@@ -61,4 +62,5 @@ view model =
       ]
       [ Root.Views.Background.view
       , content
+      , Root.Views.MobileNotification.view
       ]
