@@ -21,7 +21,12 @@ type alias Players = Dict.Dict String Player
 
 getDummy : String -> Player
 getDummy t =
-  Player "apples" "pears" 0 (Guess.getDummy "") False
+  { id = "apples"
+  , roomId = "pears"
+  , score = 0
+  , guess = Guess.getDummy ""
+  , isReady = False
+  }
 
 
 -- Assumes the player is always found

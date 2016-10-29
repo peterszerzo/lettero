@@ -13,9 +13,15 @@ export default (ports) => {
   const shipToElm = (obj) => {
     ports.getRoom.send(JSON.stringify(obj));
   };
+
+  const subscribedRoomIds = [];
+
   ports.send.subscribe((msgString) => {
     const {type, roomId, payload} = JSON.parse(msgString);
-    watchRoom(db, roomId, shipToElm);
+    if (subscribedRoomIds.indexOf(roomId) === -1) {
+      watchRoom(db, roomId, shipToElm);
+      subscribedRoomIds.push(roomId);
+    }
     if (type === 'requestRoomState') {
       return getRoom(db, roomId).then(shipToElm);
     }
@@ -23,7 +29,7 @@ export default (ports) => {
       return scheduleNewRound(db, roomId).then(shipToElm);
     }
     if (type === 'player') {
-      updatePlayer(db, roomId, payload).then(shipToElm);
+      updatePlayer(db, roomId, payload);
     }
   });
 };

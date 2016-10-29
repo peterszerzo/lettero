@@ -30,18 +30,15 @@ export const saveRoom = curry(
 
 export const watchRoom = curry(
   (db, roomId, onValue) => {
-    return db.ref(`/rooms/${roomId}`).on('value', s => onValue(s.val()));
+    return db.ref(`/rooms/${roomId}`).on('value', s => {
+      onValue(s.val());
+    });
   }
 );
 
 export const updatePlayer = curry(
   (db, roomId, player) => {
-    return getRoom(db, roomId)
-      .then(rm => {
-        return Object.assign({}, rm, {
-          players: rm.players.map(p => (p.id === player.id ? player : p))
-        });
-      }).then(saveRoom(db));
+    db.ref(`/rooms/${roomId}/players/${player.id}`).set(player);
   }
 );
 
