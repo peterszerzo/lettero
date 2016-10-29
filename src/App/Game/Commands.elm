@@ -1,6 +1,6 @@
 module Game.Commands exposing (..)
 
-import Game.Ports exposing (send)
+import Game.Ports exposing (sendGameCommand)
 import Random
 
 import Game.Messages exposing (Msg(..))
@@ -17,7 +17,7 @@ sendPlayerStatusUpdate model =
         |> Maybe.map Player.encodePlayer
         |> Maybe.withDefault ""
   in
-    send
+    sendGameCommand
       (
         "{\"type\": \"player\"" ++
         ", \"roomId\": \"" ++ model.roomId ++
@@ -27,11 +27,11 @@ sendPlayerStatusUpdate model =
 
 requestRoomState : Model -> Cmd Msg
 requestRoomState model =
-  send ("{\"type\": \"requestRoomState\", \"roomId\": \"" ++ model.roomId ++ "\"}")
+  sendGameCommand ("{\"type\": \"requestRoomState\", \"roomId\": \"" ++ model.roomId ++ "\"}")
 
 requestNewRound : Model -> Cmd Msg
 requestNewRound model =
-  send ("{\"type\": \"requestNewRound\", \"roomId\": \"" ++ model.roomId ++ "\"}")
+  sendGameCommand ("{\"type\": \"requestNewRound\", \"roomId\": \"" ++ model.roomId ++ "\"}")
 
 requestRoundRandom : () -> Cmd Msg
 requestRoundRandom _ =

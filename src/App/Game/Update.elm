@@ -140,6 +140,13 @@ update msg model =
         , Nothing
         )
 
+    -- TODO: Implement
+    LeaveRoom s ->
+      let
+        a = s |> Debug.log "hello"
+      in
+        (model, Cmd.none, Nothing)
+
     Navigate newUrl ->
       ( model
       , Cmd.none

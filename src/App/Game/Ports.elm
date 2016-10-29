@@ -1,7 +1,8 @@
 port module Game.Ports exposing (..)
 
 -- Inbound port
-port getRoom : (String -> msg) -> Sub msg
+port roomStateUpdate : (String -> msg) -> Sub msg
+port leaveRoom : (String -> msg) -> Sub msg
 
 -- Outbound port
-port send : String -> Cmd msg
+port sendGameCommand : String -> Cmd msg

@@ -8,4 +8,5 @@ type Msg
   | ReceiveRoundRandom Int
   | Tick Time
   | SetReady
+  | LeaveRoom String
   | Navigate String

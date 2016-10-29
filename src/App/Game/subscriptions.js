@@ -1,3 +1,4 @@
+/* eslint max-len : "off" */
 import {
   scheduleNewRound,
   getRoom,
@@ -11,12 +12,17 @@ export default (ports) => {
   const db = getDb();
 
   const shipToElm = (obj) => {
-    ports.getRoom.send(JSON.stringify(obj));
+    ports.roomStateUpdate.send(JSON.stringify(obj));
+  };
+
+  global.onbeforeunload = function() {
+    ports.leaveRoom.send('');
+    return 'Come and go as you wish - we\'re all friends here :). When you\'re ready to hop back, just mark yourself as ready again.';
   };
 
   const subscribedRoomIds = [];
 
-  ports.send.subscribe((msgString) => {
+  ports.sendGameCommand.subscribe((msgString) => {
     const {type, roomId, payload} = JSON.parse(msgString);
     if (subscribedRoomIds.indexOf(roomId) === -1) {
       watchRoom(db, roomId, shipToElm);
