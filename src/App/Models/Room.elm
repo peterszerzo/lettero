@@ -1,10 +1,10 @@
-module Game.Models.Room exposing (..)
+module Models.Room exposing (..)
 
 import Json.Decode exposing (Decoder, (:=), string, object5, int, maybe, null, bool)
 
-import Game.Models.Player as Player
-import Game.Models.Guess as Guess
-import Game.Models.RoundData as RoundData
+import Models.Player as Player
+import Models.Guess as Guess
+import Models.RoundData as RoundData
 
 type alias Room =
   { id : String

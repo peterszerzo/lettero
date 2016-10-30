@@ -1,10 +1,10 @@
-module Game.Models.Player exposing (..)
+module Models.Player exposing (..)
 
 import Dict
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
 
-import Game.Models.Guess as Guess
+import Models.Guess as Guess
 
 type alias Player =
   { id : String

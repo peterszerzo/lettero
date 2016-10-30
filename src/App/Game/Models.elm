@@ -1,9 +1,9 @@
-module Game.Models.Main exposing (..)
+module Game.Models exposing (..)
 
 import Time exposing (Time)
 
-import Game.Models.Room as Room
-import Game.Models.Guess as Guess
+import Models.Room as Room
+import Models.Guess as Guess
 
 type alias Model =
   { room : Maybe Room.Room

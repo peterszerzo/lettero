@@ -5,11 +5,10 @@ import Html.Attributes exposing (style, class, classList, attribute)
 
 import Game.Constants exposing (roundDuration)
 
-import Game.Models.Main exposing (Model, getOwnGuess)
-import Game.Models.Room exposing (Room)
-import Game.Models.Player as Player
+import Models.Room exposing (Room)
+import Models.Player as Player
+import Game.Models exposing (Model, getOwnGuess)
 import Game.Messages exposing (Msg(..))
-
 import Game.Views.ScoreBoard as ScoreBoard
 import Game.Views.Word as Word
 import Game.Views.ReadyScreen as ReadyScreen

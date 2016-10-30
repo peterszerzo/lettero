@@ -4,7 +4,7 @@ import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (style, class, classList)
 import Dict
 
-import Game.Models.Player as Player
+import Models.Player as Player
 import Game.Messages exposing (Msg(..))
 
 viewPlayer : Player.Player -> Html Msg

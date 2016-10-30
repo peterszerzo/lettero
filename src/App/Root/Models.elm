@@ -4,12 +4,12 @@ import RoomManager.Models
 import Tutorial.Models
 import Router
 import Root.Messages
-import Game.Models.Main
+import Game.Models
 import Game.Init
 
 type alias Model =
   { route : Router.Route
-  , game : Maybe Game.Models.Main.Model
+  , game : Maybe Game.Models.Model
   , roomManager : Maybe RoomManager.Models.Model
   , tutorial : Maybe Tutorial.Models.Model
   }

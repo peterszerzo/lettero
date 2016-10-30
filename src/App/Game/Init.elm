@@ -1,6 +1,6 @@
 module Game.Init exposing (init)
 
-import Game.Models.Main exposing (Model)
+import Game.Models exposing (Model)
 import Game.Messages exposing (Msg)
 import Game.Commands exposing (requestRoomState)
 

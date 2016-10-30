@@ -4,7 +4,7 @@ import Time exposing (every)
 
 import Game.Ports exposing (roomStateUpdate, leaveRoom)
 
-import Game.Models.Main exposing (Model)
+import Game.Models exposing (Model)
 import Game.Messages exposing (Msg(..))
 import Game.Constants exposing (tickDuration)
 

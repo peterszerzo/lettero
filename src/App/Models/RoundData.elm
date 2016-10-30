@@ -1,4 +1,4 @@
-module Game.Models.RoundData exposing (..)
+module Models.RoundData exposing (..)
 
 import Json.Decode exposing (Decoder, (:=), string, object1)
 

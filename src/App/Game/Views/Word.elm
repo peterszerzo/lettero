@@ -3,9 +3,9 @@ module Game.Views.Word exposing (view)
 import Html
 import Dict
 
-import Game.Models.Main exposing (Model, getOwnGuess)
-import Game.Models.Room as Room
-import Game.Models.Guess as Guess
+import Game.Models exposing (Model, getOwnGuess)
+import Models.Room as Room
+import Models.Guess as Guess
 import Game.Messages exposing (Msg(..))
 
 import UiKit.Word

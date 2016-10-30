@@ -3,9 +3,9 @@ module Game.Commands exposing (..)
 import Game.Ports exposing (sendGameCommand)
 import Random
 
+import Models.Player as Player
 import Game.Messages exposing (Msg(..))
-import Game.Models.Player as Player
-import Game.Models.Main exposing (Model)
+import Game.Models exposing (Model)
 
 sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =

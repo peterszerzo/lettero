@@ -4,9 +4,9 @@ import Json.Decode exposing (decodeString)
 import Result
 
 import Game.Messages exposing (Msg(..))
-import Game.Models.Main exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
-import Game.Models.Room as Room
-import Game.Models.Guess as Guess
+import Game.Models exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
+import Models.Room as Room
+import Models.Guess as Guess
 import Game.Commands exposing (sendPlayerStatusUpdate, requestRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration, roundDuration)
 
@@ -18,7 +18,10 @@ augmentCommand model newModel cmd =
   in
     Cmd.batch
       [ cmd
-      , if shouldCloseRound then requestNewRound model else Cmd.none
+      , if shouldCloseRound then
+          requestNewRound model
+        else
+          Cmd.none
       ]
 
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)

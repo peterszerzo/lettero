@@ -16,8 +16,8 @@ import Root.Views.Room
 import Root.Views.MobileNotification
 
 import Game.Views.Main
-import Game.Models.Main
-import RoomManager.Views
+import Game.Models
+import RoomManager.Views.Main
 import RoomManager.Models
 import Tutorial.Views
 import Tutorial.Models
@@ -38,7 +38,7 @@ view model =
       Router.Rooms ->
         model.roomManager
           |> Maybe.withDefault (RoomManager.Models.getDummy "1")
-          |> RoomManager.Views.view
+          |> RoomManager.Views.Main.view
           |> map RoomManagerMsg
 
       Router.Room roomId ->
@@ -46,7 +46,7 @@ view model =
 
       Router.GamePlay roomId playerId ->
         model.game
-          |> Maybe.withDefault (Game.Models.Main.getDummy "1")
+          |> Maybe.withDefault (Game.Models.getDummy "1")
           |> Game.Views.Main.view
           |> map GameMsg
 

@@ -2,10 +2,10 @@ module Game.Views.Notification exposing (view)
 
 import Html exposing (Html)
 
-import Game.Models.Main exposing (Model, getOwnGuess)
-import Game.Models.Room exposing (Room)
-import Game.Models.Guess as Guess
-import Game.Models.Player as Player
+import Models.Room exposing (Room)
+import Models.Guess as Guess
+import Models.Player as Player
+import Game.Models exposing (Model, getOwnGuess)
 import Game.Messages exposing (Msg)
 
 import UiKit.Notification

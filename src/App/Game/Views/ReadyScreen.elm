@@ -4,8 +4,8 @@ import Html exposing (Html, div, p, h1, h2, text, button, span)
 import Html.Attributes exposing (class, classList, disabled)
 import Html.Events exposing (onClick)
 
+import Models.Player as Player
 import Game.Messages exposing (Msg(..))
-import Game.Models.Player as Player
 
 viewPlayer : String -> Player.Player -> Html Msg
 viewPlayer playerId player =
