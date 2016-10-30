@@ -4,6 +4,7 @@ import Dict
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
 
+import Constants
 import Models.Guess as Guess
 
 type alias Player =
@@ -120,8 +121,8 @@ playersDecoder =
 
 -- Encoders
 
-encodePlayer : Player -> String
-encodePlayer { id, roomId, score, guess, isReady } =
+playerEncoder : Player -> JE.Value
+playerEncoder { id, roomId, score, guess, isReady } =
   JE.object
     [ ( "roomId", JE.string roomId )
     , ( "id", JE.string id )
@@ -129,4 +130,18 @@ encodePlayer { id, roomId, score, guess, isReady } =
     , ( "guess", Guess.guessEncoder guess )
     , ( "isReady", JE.bool isReady )
     ]
-      |> JE.encode 0
+
+playersEncoder : Players -> JE.Value
+playersEncoder players =
+  players
+    |> Dict.toList
+    |> List.map (\(key, player) -> (key, playerEncoder player))
+    |> JE.object
+
+encodePlayer : Player -> String
+encodePlayer =
+  (JE.encode 0) << playerEncoder
+
+encodePlayers : Players -> String
+encodePlayers =
+  (JE.encode 0) << playersEncoder

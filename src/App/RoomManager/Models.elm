@@ -6,10 +6,10 @@ import Models.Room as Room
 
 type Status
   = Startup
-  | Editing
-  | Processing
-  | Success
-  | Error String
+  | RoomCreateEditing
+  | RoomCreateProcessing
+  | RoomCreateSuccess
+  | RoomCreateError
 
 type alias Model =
   { roomId : String

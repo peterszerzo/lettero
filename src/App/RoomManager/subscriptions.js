@@ -3,9 +3,13 @@ import {getDb} from '../../utilities/firebase';
 export default (ports) => {
 
   const db = getDb();
-  console.log(db);
 
   ports.createRoomRequest.subscribe(msg => {
-    console.log(JSON.parse(msg));
+    const room = JSON.parse(msg);
+    db.ref(`/rooms/${room.id}`).set(room).then(() => {
+      ports.createRoomResponse.send('success');
+    }).catch(() => {
+      ports.createRoomResponse.send('error');
+    });
   });
 };

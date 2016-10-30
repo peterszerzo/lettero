@@ -1,15 +1,28 @@
 module Models.RoundData exposing (..)
 
-import Json.Decode exposing (Decoder, (:=), string, object1)
+import Json.Decode as JD exposing ((:=))
+import Json.Encode as JE
 
 type alias RoundData =
   { word : String
   }
 
+getDummy : String -> RoundData
+getDummy s =
+  { word = "hedgehog"
+  }
 
 -- Decoders
 
-roundDataDecoder : Decoder RoundData
+roundDataDecoder : JD.Decoder RoundData
 roundDataDecoder =
-  object1 RoundData
-    ("word" := string)
+  JD.object1 RoundData
+    ("word" := JD.string)
+
+-- Encoders
+
+roundDataEncoder : RoundData -> JE.Value
+roundDataEncoder { word } =
+  JE.object
+    [ ( "word", JE.string word )
+    ]

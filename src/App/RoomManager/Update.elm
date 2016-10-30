@@ -1,5 +1,6 @@
 module RoomManager.Update exposing (..)
 
+import Models.Room as Room
 import RoomManager.Messages exposing (Msg(..))
 import RoomManager.Models exposing (Model, Status(..), stringifyCreateRoomRequest)
 import RoomManager.Ports exposing (createRoomRequest)
@@ -20,22 +21,33 @@ update msg model =
       )
 
     SubmitCreateForm ->
-      ( { model | status = Processing }
-      , createRoomRequest (stringifyCreateRoomRequest model)
-      , Nothing
-      )
+      let
+        room =
+          Room.create {roomId = model.roomId, playerIds = model.playerIds}
+      in
+        ( { model
+              | status = RoomCreateProcessing
+              , room = Just room
+          }
+        , createRoomRequest (Room.encodeRoom room)
+        , Nothing
+        )
 
     StartCreateForm ->
-      ( { model | status = Editing }
+      ( { model | status = RoomCreateEditing }
       , Cmd.none
       , Nothing
       )
 
-    ReceiveFormStatus s ->
-      ( model
-      , Cmd.none
-      , Nothing
-      )
+    ReceiveFormStatus statusString ->
+      let
+        status =
+          if statusString == "success" then RoomCreateSuccess else RoomCreateError
+      in
+        ( { model | status = status }
+        , Cmd.none
+        , Nothing
+        )
 
     Navigate newUrl ->
       ( model

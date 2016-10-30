@@ -1,10 +1,17 @@
 module Models.Room exposing (..)
 
+import Dict
 import Json.Decode exposing (Decoder, (:=), string, object5, int, maybe, null, bool)
+import Json.Encode as JE
 
 import Models.Player as Player
 import Models.Guess as Guess
 import Models.RoundData as RoundData
+
+type alias RoomRaw =
+  { playerIds : List String
+  , roomId : String
+  }
 
 type alias Room =
   { id : String
@@ -16,6 +23,22 @@ type alias Room =
 
 
 -- Helpers
+
+getDummy : String -> Room
+getDummy id' =
+  create {roomId = id', playerIds = []}
+
+create : RoomRaw -> Room
+create {roomId, playerIds} =
+  { id = roomId
+  , round = 0
+  , roundData = RoundData.getDummy "s"
+  , hostId = List.head playerIds |> Maybe.withDefault ""
+  , players =
+      playerIds
+        |> List.map (\id' -> (id', Player.getDummy id'))
+        |> Dict.fromList
+  }
 
 setGuess : Guess.Guess -> String -> Room -> Room
 setGuess guess playerId room =
@@ -57,6 +80,23 @@ setReady playerId room =
       players =
         Player.update (\p -> { p | isReady = True }) playerId room.players
   }
+
+
+-- Encoders
+
+roomEncoder : Room -> JE.Value
+roomEncoder { id, round, roundData, hostId, players } =
+  JE.object
+    [ ( "id", JE.string id )
+    , ( "round", JE.int round )
+    , ( "roundData", RoundData.roundDataEncoder roundData )
+    , ( "hostId", JE.string hostId )
+    , ( "players", Player.playersEncoder players )
+    ]
+
+encodeRoom : Room -> String
+encodeRoom =
+  (JE.encode 0) << roomEncoder
 
 
 -- Decoders
