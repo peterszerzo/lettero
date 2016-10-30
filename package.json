@@ -37,10 +37,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "serve": "firebase serve",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
-    "postinstall": "npm i -g elm && npm run build",
-    "start": "node ./server"
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js"
   },
   "author": "Peter Szerzo",
   "license": "ISC",
