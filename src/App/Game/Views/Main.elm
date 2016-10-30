@@ -5,7 +5,7 @@ import Html.Attributes exposing (style, class, classList, attribute)
 
 import Game.Constants exposing (roundDuration)
 
-import Models.Room exposing (Room)
+import Models.Room as Room
 import Models.Player as Player
 import Game.Models exposing (Model, getOwnGuess)
 import Game.Messages exposing (Msg(..))
@@ -17,11 +17,14 @@ import Game.Views.Notification as Notification
 import UiKit.Spinner
 import UiKit.TickTockTickTock
 
-viewGame : Model -> Room -> List (Html Msg)
+viewGame : Model -> Room.Room -> List (Html Msg)
 viewGame model room =
   let
     timeRatioLeft =
-      (1 - model.currentRoundTime / roundDuration) |> clamp 0 1
+      if (Room.isRoundOver room) then
+        0
+      else
+        (1 - model.currentRoundTime / roundDuration) |> clamp 0 1
   in
     if Player.areAllReady room.players
       then
