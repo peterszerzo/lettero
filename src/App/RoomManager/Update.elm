@@ -1,7 +1,8 @@
 module RoomManager.Update exposing (..)
 
 import RoomManager.Messages exposing (Msg(..))
-import RoomManager.Models exposing (Model, Status)
+import RoomManager.Models exposing (Model, Status(..), stringifyCreateRoomRequest)
+import RoomManager.Ports exposing (createRoomRequest)
 
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =
@@ -18,8 +19,20 @@ update msg model =
       , Nothing
       )
 
-    ChangeStatus status ->
-      ( { model | status = status }
+    SubmitCreateForm ->
+      ( { model | status = Processing }
+      , createRoomRequest (stringifyCreateRoomRequest model)
+      , Nothing
+      )
+
+    StartCreateForm ->
+      ( { model | status = Editing }
+      , Cmd.none
+      , Nothing
+      )
+
+    ReceiveFormStatus s ->
+      ( model
       , Cmd.none
       , Nothing
       )

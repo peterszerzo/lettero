@@ -1,7 +1,8 @@
 module RoomManager.Views.CreateForm exposing (view)
 
-import Html exposing (Html, div, text, h1, h2, p, a, button)
-import Html.Attributes exposing (class, classList)
+import Html exposing (Html, div, text, h1, h2, p, a, button, input)
+import Html.Attributes exposing (class, classList, type', disabled)
+import Html.Events exposing (onClick)
 
 import UiKit.LabeledInput
 import RoomManager.Messages exposing (Msg(..))
@@ -37,10 +38,10 @@ view model =
         , placeholder = "winlose"
         , onInput = (InputPlayer 1)
         }
-    , button
-        [ classList
-            [ ("button", True)
-            , ("button--disabled", canSubmit model |> not)
-            ]
-        ] [ text "Submit" ]
+    , input
+        [ type' "submit"
+        , disabled (canSubmit model |> not)
+        , onClick SubmitCreateForm
+        ]
+        [ text "Submit" ]
     ]

@@ -22,7 +22,7 @@ view =
     , p [] [ text "Now, create your room in a little short of a minute. No login required." ]
     , button
         [ class "button"
-        , onClick (ChangeStatus Editing)
+        , onClick StartCreateForm
         ]
         [ text "Create Room"
         ]

@@ -7,7 +7,7 @@
   --letter-size: calc(5.5vh + 5.5vw);
   --letter-font-size: calc(4vh + 4vw);
   --letter-padding-top: calc(.7vh + .7vw);
-  --dark: #353c48;
+  --dark: #37364C;
   --black: #000000;
   --white: #FFFFFF;
 
@@ -17,9 +17,11 @@
 
   --background-letter-opacity: .03;
 
+  --standard-box-shadow: 0 0 6px color(var(--black) alpha(-80%)), 0 0 12px color(var(--black) alpha(-90%));
+
   --panel-skin {
     border-radius: var(--border-radius);
-    box-shadow: 0 0 6px color(var(--black) alpha(-80%)), 0 0 12px color(var(--black) alpha(-90%));
+    box-shadow: var(--standard-box-shadow);
     background-color: var(--white);
   }
 
@@ -39,6 +41,15 @@
   font-family: var(--geometric-typeface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body {
@@ -83,11 +94,11 @@ p {
 /* App */
 
 .app {
+  background: var(--dark);
   position: relative;
-  background-color: var(--dark);
   overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
 
@@ -417,6 +428,17 @@ input {
   background: color(var(--white) alpha(5%));
   border-radius: var(--border-radius);
   color: var(--white);
+}
+
+input[type='submit'] {
+  margin: 10px auto;
+  background: var(--white);
+  color: var(--dark);
+  box-shadow: var(--standard-box-shadow);
+}
+
+input[type='submit']:disabled {
+  opacity: .7;
 }
 
 label {
