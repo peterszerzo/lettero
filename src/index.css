@@ -403,7 +403,7 @@ p {
 fieldset {
   border: 0;
   outline: 0;
-  margin: 40px 0;
+  margin: 15px 0;
 }
 
 input {
@@ -411,9 +411,8 @@ input {
   border: 0;
   display: block;
   width: 300px;
-  margin: auto;
   padding: 15px;
-  margin: 15px auto;
+  margin: 5px auto;
   @apply (--paragraph);
   background: color(var(--white) alpha(5%));
   border-radius: var(--border-radius);
@@ -421,9 +420,10 @@ input {
 }
 
 label {
+  padding-left: 18px;
   width: 100%;
   display: block;
   @apply (--paragraph);
   color: var(--white);
-  text-align: center;
+  text-align: left;
 }

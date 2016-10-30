@@ -1,5 +1,7 @@
 module RoomManager.Models exposing (..)
 
+import String
+
 type Status
   = Startup
   | Editing
@@ -23,3 +25,17 @@ init =
 getDummy : String -> Model
 getDummy s =
   init
+
+
+-- Helpers
+
+canSubmit : Model -> Bool
+canSubmit {roomId, playerIds} =
+  (
+    String.length roomId > 0
+  ) &&
+  (
+    playerIds
+      |> List.map ((\i -> i > 0) << String.length)
+      |> List.all identity
+  )

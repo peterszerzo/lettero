@@ -13,7 +13,7 @@ viewContent model =
   if model.status == Startup then
     RoomManager.Views.Welcome.view
   else
-    RoomManager.Views.CreateForm.view
+    RoomManager.Views.CreateForm.view model
 
 view : Model -> Html Msg
 view model =
