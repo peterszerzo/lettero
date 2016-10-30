@@ -1,6 +1,6 @@
 module Tutorial.Messages exposing (..)
 
 type Msg
-  = StartTutorial
+  = Proceed
+  | Guess Int
   | Navigate String
-  | ClickLetter Int

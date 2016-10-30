@@ -6,7 +6,7 @@ import Tutorial.Models exposing (Model, Stage(..))
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =
   case msg of
-    StartTutorial ->
+    Proceed ->
       ( { model
             | stage =
                 if model.stage == Start
@@ -16,24 +16,19 @@ update msg model =
                     model.stage
         }
       , Cmd.none
-      , Nothing
+      , if (model.stage == ShowWord && model.guess == (Just 0)) then
+          Just "/rooms"
+        else
+          Nothing
       )
 
     Navigate newUrl ->
       ( model, Cmd.none, Just newUrl )
 
-    ClickLetter i ->
+    Guess i ->
       ( { model
-            | stage =
-                if model.stage == CorrectGuess
-                  then
-                    CorrectGuess 
-                  else
-                    if (i == 0)
-                      then
-                        CorrectGuess
-                      else
-                        IncorrectGuess
+            | guess =
+                Just i
         }
       , Cmd.none
       , Nothing

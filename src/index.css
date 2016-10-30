@@ -334,6 +334,7 @@ p {
 /* Notification */
 
 .notification {
+  cursor: pointer;
   width: auto;
   max-width: 180px;
   min-height: 30px;
@@ -347,6 +348,7 @@ p {
   align-items: center;
   justify-content: center;
   opacity: 0;
+  z-index: 100;
 
   & p {
     padding: 12px 30px;

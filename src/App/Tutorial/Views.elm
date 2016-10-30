@@ -14,18 +14,18 @@ import UiKit.Word
 view : Model -> Html Msg
 view model =
   let
-    highlights = case model.stage of
-      Tutorial.Models.CorrectGuess ->
-        Dict.fromList [ (0, "highlighted") ]
+    highlights = case model.guess of
+      Just i ->
+        Dict.fromList [ (i, "highlighted") ]
 
-      _ ->
+      Nothing ->
         Dict.empty
   in
     div
       [ class "app__page"
       ]
       [ div
-          [ onClick StartTutorial
+          [ onClick Proceed
           ]
           [ UiKit.Notification.view (getDialogContent model) True
           ]
@@ -33,7 +33,7 @@ view model =
           then
             UiKit.Word.view
               { word = "hedgehog"
-              , onLetterClick = ClickLetter
+              , onLetterClick = Guess
               , isDisabled = False
               , startAngle = 0
               , highlights = highlights

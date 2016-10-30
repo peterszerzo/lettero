@@ -4,8 +4,8 @@ type Status
   = Startup
   | Editing
   | Processing
-  | Error String
   | Success
+  | Error String
 
 type alias Model =
   { roomId : String
