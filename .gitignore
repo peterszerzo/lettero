@@ -1,6 +1,6 @@
 node_modules
 elm-stuff
-public
+build
 .DS_Store
-npm-debug.log
+*.log
 .env
