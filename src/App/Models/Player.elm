@@ -4,7 +4,6 @@ import Dict
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
 
-import Constants
 import Models.Guess as Guess
 
 type alias Player =
@@ -21,8 +20,8 @@ type alias Players = Dict.Dict String Player
 -- Helpers
 
 getDummy : String -> Player
-getDummy id' =
-  { id = id'
+getDummy id_ =
+  { id = id_
   , roomId = "pears"
   , score = 0
   , guess = Guess.getDummy ""

@@ -73,19 +73,21 @@ encodeGuess guess =
 
 -- Decoders
 
+valueStringDecoder : String -> JD.Decoder GuessValue
+valueStringDecoder s =
+  if s == "pending"
+    then
+      JD.succeed Pending
+    else
+      JD.succeed Idle
 
 valueDecoder : Decoder GuessValue
 valueDecoder =
   JD.oneOf
-    [ JD.int `JD.andThen` (\i -> Made i |> JD.succeed)
-    , JD.string `JD.andThen`
-        ( \s ->
-            if s == "pending"
-              then
-                JD.succeed Pending
-              else
-                JD.succeed Idle
-        )
+    [ JD.int
+        |> (flip JD.andThen) (\i -> Made i |> JD.succeed)
+    , JD.string
+        |> (flip JD.andThen) valueStringDecoder
     ]
 
 

@@ -25,18 +25,20 @@ type alias Room =
 -- Helpers
 
 getDummy : String -> Room
-getDummy id' =
-  create {roomId = id', playerIds = []}
+getDummy id_ =
+  create {roomId = id_, playerIds = []}
 
 create : RoomRaw -> Room
 create {roomId, playerIds} =
   { id = roomId
   , round = 0
   , roundData = RoundData.getDummy "s"
-  , hostId = List.head playerIds |> Maybe.withDefault ""
+  , hostId =
+      List.head playerIds
+        |> Maybe.withDefault ""
   , players =
       playerIds
-        |> List.map (\id' -> (id', Player.getDummy id'))
+        |> List.map (\id_ -> (id_, Player.getDummy id_))
         |> Dict.fromList
   }
 

@@ -44,11 +44,11 @@ update msg model =
               requestRoundRandom ()
             else
               Cmd.none
-        cmd' =
+        cmd_ =
           augmentCommand model newModel cmd
       in
         ( newModel
-        , cmd'
+        , cmd_
         , Nothing
         )
 
@@ -73,16 +73,17 @@ update msg model =
             else
               model
         cmd =
-          if canMakeGuess
-            then
-              sendPlayerStatusUpdate newModel
-            else
-              Cmd.none
-        cmd' =
-          augmentCommand model newModel cmd
+          (
+            if canMakeGuess
+              then
+                sendPlayerStatusUpdate newModel
+              else
+                Cmd.none
+          )
+            |> augmentCommand model newModel
       in
         ( newModel
-        , cmd'
+        , cmd
         , Nothing
         )
 
@@ -112,17 +113,18 @@ update msg model =
               , room = newRoom
           }
         cmd =
-          if
-            shouldSendStatusUpdate
-          then
-            sendPlayerStatusUpdate newModel
-          else
-            Cmd.none
-        cmd' =
-          augmentCommand model newModel cmd
+          (
+            if
+              shouldSendStatusUpdate
+            then
+              sendPlayerStatusUpdate newModel
+            else
+              Cmd.none
+          )
+            |> augmentCommand model newModel
       in
         ( newModel
-        , cmd'
+        , cmd
         , Nothing
         )
 
