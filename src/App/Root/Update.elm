@@ -21,9 +21,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     ChangeRoute newUrl ->
-      ( model
-      , Navigation.newUrl newUrl
-      )
+      model ! [ Navigation.newUrl newUrl ]
 
     GameMsg msg ->
       let
@@ -34,16 +32,14 @@ update msg model =
             |> Maybe.map update
             |> Maybe.withDefault default
       in
-        ( { model
-              | game = game
-          }
-        , Cmd.batch
-            [ Cmd.map GameMsg gameCmd
-            , newRoute
-                |> Maybe.map (Navigation.newUrl)
-                |> Maybe.withDefault Cmd.none
-            ]
-        )
+        { model
+            | game = game
+        } !
+        [ Cmd.map GameMsg gameCmd
+        , newRoute
+              |> Maybe.map (Navigation.newUrl)
+              |> Maybe.withDefault Cmd.none
+        ]
 
     RoomManagerMsg msg ->
       let
@@ -54,16 +50,14 @@ update msg model =
             |> Maybe.map update
             |> Maybe.withDefault default
       in
-        ( { model
-              | roomManager = roomManager
-          }
-        , Cmd.batch
-            [ Cmd.map RoomManagerMsg roomManagerCmd
-            , newRoute
-                |> Maybe.map (Navigation.newUrl)
-                |> Maybe.withDefault Cmd.none
-            ]
-        )
+        { model
+            | roomManager = roomManager
+        } !
+        [ Cmd.map RoomManagerMsg roomManagerCmd
+        , newRoute
+            |> Maybe.map (Navigation.newUrl)
+            |> Maybe.withDefault Cmd.none
+        ]
 
     TutorialMsg msg ->
       let
@@ -74,13 +68,11 @@ update msg model =
             |> Maybe.map update
             |> Maybe.withDefault default
       in
-        ( { model
-              | tutorial = tutorial
-          }
-        , Cmd.batch
-            [ Cmd.map TutorialMsg tutorialCmd
-            , newRoute
-                |> Maybe.map (Navigation.newUrl)
-                |> Maybe.withDefault Cmd.none
-            ]
-        )
+        { model
+            | tutorial = tutorial
+        } !
+        [ Cmd.map TutorialMsg tutorialCmd
+        , newRoute
+            |> Maybe.map (Navigation.newUrl)
+            |> Maybe.withDefault Cmd.none
+        ]
