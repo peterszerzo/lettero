@@ -20,7 +20,8 @@ const commonPlugins = [
   }),
   new HtmlWebpackPlugin({
     template: './src/index.pug',
-    inject: false
+    inject: false,
+    hash: true
   })
 ];
 
