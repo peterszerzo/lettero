@@ -4,14 +4,18 @@ import Root.Models exposing (Model)
 import Root.Messages exposing (Msg(..))
 import Game.Subscriptions
 import RoomCreator.Subscriptions
+import RoomManager.Subscriptions
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
     [ model.game
-        |> Maybe.map (\g -> Sub.map GameMsg (Game.Subscriptions.subscriptions g))
+        |> Maybe.map ((Sub.map GameMsg) << Game.Subscriptions.subscriptions)
         |> Maybe.withDefault Sub.none
     , model.roomCreator
-        |> Maybe.map (\rm -> Sub.map RoomCreatorMsg (RoomCreator.Subscriptions.subscriptions rm))
+        |> Maybe.map ((Sub.map RoomCreatorMsg) << RoomCreator.Subscriptions.subscriptions)
+        |> Maybe.withDefault Sub.none
+    , model.roomManager
+        |> Maybe.map ((Sub.map RoomManagerMsg) << RoomManager.Subscriptions.subscriptions)
         |> Maybe.withDefault Sub.none
     ]

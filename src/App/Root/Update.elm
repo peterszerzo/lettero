@@ -7,6 +7,7 @@ import Root.Messages exposing (Msg(..))
 import Router exposing (Route)
 import Game.Update
 import RoomCreator.Update
+import RoomManager.Update
 import Tutorial.Update
 
 urlUpdate : Result a Route -> Model -> (Model, Cmd Msg)
@@ -54,6 +55,24 @@ update msg model =
             | roomCreator = roomCreator
         } !
         [ Cmd.map RoomCreatorMsg roomCreatorCmd
+        , newRoute
+            |> Maybe.map (Navigation.newUrl)
+            |> Maybe.withDefault Cmd.none
+        ]
+
+    RoomManagerMsg msg ->
+      let
+        update = maybeLiftFirstInTuple << RoomManager.Update.update msg
+        default = (model.roomManager, Cmd.none, Nothing)
+        (roomManager, roomManagerCmd, newRoute) =
+          model.roomManager
+            |> Maybe.map update
+            |> Maybe.withDefault default
+      in
+        { model
+            | roomManager = roomManager
+        } !
+        [ Cmd.map RoomManagerMsg roomManagerCmd
         , newRoute
             |> Maybe.map (Navigation.newUrl)
             |> Maybe.withDefault Cmd.none

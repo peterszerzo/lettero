@@ -342,6 +342,29 @@ p {
 }
 
 
+/* Spinner */
+
+.spinner {
+  margin: auto;
+  text-align: center;
+
+  & svg {
+    fill: var(--white);
+    animation: spin 1s ease-in-out infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0turn);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+
 /* Notification */
 
 .notification {

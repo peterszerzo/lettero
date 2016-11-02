@@ -1,6 +1,7 @@
 module Root.Models exposing (..)
 
 import RoomCreator.Models
+import RoomManager.Models
 import Tutorial.Models
 import Router
 import Root.Messages
@@ -11,6 +12,7 @@ type alias Model =
   { route : Router.Route
   , game : Maybe Game.Models.Model
   , roomCreator : Maybe RoomCreator.Models.Model
+  , roomManager : Maybe RoomManager.Models.Model
   , tutorial : Maybe Tutorial.Models.Model
   }
 
@@ -41,6 +43,15 @@ setRoute route model =
         _ ->
           (Nothing, Cmd.none)
 
+    (roomManagerModel, roomManagerCmd) =
+      case route of
+        Router.Room roomId ->
+          RoomManager.Models.init roomId
+            |> maybeLiftFirstInTuple
+
+        _ ->
+          (Nothing, Cmd.none)
+
     (tutorialModel, tutorialCmd) =
       case route of
         Router.Tutorial ->
@@ -53,11 +64,13 @@ setRoute route model =
           | route = route
           , game = gameModel
           , roomCreator = roomCreatorModel
+          , roomManager = roomManagerModel
           , tutorial = tutorialModel
       }
     , Cmd.batch
         [ Cmd.map Root.Messages.GameMsg gameCmd
         , Cmd.map Root.Messages.RoomCreatorMsg roomCreatorCmd
+        , Cmd.map Root.Messages.RoomManagerMsg roomManagerCmd
         , Cmd.map Root.Messages.TutorialMsg tutorialCmd
         ]
     )
@@ -68,6 +81,7 @@ init route =
     { route = route
     , game = Nothing
     , roomCreator = Nothing
+    , roomManager = Nothing
     , tutorial = Nothing
     }
 

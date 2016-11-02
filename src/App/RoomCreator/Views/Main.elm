@@ -8,7 +8,7 @@ import RoomCreator.Models exposing (Model, Status(..))
 import RoomCreator.Messages exposing (Msg(..))
 import RoomCreator.Views.CreateForm
 import RoomCreator.Views.Welcome
-import RoomCreator.Views.Overview
+import RoomCreator.Views.Success
 
 viewContent : Model -> Html Msg
 viewContent model =
@@ -19,7 +19,7 @@ viewContent model =
     RoomCreateSuccess ->
       model.room
         |> Maybe.withDefault (Room.getDummy "1")
-        |> RoomCreator.Views.Overview.view
+        |> RoomCreator.Views.Success.view
 
     _ ->
       RoomCreator.Views.CreateForm.view model

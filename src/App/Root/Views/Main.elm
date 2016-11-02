@@ -12,13 +12,14 @@ import Root.Views.Home
 import Root.Views.About
 import Root.Views.NotFound
 import Root.Views.Background
-import Root.Views.Room
 import Root.Views.MobileNotification
 
 import Game.Views.Main
 import Game.Models
 import RoomCreator.Views.Main
 import RoomCreator.Models
+import RoomManager.Models
+import RoomManager.Views
 import Tutorial.Views
 import Tutorial.Models
 
@@ -42,7 +43,10 @@ view model =
           |> map RoomCreatorMsg
 
       Router.Room roomId ->
-        Root.Views.Room.view
+        model.roomManager
+          |> Maybe.withDefault (RoomManager.Models.getDummy "1")
+          |> RoomManager.Views.view
+          |> map RoomManagerMsg
 
       Router.GamePlay roomId playerId ->
         model.game
