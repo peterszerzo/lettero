@@ -1,4 +1,4 @@
-module RoomManager.Messages exposing (..)
+module RoomCreator.Messages exposing (..)
 
 type Msg
   = InputRoomId String

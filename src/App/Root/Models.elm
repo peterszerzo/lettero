@@ -1,6 +1,6 @@
 module Root.Models exposing (..)
 
-import RoomManager.Models
+import RoomCreator.Models
 import Tutorial.Models
 import Router
 import Root.Messages
@@ -10,7 +10,7 @@ import Game.Init
 type alias Model =
   { route : Router.Route
   , game : Maybe Game.Models.Model
-  , roomManager : Maybe RoomManager.Models.Model
+  , roomCreator : Maybe RoomCreator.Models.Model
   , tutorial : Maybe Tutorial.Models.Model
   }
 
@@ -33,10 +33,10 @@ setRoute route model =
         _ ->
           (Nothing, Cmd.none)
 
-    (roomManagerModel, roomManagerCmd) =
+    (roomCreatorModel, roomCreatorCmd) =
       case route of
         Router.Rooms ->
-          (Just RoomManager.Models.init, Cmd.none)
+          (Just RoomCreator.Models.init, Cmd.none)
 
         _ ->
           (Nothing, Cmd.none)
@@ -52,12 +52,12 @@ setRoute route model =
     ( { model
           | route = route
           , game = gameModel
-          , roomManager = roomManagerModel
+          , roomCreator = roomCreatorModel
           , tutorial = tutorialModel
       }
     , Cmd.batch
         [ Cmd.map Root.Messages.GameMsg gameCmd
-        , Cmd.map Root.Messages.RoomManagerMsg roomManagerCmd
+        , Cmd.map Root.Messages.RoomCreatorMsg roomCreatorCmd
         , Cmd.map Root.Messages.TutorialMsg tutorialCmd
         ]
     )
@@ -67,7 +67,7 @@ init route =
   setRoute route
     { route = route
     , game = Nothing
-    , roomManager = Nothing
+    , roomCreator = Nothing
     , tutorial = Nothing
     }
 

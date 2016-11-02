@@ -1,11 +1,11 @@
-module RoomManager.Views.Overview exposing (view)
+module RoomCreator.Views.Overview exposing (view)
 
 import Html exposing (Html, div, text, h1, h2, p, a, button)
 import Html.Attributes exposing (class, href)
 
 import Models.Room as Room
 import Models.Player as Player
-import RoomManager.Messages exposing (Msg(..))
+import RoomCreator.Messages exposing (Msg(..))
 
 viewPlayer : Player.Player -> Html Msg
 viewPlayer player =

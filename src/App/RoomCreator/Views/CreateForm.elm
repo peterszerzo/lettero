@@ -1,12 +1,12 @@
-module RoomManager.Views.CreateForm exposing (view)
+module RoomCreator.Views.CreateForm exposing (view)
 
 import Html exposing (Html, div, text, h1, h2, p, a, button, input)
 import Html.Attributes exposing (class, classList, type', disabled)
 import Html.Events exposing (onClick)
 
 import UiKit.LabeledInput
-import RoomManager.Messages exposing (Msg(..))
-import RoomManager.Models exposing (Model, canSubmit)
+import RoomCreator.Messages exposing (Msg(..))
+import RoomCreator.Models exposing (Model, canSubmit)
 
 view : Model -> Html Msg
 view model =

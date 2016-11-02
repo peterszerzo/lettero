@@ -1,28 +1,28 @@
-module RoomManager.Views.Main exposing (..)
+module RoomCreator.Views.Main exposing (..)
 
 import Html exposing (Html, div, text, h1, h2, p, a, button)
 import Html.Attributes exposing (class)
 
 import Models.Room as Room
-import RoomManager.Models exposing (Model, Status(..))
-import RoomManager.Messages exposing (Msg(..))
-import RoomManager.Views.CreateForm
-import RoomManager.Views.Welcome
-import RoomManager.Views.Overview
+import RoomCreator.Models exposing (Model, Status(..))
+import RoomCreator.Messages exposing (Msg(..))
+import RoomCreator.Views.CreateForm
+import RoomCreator.Views.Welcome
+import RoomCreator.Views.Overview
 
 viewContent : Model -> Html Msg
 viewContent model =
   case model.status of
     Startup ->
-      RoomManager.Views.Welcome.view
+      RoomCreator.Views.Welcome.view
 
     RoomCreateSuccess ->
       model.room
         |> Maybe.withDefault (Room.getDummy "1")
-        |> RoomManager.Views.Overview.view
+        |> RoomCreator.Views.Overview.view
 
     _ ->
-      RoomManager.Views.CreateForm.view model
+      RoomCreator.Views.CreateForm.view model
 
 
 view : Model -> Html Msg

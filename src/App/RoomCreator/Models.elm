@@ -1,4 +1,4 @@
-module RoomManager.Models exposing (..)
+module RoomCreator.Models exposing (..)
 
 import String
 

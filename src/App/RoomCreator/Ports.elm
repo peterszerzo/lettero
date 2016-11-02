@@ -1,4 +1,4 @@
-port module RoomManager.Ports exposing (..)
+port module RoomCreator.Ports exposing (..)
 
 port createRoomResponse : (String -> msg) -> Sub msg
 

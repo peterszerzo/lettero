@@ -1,10 +1,10 @@
-module RoomManager.Views.Welcome exposing (view)
+module RoomCreator.Views.Welcome exposing (view)
 
 import Html exposing (Html, div, text, h1, h2, p, a, button)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
-import RoomManager.Messages exposing (Msg(..))
+import RoomCreator.Messages exposing (Msg(..))
 
 view : Html Msg
 view =
