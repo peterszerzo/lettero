@@ -5,7 +5,6 @@ import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
 import RoomManager.Messages exposing (Msg(..))
-import RoomManager.Models exposing (Status(..))
 
 view : Html Msg
 view =
@@ -25,18 +24,5 @@ view =
         , onClick StartCreateForm
         ]
         [ text "Create Room"
-        ]
-    , p [] [ text "One day, you’ll be able to create your very own game room and invite your friends to it. For now, though, we only have the test room open for you, where you can play as:" ]
-    , a
-        [ class "button"
-        , onClick (Navigate "/rooms/theroom/alfred")
-        ]
-        [ text "alfred"
-        ]
-    , a
-        [ class "button"
-        , onClick (Navigate "/rooms/theroom/samantha")
-        ]
-        [ text "samantha"
         ]
     ]
