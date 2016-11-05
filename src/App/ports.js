@@ -11,4 +11,8 @@ export default function talk(ports) {
         ports.roomResponse.send(s);
       });
   });
+
+  global.onbeforeunload = () => {
+    ports.closeTab.send('');
+  };
 }

@@ -13,11 +13,11 @@ view room =
     [ class "basic-content"
     ]
     [ h2 [] [ text "Success!" ]
-    , p [] [ text "This is going to be tough, but we have to say it:" ]
+    , p [] [ text "Alright, now, we hate to be like your parents, but there’s no other way to say it:" ]
     , button
         [ class "button"
         , onClick (Navigate ("/rooms/" ++ room.id))
         ]
-        [ text "Go to your room!"
+        [ text "Go to your room ☞"
         ]
     ]

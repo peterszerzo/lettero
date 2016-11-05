@@ -17,7 +17,7 @@ viewPlayerPlay roomId player =
     [ class "button"
     , href ("/rooms/" ++ roomId ++ "/" ++ player.id)
     ]
-    [ text ("⚽ " ++ player.id)
+    [ text ("♟ " ++ player.id)
     ]
 
 viewPlayerEmail : String -> Player.Player -> Html Msg
@@ -26,7 +26,7 @@ viewPlayerEmail roomId player =
     [ class "button"
     , href ("mailto:?body=" ++ baseUrl ++ "/rooms/" ++ roomId ++ "/" ++ player.id)
     ]
-    [ text ("✉ " ++ player.id)
+    [ text ("✎ " ++ player.id)
     ]
 
 viewPlayers : (String -> Player.Player -> Html Msg) -> Room.Room -> List (Html Msg)

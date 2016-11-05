@@ -15,11 +15,6 @@ export default (ports) => {
     ports.roomStateUpdate.send(JSON.stringify(obj));
   };
 
-  global.onbeforeunload = function() {
-    ports.leaveRoom.send('');
-    return 'Come and go as you wish - we\'re all friends here :). When you\'re ready to hop back, just mark yourself as ready again.';
-  };
-
   const subscribedRoomIds = [];
 
   ports.sendGameCommand.subscribe((msgString) => {

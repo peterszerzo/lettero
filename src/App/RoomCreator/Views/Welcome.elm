@@ -11,24 +11,18 @@ view =
   div
     [ class "basic-content"
     ]
-    [ p [] [ text "Let’s get started! Wanna see a tutorial first?" ]
+    [ p [] [ text "Shall we start with a 15-second tutorial?" ]
     , button
         [ class "button"
         , onClick (Navigate "/tutorial")
         ]
-        [ text "Yes tutorial"
+        [ text "Tutorial"
         ]
-    , p [] [ text "If you’ve got the hang of it, create a room or look up an existing one. No login required." ]
+    , p [] [ text "If you’ve got the hang of it, create a room. No login required." ]
     , button
         [ class "button"
         , onClick StartCreateForm
         ]
         [ text "Create room"
-        ]
-    , button
-        [ class "button"
-        , onClick StartCreateForm
-        ]
-        [ text "Find room"
         ]
     ]

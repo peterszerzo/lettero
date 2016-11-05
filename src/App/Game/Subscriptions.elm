@@ -2,7 +2,8 @@ module Game.Subscriptions exposing (..)
 
 import Time exposing (every)
 
-import Game.Ports exposing (roomStateUpdate, leaveRoom)
+import Ports exposing (closeTab)
+import Game.Ports exposing (roomStateUpdate)
 
 import Game.Models exposing (Model)
 import Game.Messages exposing (Msg(..))
@@ -12,6 +13,6 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
     [ roomStateUpdate ReceiveRoomState
-    , leaveRoom LeaveRoom
+    , closeTab LeaveRoom
     , every tickDuration Tick
     ]

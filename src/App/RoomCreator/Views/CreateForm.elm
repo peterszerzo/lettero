@@ -14,7 +14,7 @@ view model =
     [ class "basic-content"
     ]
     [ h2 [] [ text "Create a room in a jiffy" ]
-    , p [] [ text "That's exactly two flashes. We need your help for it, though - use lowercase letters only." ]
+    , p [] [ text "Now that’s a very short time, if you can lend us a hand: please use lowercase letters only." ]
     , div
         [ class "form" ]
         [ UiKit.LabeledInput.view
@@ -22,7 +22,7 @@ view model =
             , label = "Enter room name"
             , type' = "text"
             , autofocus = True
-            , placeholder = "theliving"
+            , placeholder = "E.g. theroom"
             , onInput = InputRoomId
             }
         , UiKit.LabeledInput.view
@@ -30,7 +30,7 @@ view model =
             , label = "Player 1"
             , type' = "text"
             , autofocus = False
-            , placeholder = "winwin"
+            , placeholder = "E.g. alfred"
             , onInput = (InputPlayer 0)
             }
         , UiKit.LabeledInput.view
@@ -38,7 +38,7 @@ view model =
             , label = "Player 2"
             , type' = "text"
             , autofocus = False
-            , placeholder = "winlose"
+            , placeholder = "E.g. samantha"
             , onInput = (InputPlayer 1)
             }
         , input

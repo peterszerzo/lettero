@@ -89,12 +89,15 @@ randomCoordinates =
     ]
   ]
 
+toPercent : Float -> String
 toPercent f =
   (toString (f * 100)) ++ "%"
 
+toSeconds : Float -> String
 toSeconds f =
   "-" ++ (toString (f * 3)) ++ "s"
 
+viewLetter : Int -> List Float -> Html a
 viewLetter i coord =
   let
     styleAttributes = (
@@ -104,7 +107,8 @@ viewLetter i coord =
     ) ++ [ ("animation-delay", toSeconds (List.head coord |> Maybe.withDefault 0)) ]
   in
     p
-      [ style styleAttributes
+      [ class "background__letter"
+      , style styleAttributes
       ]
       [ text (Char.fromCode (i + 65) |> String.fromChar) ]
 
