@@ -31,10 +31,10 @@ getDialogContent {stage, guess} =
     ShowWord ->
       case guess of
         Nothing ->
-          "Holy moly, who writes like that? It’ll take decades to find the first letter of this word and click it!"
+          "Holy moly, who writes like that? Anyways, see if you can find the first letter."
 
         Just i ->
           if i == 0 then
-            "Hedgehog allright. Now make sure you beat your opponent to it. Click me to head back to the home screen."
+            "Cool, you got it - click me to exit."
           else
             "Not quite, not quite. Give it one more go?"

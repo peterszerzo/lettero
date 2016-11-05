@@ -7,6 +7,7 @@ const postCssCssNext = require('postcss-cssnext');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 dotenv.load();
 
@@ -22,7 +23,8 @@ const commonPlugins = [
     template: './src/index.pug',
     inject: false,
     hash: true
-  })
+  }),
+  new ExtractTextWebpackPlugin('styles.css')
 ];
 
 const prodPlugins = [
@@ -51,7 +53,7 @@ const config = {
       },
       {
         test: /\.css/,
-        loader: 'style!css!postcss'
+        loader: ExtractTextWebpackPlugin.extract('style', 'css-loader!postcss-loader')
       },
       {
         test: /\.elm$/,

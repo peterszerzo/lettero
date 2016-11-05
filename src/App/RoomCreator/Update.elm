@@ -54,3 +54,9 @@ update msg model =
       , Cmd.none
       , Just newUrl
       )
+
+    NoOp ->
+      ( model
+      , Cmd.none
+      , Nothing
+      )

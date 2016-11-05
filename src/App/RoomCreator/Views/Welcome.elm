@@ -18,11 +18,17 @@ view =
         ]
         [ text "Yes tutorial"
         ]
-    , p [] [ text "Now, create your room in a little short of a minute. No login required." ]
+    , p [] [ text "If you’ve got the hang of it, create a room or look up an existing one. No login required." ]
     , button
         [ class "button"
         , onClick StartCreateForm
         ]
-        [ text "Create Room"
+        [ text "Create room"
+        ]
+    , button
+        [ class "button"
+        , onClick StartCreateForm
+        ]
+        [ text "Find room"
         ]
     ]

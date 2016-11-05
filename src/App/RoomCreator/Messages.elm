@@ -7,3 +7,4 @@ type Msg
   | SubmitCreateForm
   | ReceiveFormStatus String
   | Navigate String
+  | NoOp

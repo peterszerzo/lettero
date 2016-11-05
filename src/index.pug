@@ -7,6 +7,13 @@ html
     meta(name='HandheldFriendly', content='True')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(href='https://fonts.googleapis.com/css?family=Dosis', rel='stylesheet', type='text/css')
+    link(href='/styles.css', rel='stylesheet', type='text/css')
 
   body
+    #app
+      .spinner.spinner--boot
+        svg(width='50', height='50', viewBox='0 0 50 50')
+          g(transform='translate(25, 25)')
+            circle(cx='0', cy='15', r='3')
+            circle(cx='0', cy='-15', r='3')
     script(src='/index.js')

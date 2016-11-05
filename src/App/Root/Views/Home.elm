@@ -1,6 +1,6 @@
 module Root.Views.Home exposing (view)
 
-import Html exposing (Html, div, text ,h1, p, button, nav)
+import Html exposing (Html, div, text ,h1, h3, button, nav)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
 
@@ -15,7 +15,7 @@ view navigate =
             ]
         ]
         [ h1 [] [ text "Lettero" ]
-        , p [] [ text "Playground for the social wordnerd" ]
+        , h3 [] [ text "Playground for the social wordnerd" ]
         , nav []
             [ button
                 [ class "button"

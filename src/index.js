@@ -12,7 +12,9 @@ import talk from './App/ports.js';
 domReady(() => {
   startFirebase();
   attachFastClick.attach(document.body);
-  const elmApp = Elm.Main.embed(document.body);
+  const container = document.getElementById('app');
+  container.innerHTML = '';
+  const elmApp = Elm.Main.embed(container);
   talkToGame(elmApp.ports);
   talk(elmApp.ports);
   talkToRoomCreator(elmApp.ports);
