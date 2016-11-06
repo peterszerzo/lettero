@@ -15,6 +15,7 @@
   --black: #000000;
   --white: #FFFFFF;
   --faint-white: rgba(255, 255, 255, .05);
+  --transparent-white: rgba(255, 255, 255, .2);
   --geometric-typeface: 'Dosis', sans-serif;
 
   --background-letter-opacity: .05;
@@ -99,7 +100,8 @@ p,
 input,
 label,
 button,
-a {
+a,
+span {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: .05rem;
@@ -211,66 +213,69 @@ p {
 /* ScoreBoard */
 
 .score-board {
-  @apply --panel-skin;
-  width: 200px;
-  height: 80px;
+  background: var(--faint-white);
+  border-radius: var(--border-radius);
   position: absolute;
   bottom: 30px;
+  padding: 6px;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
-  font-size: 1.75rem;
   text-align: center;
 
   @media (--desktop) {
-    font-size: 2.5rem;
     text-align: left;
     transform: none;
-    left: 20px;
-    top: 20px;
-    width: 240px;
-    height: 110px;
+    padding: 18px;
+    left: auto;
+    right: 20px;
+    bottom: 20px;
   }
 }
 
 .score-board__items {
-  display: flex;
   width: 100%;
   height: 100%;
 }
 
 .score-board__item {
   text-align: center;
-  padding: 5px;
-  width: 50%;
+  padding: 4px;
   line-height: 1.35;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 
-  &:nth-of-type(1) {
-    border-right: 1px solid var(--dark);
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
   }
 
   &:nth-of-type(2) {
-    border-left: 1px solid var(--dark);
+    border-top: 1px solid var(--transparent-white);
+  }
+}
+
+.score-board__mark {
+  width: 24px;
+  position: relative;
+  text-align: center;
+
+  @media (--desktop) {
+    top: -12px;
   }
 }
 
 .score-board__player {
-  color: var(--dark);
-  font-weight: 400;
-  letter-spacing: .05rem;
-  margin: 0;
-  font-size: .5em;
+  width: 110px;
+  text-align: center;
 }
 
 .score-board__score {
-  color: var(--dark);
-  font-weight: 400;
-  margin: 0;
-  font-size: 1em;
+  font-size: 1.25rem;
+  width: 48px;
+  text-align: right;
+
+  @media (--desktop) {
+    font-size: 2rem;
+  }
 }
 
 
