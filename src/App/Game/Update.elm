@@ -3,10 +3,11 @@ module Game.Update exposing (update)
 import Json.Decode exposing (decodeString)
 import Result
 
+import Models.Room as Room
+import Models.Player as Player
+import Models.Guess as Guess
 import Game.Messages exposing (Msg(..))
 import Game.Models exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
-import Models.Room as Room
-import Models.Guess as Guess
 import Game.Commands exposing (sendPlayerStatusUpdate, requestRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration, roundDuration)
 
@@ -145,12 +146,29 @@ update msg model =
         , Nothing
         )
 
-    -- TODO: Implement
-    LeaveRoom s ->
+    LeaveRoom _ ->
       let
-        a = s |> Debug.log "hello"
+        newRoom =
+          model.room
+            |> Maybe.map
+                (
+                  \r ->
+                    Just
+                      { r | players =
+                          Player.update
+                            (\p -> { p | isReady = False })
+                            model.playerId
+                            r.players 
+                      }
+                )
+            |> Maybe.withDefault model.room
+        newModel = { model | room = newRoom }
+        command = sendPlayerStatusUpdate newModel
       in
-        (model, Cmd.none, Nothing)
+        ( newModel
+        , command
+        , Nothing
+        )
 
     Navigate newUrl ->
       ( model
