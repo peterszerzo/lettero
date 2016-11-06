@@ -14,7 +14,7 @@ view model =
     [ class "basic-content"
     ]
     [ h2 [] [ text "Create a room in a jiffy" ]
-    , p [] [ text "Now that’s a very short time, if you can lend us a hand: please use lowercase letters only." ]
+    , p [] [ text "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only." ]
     , div
         [ class "form" ]
         [ UiKit.LabeledInput.view

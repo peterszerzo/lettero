@@ -1,6 +1,6 @@
 module RoomCreator.Subscriptions exposing (..)
 
-import RoomCreator.Ports exposing (createRoomResponse)
+import Ports exposing (createRoomResponse)
 import RoomCreator.Models exposing (Model)
 import RoomCreator.Messages exposing (Msg(..))
 

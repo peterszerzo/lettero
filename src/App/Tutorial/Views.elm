@@ -32,7 +32,7 @@ view model =
       , if model.stage /= Tutorial.Models.Start
           then
             UiKit.Word.view
-              { word = "hedgehog"
+              { word = "berry"
               , onLetterClick = Guess
               , isDisabled = False
               , startAngle = 0

@@ -1,9 +1,9 @@
 module RoomCreator.Update exposing (..)
 
 import Models.Room as Room
+import Ports exposing (createRoomRequest)
 import RoomCreator.Messages exposing (Msg(..))
 import RoomCreator.Models exposing (Model, Status(..), stringifyCreateRoomRequest)
-import RoomCreator.Ports exposing (createRoomRequest)
 
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =

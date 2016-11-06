@@ -9,6 +9,7 @@ import Root.Messages exposing (Msg(..))
 import Root.Models exposing (Model)
 
 import Root.Views.Home
+import Root.Views.Nav
 import Root.Views.About
 import Root.Views.NotFound
 import Root.Views.Background
@@ -63,6 +64,7 @@ view model =
     div
       [ class "app"
       ]
-      [ Root.Views.Background.view
+      [ Root.Views.Nav.view model
+      , Root.Views.Background.view
       , content
       ]

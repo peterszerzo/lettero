@@ -7,7 +7,7 @@ html
     meta(name='HandheldFriendly', content='True')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(href='https://fonts.googleapis.com/css?family=Dosis', rel='stylesheet', type='text/css')
-    link(href='/styles.css', rel='stylesheet', type='text/css')
+    link(href=htmlWebpackPlugin.files.css[0], rel='stylesheet', type='text/css')
 
   body
     #app
@@ -16,4 +16,4 @@ html
           g(transform='translate(25, 25)')
             circle(cx='0', cy='15', r='3')
             circle(cx='0', cy='-15', r='3')
-    script(src='/index.js')
+    script(src=htmlWebpackPlugin.files.js[0])
