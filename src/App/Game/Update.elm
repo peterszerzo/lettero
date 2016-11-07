@@ -20,7 +20,7 @@ augmentCommand model newModel cmd =
     Cmd.batch
       [ cmd
       , if shouldCloseRound then
-          requestNewRound model
+          requestNewRound (model.room |> Maybe.map Room.setNewRound |> Maybe.withDefault (Room.getDummy ""))
         else
           Cmd.none
       ]
@@ -158,7 +158,7 @@ update msg model =
                           Player.update
                             (\p -> { p | isReady = False })
                             model.playerId
-                            r.players 
+                            r.players
                       }
                 )
             |> Maybe.withDefault model.room

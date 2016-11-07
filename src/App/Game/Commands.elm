@@ -4,6 +4,7 @@ import Game.Ports exposing (sendGameCommand)
 import Random
 
 import Models.Player as Player
+import Models.Room as Room
 import Game.Messages exposing (Msg(..))
 import Game.Models exposing (Model)
 
@@ -29,9 +30,9 @@ requestRoomState : Model -> Cmd Msg
 requestRoomState model =
   sendGameCommand ("{\"type\": \"requestRoomState\", \"roomId\": \"" ++ model.roomId ++ "\"}")
 
-requestNewRound : Model -> Cmd Msg
-requestNewRound model =
-  sendGameCommand ("{\"type\": \"requestNewRound\", \"roomId\": \"" ++ model.roomId ++ "\"}")
+requestNewRound : Room.Room -> Cmd Msg
+requestNewRound room =
+  sendGameCommand ("{\"type\": \"requestNewRound\", \"room\": " ++ (Room.encodeRoom room) ++ "}")
 
 requestRoundRandom : () -> Cmd Msg
 requestRoundRandom _ =

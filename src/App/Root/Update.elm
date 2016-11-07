@@ -44,8 +44,6 @@ update msg model =
 
     RoomCreatorMsg msg ->
       let
-        a_ = Debug.log "msg" msg
-        b_ = Debug.log "model" model
         update = maybeLiftFirstInTuple << RoomCreator.Update.update msg
         default = (model.roomCreator, Cmd.none, Nothing)
         (roomCreator, roomCreatorCmd, newRoute) =

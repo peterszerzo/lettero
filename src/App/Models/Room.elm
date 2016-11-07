@@ -67,6 +67,13 @@ isRoundOver : Room -> Bool
 isRoundOver {players} =
   (Player.didSomeoneWin players) || (Player.didAllGuess players)
 
+setNewRound : Room -> Room
+setNewRound room =
+  { room
+      | round = room.round + 1
+      , players = Dict.map (\id p -> { p | guess = { time = 0, value = Guess.Pending } }) room.players
+  }
+
 canGuess : String -> Room -> Bool
 canGuess playerId room =
   let
