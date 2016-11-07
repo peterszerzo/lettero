@@ -26,7 +26,7 @@ getDialogContent : Model -> String
 getDialogContent {stage, guess} =
   case stage of
     Start ->
-      "Heyyo. Give me a click when you're ready to go!"
+      "Heyyo, ready? Just click me to get your very first word."
 
     ShowWord ->
       case guess of
@@ -35,6 +35,6 @@ getDialogContent {stage, guess} =
 
         Just i ->
           if i == 0 then
-            "Cool, you got it - click me to exit."
+            "Cool, you got it - click me again to create your very own room."
           else
             "Not quite, not quite. Give it one more go?"

@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, href)
 import Html.Events exposing (onClick)
 
 import Models.Room as Room
+import Router exposing (newPath)
 import RoomCreator.Messages exposing (Msg(..))
 
 view : Room.Room -> Html Msg
@@ -16,13 +17,13 @@ view room =
     , p [] [ text "Things go wrong from time to time.. anyways, care to try again?" ]
     , button
         [ class "button"
-        , onClick (Navigate "/new")
+        , onClick (Navigate ("/" ++ newPath))
         ]
         [ text "Yes"
         ]
     , button
         [ class "button"
-        , onClick (Navigate "/new")
+        , onClick (Navigate ("/" ++ newPath))
         ]
         [ text "No"
         ]

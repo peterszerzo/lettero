@@ -14,6 +14,30 @@ type Route
   | GamePlay String String
   | NotFound
 
+tryPath : String
+tryPath =
+  "try"
+
+startPath : String
+startPath =
+  "start"
+
+aboutPath : String
+aboutPath =
+  "about"
+
+newPath : String
+newPath =
+  "new"
+
+homePath : String
+homePath =
+  ""
+
+roomsPath : String
+roomsPath =
+  "rooms"
+
 defaultRouteUrl : (Route, String)
 defaultRouteUrl =
   (Home, "")
@@ -21,13 +45,13 @@ defaultRouteUrl =
 matchers : UrlParser.Parser (Route -> a) a
 matchers =
   UrlParser.oneOf
-    [ format Home (s "")
-    , format Start (s "start")
-    , format About (s "about")
-    , format Tutorial (s "tutorial")
-    , format GamePlay (s "rooms" </> string </> string)
-    , format Room (s "rooms" </> string)
-    , format NewRoom (s "new")
+    [ format Home (s homePath)
+    , format Start (s startPath)
+    , format About (s aboutPath)
+    , format Tutorial (s tryPath)
+    , format GamePlay (s roomsPath </> string </> string)
+    , format Room (s roomsPath </> string)
+    , format NewRoom (s newPath)
     ]
 
 pathnameParser : Navigation.Location -> (Result String Route)

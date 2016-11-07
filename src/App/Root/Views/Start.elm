@@ -5,6 +5,7 @@ import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
 import Root.Messages exposing (Msg(..))
+import Router exposing (tryPath, newPath)
 
 view : Html Msg
 view =
@@ -16,14 +17,14 @@ view =
         [ p [] [ text "Shall we start with a 15-second tutorial?" ]
         , button
             [ class "button"
-            , onClick (Navigate "/tutorial")
+            , onClick (Navigate ("/" ++ tryPath))
             ]
             [ text "Tutorial"
             ]
         , p [] [ text "If you’ve got the hang of it, create a room. No login required." ]
         , button
             [ class "button"
-            , onClick (Navigate "/new")
+            , onClick (Navigate ("/" ++ newPath))
             ]
             [ text "Create room"
             ]

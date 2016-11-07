@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
 
 import Root.Messages exposing (Msg(..))
+import Router exposing (startPath, aboutPath)
 
 view : Html Msg
 view =
@@ -23,13 +24,13 @@ view =
             ]
             [ button
                 [ class "button"
-                , onClick (Navigate "/start")
+                , onClick (Navigate ("/" ++ startPath))
                 ]
                 [ text "Play"
                 ]
             , button
                 [ class "button"
-                , onClick (Navigate "/about")
+                , onClick (Navigate ("/" ++ aboutPath))
                 ]
                 [ text "About"
                 ]
