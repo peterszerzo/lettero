@@ -45,13 +45,13 @@ defaultRouteUrl =
 matchers : UrlParser.Parser (Route -> a) a
 matchers =
   UrlParser.oneOf
-    [ format Home (s homePath)
-    , format Start (s startPath)
-    , format About (s aboutPath)
-    , format Tutorial (s tryPath)
-    , format GamePlay (s roomsPath </> string </> string)
-    , format Room (s roomsPath </> string)
-    , format NewRoom (s newPath)
+    [ s homePath |> format Home
+    , s startPath |> format Start
+    , s aboutPath |> format About
+    , s tryPath |> format Tutorial
+    , s roomsPath </> string </> string |> format GamePlay
+    , s roomsPath </> string |> format Room
+    , s newPath |> format NewRoom
     ]
 
 pathnameParser : Navigation.Location -> (Result String Route)
