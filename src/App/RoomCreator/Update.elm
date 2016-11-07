@@ -26,23 +26,17 @@ update msg model =
           Room.create {roomId = model.roomId, playerIds = model.playerIds}
       in
         ( { model
-              | status = RoomCreateProcessing
+              | status = Processing
               , room = Just room
           }
         , createRoomRequest (Room.encodeRoom room)
         , Nothing
         )
 
-    StartCreateForm ->
-      ( { model | status = RoomCreateEditing }
-      , Cmd.none
-      , Nothing
-      )
-
     ReceiveFormStatus statusString ->
       let
         status =
-          if statusString == "success" then RoomCreateSuccess else RoomCreateError
+          if statusString == "success" then Success else Error
       in
         ( { model | status = status }
         , Cmd.none

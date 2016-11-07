@@ -6,9 +6,10 @@ import String
 
 type Route
   = Home
+  | Start
   | About
   | Tutorial
-  | Rooms
+  | NewRoom
   | Room String
   | GamePlay String String
   | NotFound
@@ -21,11 +22,12 @@ matchers : UrlParser.Parser (Route -> a) a
 matchers =
   UrlParser.oneOf
     [ format Home (s "")
+    , format Start (s "start")
     , format About (s "about")
     , format Tutorial (s "tutorial")
     , format GamePlay (s "rooms" </> string </> string)
     , format Room (s "rooms" </> string)
-    , format Rooms (s "rooms")
+    , format NewRoom (s "new")
     ]
 
 pathnameParser : Navigation.Location -> (Result String Route)

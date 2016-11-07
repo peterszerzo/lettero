@@ -6,7 +6,7 @@ import RoomManager.Messages
 import Tutorial.Messages
 
 type Msg
-  = ChangeRoute String
+  = Navigate String
   | GameMsg Game.Messages.Msg
   | RoomCreatorMsg RoomCreator.Messages.Msg
   | RoomManagerMsg RoomManager.Messages.Msg

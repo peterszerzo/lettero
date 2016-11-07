@@ -4,8 +4,10 @@ import Html exposing (Html, div, text ,h1, h3, button)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
 
-view : (String -> a) -> Html a
-view navigate =
+import Root.Messages exposing (Msg(..))
+
+view : Html Msg
+view =
   div
     [ class "app__page"
     ]
@@ -21,13 +23,13 @@ view navigate =
             ]
             [ button
                 [ class "button"
-                , onClick (navigate "/rooms")
+                , onClick (Navigate "/start")
                 ]
                 [ text "Play"
                 ]
             , button
                 [ class "button"
-                , onClick (navigate "/about")
+                , onClick (Navigate "/about")
                 ]
                 [ text "About"
                 ]

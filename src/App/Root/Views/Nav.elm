@@ -14,7 +14,7 @@ view : Model -> Html Msg
 view model =
   nav
     [ classList [ ("nav", True), ("nav--hidden", model.route == Router.Home) ]
-    , onClick (ChangeRoute "/")
+    , onClick (Navigate "/")
     ]
     [ div
         [ class "nav__item nav__item--left"

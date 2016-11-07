@@ -17,7 +17,7 @@ update msg model =
         }
       , Cmd.none
       , if (model.stage == ShowWord && model.guess == (Just 0)) then
-          Just "/rooms"
+          Just "/new"
         else
           Nothing
       )

@@ -7,19 +7,21 @@ import Models.Room as Room
 import RoomCreator.Models exposing (Model, Status(..))
 import RoomCreator.Messages exposing (Msg(..))
 import RoomCreator.Views.CreateForm
-import RoomCreator.Views.Welcome
 import RoomCreator.Views.Success
+import RoomCreator.Views.Error
 
 viewContent : Model -> Html Msg
 viewContent model =
   case model.status of
-    Startup ->
-      RoomCreator.Views.Welcome.view
-
-    RoomCreateSuccess ->
+    Success ->
       model.room
         |> Maybe.withDefault (Room.getDummy "1")
         |> RoomCreator.Views.Success.view
+
+    Error ->
+      model.room
+        |> Maybe.withDefault (Room.getDummy "1")
+        |> RoomCreator.Views.Error.view
 
     _ ->
       RoomCreator.Views.CreateForm.view model

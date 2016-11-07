@@ -37,7 +37,7 @@ setRoute route model =
 
     (roomCreatorModel, roomCreatorCmd) =
       case route of
-        Router.Rooms ->
+        Router.NewRoom ->
           (Just RoomCreator.Models.init, Cmd.none)
 
         _ ->

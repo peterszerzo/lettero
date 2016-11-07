@@ -21,7 +21,7 @@ maybeLiftFirstInTuple (a, b, c) =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    ChangeRoute newUrl ->
+    Navigate newUrl ->
       model ! [ Navigation.newUrl newUrl ]
 
     GameMsg msg ->
@@ -44,6 +44,8 @@ update msg model =
 
     RoomCreatorMsg msg ->
       let
+        a_ = Debug.log "msg" msg
+        b_ = Debug.log "model" model
         update = maybeLiftFirstInTuple << RoomCreator.Update.update msg
         default = (model.roomCreator, Cmd.none, Nothing)
         (roomCreator, roomCreatorCmd, newRoute) =

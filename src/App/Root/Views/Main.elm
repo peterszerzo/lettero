@@ -13,6 +13,7 @@ import Root.Views.Nav
 import Root.Views.About
 import Root.Views.NotFound
 import Root.Views.Background
+import Root.Views.Start
 
 import Game.Views.Main
 import Game.Models
@@ -28,7 +29,10 @@ view model =
   let
     content = case model.route of
       Router.Home ->
-        Root.Views.Home.view Root.Messages.ChangeRoute
+        Root.Views.Home.view
+
+      Router.Start ->
+        Root.Views.Start.view
 
       Router.About ->
         Root.Views.About.view
@@ -36,7 +40,7 @@ view model =
       Router.NotFound ->
         Root.Views.NotFound.view
 
-      Router.Rooms ->
+      Router.NewRoom ->
         model.roomCreator
           |> Maybe.withDefault (RoomCreator.Models.getDummy "1")
           |> RoomCreator.Views.Main.view

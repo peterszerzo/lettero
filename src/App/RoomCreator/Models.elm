@@ -5,11 +5,10 @@ import String
 import Models.Room as Room
 
 type Status
-  = Startup
-  | RoomCreateEditing
-  | RoomCreateProcessing
-  | RoomCreateSuccess
-  | RoomCreateError
+  = Editing
+  | Processing
+  | Success
+  | Error
 
 type alias Model =
   { roomId : String
@@ -23,7 +22,7 @@ init =
   { roomId = ""
   , playerIds = [ "", "" ]
   , room = Nothing
-  , status = Startup
+  , status = Editing
   }
 
 getDummy : String -> Model
