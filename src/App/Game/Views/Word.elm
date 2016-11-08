@@ -1,6 +1,7 @@
 module Game.Views.Word exposing (view)
 
 import Html
+import Html.Lazy exposing (lazy)
 import Dict
 
 import Game.Models exposing (Model, getOwnGuess)
@@ -26,7 +27,7 @@ view model room =
         |> Maybe.map Dict.fromList
         |> Maybe.withDefault Dict.empty
   in
-    UiKit.Word.view
+    lazy UiKit.Word.view
       { word = room.roundData.word
       , startAngle = startAngle
       , highlights = highlights
