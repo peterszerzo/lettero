@@ -1,34 +1,29 @@
 module Game.Views.ScoreBoard exposing (view)
 
-import Html exposing (Html, div, p, span, text)
-import Html.Attributes exposing (style, class, classList)
+import Html exposing (Html)
 
 import Models.Player as Player
 import Game.Messages exposing (Msg(..))
-
-viewPlayer : Int -> Player.Player -> Html Msg
-viewPlayer maxScore { id, score } =
-  p
-    [ class "score-board__item"
-    ]
-    [ span [ class "score-board__player" ] [ text id ]
-    , span [ class "score-board__score" ] [ text (toString score) ]
-    , span [ class "score-board__mark" ] [ text (if score == maxScore then "♛" else "") ]
-    ]
+import UiKit.ScoreBoard
 
 view : String -> Player.Players -> Html Msg
 view playerId players =
   let
-    playersList = players |> Player.toList
-    scores : List Int
-    scores = playersList |> List.map .score
+    playersList =
+      players
+        |> Player.toList
+    scores =
+      playersList
+        |> List.map .score
+    maxScore =
+      scores
+        |> List.maximum
+        |> Maybe.withDefault 0
+    maxCount =
+      scores
+        |> List.foldl (\a i -> if a == maxScore then i + 1 else i) 0
+    viewData =
+      playersList
+        |> List.map (\p -> (p.id, p.score, if maxCount < 2 then p.score == maxScore else False))
   in
-    div
-      [ class "score-board"
-      ]
-      [ div [ class "score-board__items" ]
-          (
-            playersList
-              |> List.map (viewPlayer (List.maximum scores |> Maybe.withDefault 0))
-          )
-      ]
+    UiKit.ScoreBoard.view viewData
