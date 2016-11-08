@@ -43,42 +43,23 @@ export const updatePlayer = curry(
 );
 
 export const setNewRound = curry(
-  (db, roomId) => {
-    return getRoom(db, roomId)
-      .then(rm => {
-        return Promise.all([
-          Promise.resolve(rm),
-          listWords(db)
-        ]);
-      })
-      .then(([rm, words]) => {
-        const newPlayers = {};
-        Object.keys(rm.players).forEach(key => {
-          newPlayers[key] = Object.assign({}, rm.players[key], {
-            guess: {
-              value: 'pending',
-              time: 0
-            }
-          });
-        });
-        const newRm = Object.assign({}, rm, {
-          round: rm.round + 1,
+  (db, room) => {
+    return listWords(db)
+      .then(words => {
+        return Object.assign({}, room, {
           roundData: {
             word: words[Math.floor(Math.random() * words.length)]
-          },
-          players: newPlayers
+          }
         });
-        return newRm;
-      })
-      .then(saveRoom(db));
+      }).then(saveRoom(db));
   }
 );
 
 export const scheduleNewRound = curry(
-  (db, roomId) => {
+  (db, room) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        setNewRound(db, roomId).then(resolve).catch(reject);
+        setNewRound(db, room).then(resolve).catch(reject);
       }, 3000);
     });
   }

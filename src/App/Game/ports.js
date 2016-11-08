@@ -27,7 +27,7 @@ export default (ports) => {
       return getRoom(db, roomId).then(shipToElm);
     }
     if (type === 'requestNewRound') {
-      return scheduleNewRound(db, roomId).then(shipToElm);
+      return scheduleNewRound(db, payload).then(shipToElm);
     }
     if (type === 'player') {
       updatePlayer(db, roomId, payload);
