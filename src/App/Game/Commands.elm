@@ -28,11 +28,21 @@ sendPlayerStatusUpdate model =
 
 requestRoomState : Model -> Cmd Msg
 requestRoomState model =
-  sendGameCommand ("{\"type\": \"requestRoomState\", \"roomId\": \"" ++ model.roomId ++ "\"}")
+  sendGameCommand
+    (
+      "{\"type\": \"requestRoomState\"" ++
+      ", \"roomId\": \"" ++ model.roomId ++ "\"" ++
+      "}"
+    )
 
 requestNewRound : Room.Room -> Cmd Msg
 requestNewRound room =
-  sendGameCommand ("{\"type\": \"requestNewRound\", \"room\": " ++ (Room.encodeRoom room) ++ "}")
+  sendGameCommand
+    (
+      "{\"type\": \"requestNewRound\"" ++
+      ", \"roomId\": \"" ++ room.id ++ "\"" ++
+      ", \"payload\": " ++ (Room.encodeRoom room) ++ "}"
+    )
 
 requestRoundRandom : () -> Cmd Msg
 requestRoundRandom _ =

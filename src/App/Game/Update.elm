@@ -20,7 +20,7 @@ augmentCommand model newModel cmd =
     Cmd.batch
       [ cmd
       , if shouldCloseRound then
-          requestNewRound (model.room |> Maybe.map Room.setNewRound |> Maybe.withDefault (Room.getDummy ""))
+          requestNewRound (newModel.room |> Maybe.map Room.setNewRound |> Maybe.withDefault (Room.getDummy ""))
         else
           Cmd.none
       ]

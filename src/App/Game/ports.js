@@ -18,8 +18,8 @@ export default (ports) => {
   const subscribedRoomIds = [];
 
   ports.sendGameCommand.subscribe((msgString) => {
-    const {type, roomId, room, payload} = JSON.parse(msgString);
-    if (subscribedRoomIds.indexOf(roomId || room.id) === -1) {
+    const {type, roomId, payload} = JSON.parse(msgString);
+    if (subscribedRoomIds.indexOf(roomId) === -1) {
       watchRoom(db, roomId, shipToElm);
       subscribedRoomIds.push(roomId);
     }
@@ -27,7 +27,7 @@ export default (ports) => {
       return getRoom(db, roomId).then(shipToElm);
     }
     if (type === 'requestNewRound') {
-      return scheduleNewRound(db, room).then(shipToElm);
+      return scheduleNewRound(db, payload).then(shipToElm);
     }
     if (type === 'player') {
       updatePlayer(db, roomId, payload);
