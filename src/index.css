@@ -547,6 +547,34 @@ p {
   background: var(--faint-white);
 }
 
+.form__add {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: top;
+  background: var(--faint-white);
+  color: var(--white);
+  outline: 0;
+  border: 0;
+  position: relative;
+  top: 30px;
+  left: 4px;
+
+  & span {
+    position: relative;
+    font-size: 3rem;
+    line-height: .6;
+  }
+
+  &:hover {
+    background: var(--white);
+    color: var(--dark);
+  }
+}
+
 fieldset {
   margin: 0 -.5rem;
   outline: 0;
