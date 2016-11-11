@@ -15,14 +15,16 @@ type alias Options a =
 
 view : Options a -> Html a
 view options =
-  fieldset []
+  div [ class "textinput" ]
     [ label
         [ for options.id
+        , class "textinput__label"
         ]
         [ text options.label
         ]
     , input
-        [ type' "text"
+        [ class "textinput__field"
+        , type' "text"
         , id options.id
         , name options.id
         , onInput options.onInput

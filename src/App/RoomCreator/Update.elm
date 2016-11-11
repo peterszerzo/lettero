@@ -20,6 +20,12 @@ update msg model =
       , Nothing
       )
 
+    AddPlayer ->
+      ( { model | playerIds = List.append model.playerIds [""] }
+      , Cmd.none
+      , Nothing
+      )
+
     SubmitCreateForm ->
       let
         room =

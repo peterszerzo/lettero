@@ -1,6 +1,6 @@
 module RoomCreator.Views.CreateForm exposing (view)
 
-import Html exposing (Html, div, text, h1, h2, p, a, button, input, form)
+import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input)
 import Html.Attributes exposing (class, classList, type', disabled)
 import Html.Events exposing (onClick, onWithOptions)
 
@@ -17,30 +17,39 @@ view model =
     , p [] [ text "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only." ]
     , div
         [ class "form" ]
-        [ UiKit.LabeledInput.view
-            { id = "roomId"
-            , label = "Enter room name"
-            , type' = "text"
-            , autofocus = True
-            , placeholder = "E.g. theroom"
-            , onInput = InputRoomId
-            }
-        , UiKit.LabeledInput.view
-            { id = "player1"
-            , label = "Player 1"
-            , type' = "text"
-            , autofocus = False
-            , placeholder = "E.g. alfred"
-            , onInput = (InputPlayer 0)
-            }
-        , UiKit.LabeledInput.view
-            { id = "player2"
-            , label = "Player 2"
-            , type' = "text"
-            , autofocus = False
-            , placeholder = "E.g. samantha"
-            , onInput = (InputPlayer 1)
-            }
+        [ fieldset
+            []
+            [ UiKit.LabeledInput.view
+                { id = "roomId"
+                , label = "Room name"
+                , type' = "text"
+                , autofocus = True
+                , placeholder = "E.g. theroom"
+                , onInput = InputRoomId
+                }
+            ]
+        , fieldset
+            []
+            (
+              model.playerIds
+                |> List.indexedMap
+                    (
+                      \i playerId ->
+                        (
+                          UiKit.LabeledInput.view
+                            { id = "player" ++ (toString i)
+                            , label = "Player " ++ (toString (i + 1))
+                            , type' = "text"
+                            , autofocus = False
+                            , placeholder = "E.g. alfred"
+                            , onInput = (InputPlayer i)
+                            }
+                        )
+                    )
+            )
+        , button
+            [ onClick AddPlayer ]
+            [ text "Add" ]
         , input
             [ type' "submit"
             , disabled (canSubmit model |> not)
