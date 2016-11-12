@@ -1,6 +1,7 @@
 module Game.Views.Main exposing (view)
 
 import Html exposing (Html, div, p, text)
+import Html.Lazy exposing (lazy2)
 import Html.Attributes exposing (style, class, classList, attribute)
 
 import Game.Constants exposing (roundDuration)
