@@ -14,6 +14,7 @@ import Root.Views.About
 import Root.Views.NotFound
 import Root.Views.Background
 import Root.Views.Start
+import Root.Views.Ui
 
 import Game.Views.Main
 import Game.Models
@@ -39,6 +40,9 @@ view model =
 
       Router.NotFound ->
         Root.Views.NotFound.view
+
+      Router.Ui ->
+        Root.Views.Ui.view
 
       Router.NewRoom ->
         model.roomCreator

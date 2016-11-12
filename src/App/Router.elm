@@ -12,11 +12,16 @@ type Route
   | NewRoom
   | Room String
   | GamePlay String String
+  | Ui
   | NotFound
 
 tryPath : String
 tryPath =
   "try"
+
+uiPath : String
+uiPath =
+  "ui"
 
 startPath : String
 startPath =
@@ -49,6 +54,7 @@ matchers =
     , s startPath |> format Start
     , s aboutPath |> format About
     , s tryPath |> format Tutorial
+    , s uiPath |> format Ui
     , s roomsPath </> string </> string |> format GamePlay
     , s roomsPath </> string |> format Room
     , s newPath |> format NewRoom
