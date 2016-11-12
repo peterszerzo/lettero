@@ -13,7 +13,7 @@ export const listWords = curry(
     if (wordsCache) {
       return Promise.resolve(wordsCache);
     }
-    return db.ref('/words').once('value').then(s => s.val());
+    return db.ref('/roundData/words').once('value').then(s => Object.keys(s.val()));
   }
 );
 
