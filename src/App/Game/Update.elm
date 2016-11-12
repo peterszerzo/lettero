@@ -7,7 +7,7 @@ import Models.Room as Room
 import Models.Player as Player
 import Models.Guess as Guess
 import Game.Messages exposing (Msg(..))
-import Game.Models exposing (Model, setOwnGuess, getOwnGuess, isRoundJustOver)
+import Game.Models exposing (Model, Error(..), setOwnGuess, getOwnGuess, isRoundJustOver)
 import Game.Commands exposing (sendPlayerStatusUpdate, requestRoundRandom, requestNewRound)
 import Game.Constants exposing (tickDuration, roundDuration)
 
@@ -37,6 +37,7 @@ update msg model =
         newModel =
           { model
               | room = newRoom
+              , error = if newRoom == Nothing then (Just WrongPath) else Nothing
               , currentRoundTime = newTime
           }
         cmd =

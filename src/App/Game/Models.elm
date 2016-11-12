@@ -5,12 +5,18 @@ import Time exposing (Time)
 import Models.Room as Room
 import Models.Guess as Guess
 
+type Error
+  = WrongPath
+  | Network
+  | Other
+
 type alias Model =
   { room : Maybe Room.Room
   , roomId : String
   , playerId : String
   , currentRoundRandom : Int
   , currentRoundTime : Time
+  , error : Maybe Error
   }
 
 
@@ -23,6 +29,7 @@ getDummy s =
   , playerId = "2"
   , currentRoundRandom = 0
   , currentRoundTime = 0
+  , error = Nothing
   }
 
 setOwnGuess : Int -> Model -> Model

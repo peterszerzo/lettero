@@ -14,6 +14,7 @@ import Game.Views.ScoreBoard as ScoreBoard
 import Game.Views.Word as Word
 import Game.Views.ReadyScreen as ReadyScreen
 import Game.Views.Notification as Notification
+import Game.Views.Error as Error
 
 import UiKit.Spinner
 import UiKit.TickTockTickTock
@@ -44,7 +45,11 @@ view model =
     [ class "app__page"
     ]
     (
-      model.room
-        |> Maybe.map (viewGame model)
-        |> Maybe.withDefault [ div [  ] [ UiKit.Spinner.view ] ]
+      case model.error of
+        Just err ->
+          Error.view err
+        Nothing ->
+          model.room
+            |> Maybe.map (viewGame model)
+            |> Maybe.withDefault [ div [] [ UiKit.Spinner.view ] ]
     )
