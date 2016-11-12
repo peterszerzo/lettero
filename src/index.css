@@ -248,7 +248,7 @@ p {
     vertical-align: middle;
   }
 
-  &:nth-of-type(2) {
+  &:not(:first-of-type) {
     border-top: 1px solid var(--transparent-white);
   }
 }
@@ -596,6 +596,7 @@ input {
   outline: 0;
   margin: .5rem;
   padding: 0;
+  position: relative;
 
   &:first-of-type {
     margin-top: 0;
@@ -620,6 +621,20 @@ input {
   display: block;
   color: var(--white);
   text-align: left;
+}
+
+.textinput__remove {
+  cursor: pointer;
+  opacity: .6;
+  transition: opacity .3s;
+  position: absolute;
+  top: 1px;
+  right: 12px;
+  font-size: .75rem;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 input[type='submit'] {

@@ -27,9 +27,15 @@ viewPlayers playerIds =
                 { id = "player" ++ (toString i)
                 , label = "Player " ++ (toString (i + 1))
                 , type' = "text"
+                , value = playerId
                 , autofocus = False
                 , placeholder = "E.g. alfred"
-                , onInput = (InputPlayer i)
+                , onInput = InputPlayer i
+                , delete =
+                    if (List.length playerIds > 2 ) then
+                      Just <| RemovePlayer i
+                    else
+                      Nothing
                 }
             )
         )
@@ -49,9 +55,11 @@ view model =
                 { id = "roomId"
                 , label = "Room name"
                 , type' = "text"
+                , value = model.roomId
                 , autofocus = True
                 , placeholder = "E.g. theroom"
                 , onInput = InputRoomId
+                , delete = Nothing
                 }
             ]
         , fieldset

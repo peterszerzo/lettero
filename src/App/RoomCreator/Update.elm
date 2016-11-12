@@ -5,6 +5,13 @@ import Ports exposing (createRoomRequest)
 import RoomCreator.Messages exposing (Msg(..))
 import RoomCreator.Models exposing (Model, Status(..), stringifyCreateRoomRequest)
 
+lTake : Int -> List a -> List a
+lTake i l =
+  List.concat
+    [ List.take i l
+    , List.drop (i+1) l
+    ]
+
 update : Msg -> Model -> (Model, Cmd Msg, Maybe String)
 update msg model =
   case msg of
@@ -22,6 +29,12 @@ update msg model =
 
     AddPlayer ->
       ( { model | playerIds = List.append model.playerIds [""] }
+      , Cmd.none
+      , Nothing
+      )
+
+    RemovePlayer i ->
+      ( { model | playerIds = lTake i model.playerIds }
       , Cmd.none
       , Nothing
       )
