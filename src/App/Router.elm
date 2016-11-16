@@ -2,79 +2,76 @@ module Router exposing (..)
 
 import Navigation
 import UrlParser exposing (..)
-import String
+
 
 type Route
-  = Home
-  | Start
-  | About
-  | Tutorial
-  | NewRoom
-  | Room String
-  | GamePlay String String
-  | Ui
-  | NotFound
+    = Home
+    | Start
+    | About
+    | Tutorial
+    | NewRoom
+    | Room String
+    | GamePlay String String
+    | Ui
+    | NotFound
+
 
 tryPath : String
 tryPath =
-  "try"
+    "try"
+
 
 uiPath : String
 uiPath =
-  "ui"
+    "ui"
+
 
 startPath : String
 startPath =
-  "start"
+    "start"
+
 
 aboutPath : String
 aboutPath =
-  "about"
+    "about"
+
 
 newPath : String
 newPath =
-  "new"
+    "new"
+
 
 homePath : String
 homePath =
-  ""
+    ""
+
 
 roomsPath : String
 roomsPath =
-  "rooms"
+    "rooms"
 
-defaultRouteUrl : (Route, String)
+
+defaultRouteUrl : ( Route, String )
 defaultRouteUrl =
-  (Home, "")
+    ( Home, "" )
+
 
 matchers : UrlParser.Parser (Route -> a) a
 matchers =
-  UrlParser.oneOf
-    [ s homePath |> format Home
-    , s startPath |> format Start
-    , s aboutPath |> format About
-    , s tryPath |> format Tutorial
-    , s uiPath |> format Ui
-    , s roomsPath </> string </> string |> format GamePlay
-    , s roomsPath </> string |> format Room
-    , s newPath |> format NewRoom
-    ]
+    UrlParser.oneOf
+        [ s homePath |> map Home
+        , s startPath |> map Start
+        , s aboutPath |> map About
+        , s tryPath |> map Tutorial
+        , s uiPath |> map Ui
+        , s roomsPath </> string </> string |> map GamePlay
+        , s roomsPath </> string |> map Room
+        , s newPath |> map NewRoom
+        ]
 
-pathnameParser : Navigation.Location -> (Result String Route)
-pathnameParser location =
-  location.pathname
-    |> String.dropLeft 1
-    |> UrlParser.parse identity matchers
 
-parser : Navigation.Parser (Result String Route)
-parser =
-  Navigation.makeParser pathnameParser
-
-routeFromResult : Result a Route -> Route
-routeFromResult result =
-  case result of
-    Ok route ->
-      route
-
-    Err string ->
-      NotFound
+parse : Navigation.Location -> Route
+parse location =
+    location
+        |> UrlParser.parsePath matchers
+        |> Maybe.withDefault NotFound

@@ -1,7 +1,9 @@
 module Content exposing (..)
 
+
 about : String
-about = """
+about =
+    """
 ## About Lettero
 
 Oh, words. So complex and full of surprises. We can hardly make head or tail of them, right? Literally.

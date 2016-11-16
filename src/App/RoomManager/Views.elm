@@ -2,79 +2,77 @@ module RoomManager.Views exposing (view)
 
 import Html exposing (Html, a, div, text, h2, p)
 import Html.Attributes exposing (class, href)
-
 import RoomManager.Models exposing (Model, Stage(..))
 import RoomManager.Messages exposing (Msg)
 import Models.Player as Player
 import Models.Room as Room
 import Constants exposing (baseUrl)
-
 import UiKit.Spinner
+
 
 viewPlayerPlay : String -> Player.Player -> Html Msg
 viewPlayerPlay roomId player =
-  a
-    [ class "button"
-    , href ("/rooms/" ++ roomId ++ "/" ++ player.id)
-    ]
-    [ text ("♟ " ++ player.id)
-    ]
+    a
+        [ class "button"
+        , href ("/rooms/" ++ roomId ++ "/" ++ player.id)
+        ]
+        [ text ("♟ " ++ player.id)
+        ]
+
 
 viewPlayerEmail : String -> Player.Player -> Html Msg
 viewPlayerEmail roomId player =
-  a
-    [ class "button"
-    , href ("mailto:?body=" ++ baseUrl ++ "/rooms/" ++ roomId ++ "/" ++ player.id)
-    ]
-    [ text ("✎ " ++ player.id)
-    ]
+    a
+        [ class "button"
+        , href ("mailto:?body=" ++ baseUrl ++ "/rooms/" ++ roomId ++ "/" ++ player.id)
+        ]
+        [ text ("✎ " ++ player.id)
+        ]
+
 
 viewPlayers : (String -> Player.Player -> Html Msg) -> Room.Room -> List (Html Msg)
 viewPlayers viewPlayer room =
-  room.players
-    |> Player.toList
-    |> List.map (viewPlayer room.id)
+    room.players
+        |> Player.toList
+        |> List.map (viewPlayer room.id)
+
 
 view : Model -> Html Msg
 view model =
-  let
-    content = case model.stage of
-      FetchingRoom ->
-        div []
-          [ UiKit.Spinner.view
-          ]
+    let
+        content =
+            case model.stage of
+                FetchingRoom ->
+                    div []
+                        [ UiKit.Spinner.view
+                        ]
 
+                Base ->
+                    div []
+                        ([ p [] [ text "Your room is ready. Play under these links:" ]
+                         ]
+                            ++ (model.room
+                                    |> Maybe.map (viewPlayers viewPlayerPlay)
+                                    |> Maybe.withDefault []
+                               )
+                            ++ [ p [] [ text "Or invite your opponent by email:" ]
+                               ]
+                            ++ (model.room
+                                    |> Maybe.map (viewPlayers viewPlayerEmail)
+                                    |> Maybe.withDefault []
+                               )
+                        )
 
-      Base ->
-        div []
-          (
-            [ p [] [ text "Your room is ready. Play under these links:" ]
-            ] ++
-            (
-              model.room
-                |> Maybe.map (viewPlayers viewPlayerPlay)
-                |> Maybe.withDefault []
-            ) ++
-            [ p [] [ text "Or invite your opponent by email:" ]
-            ] ++
-            (
-              model.room
-                |> Maybe.map (viewPlayers viewPlayerEmail)
-                |> Maybe.withDefault []
-            )
-          )
-
-      _ ->
-        div [] []
-
-  in
-    div
-      [ class "app__page"
-      ]
-      [ div
-          [ class "basic-content"
-          ]
-          [ h2 [] [ text ("Welcome to " ++ model.roomId) ]
-          , content
-          ]
-      ]
+                _ ->
+                    div [] []
+    in
+        div
+            [ class "app__page"
+            ]
+            [ div
+                [ class "basic-content"
+                ]
+                [ h2 [] [ text ("Welcome to " ++ model.roomId) ]
+                , content
+                ]
+            ]

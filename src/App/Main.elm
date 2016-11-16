@@ -2,19 +2,19 @@ module Main exposing (..)
 
 import Platform exposing (Program)
 import Navigation
-
-import Router exposing (Route, parser)
+import Router
+import Root.Models exposing (Model, init)
 import Root.Views.Main exposing (view)
-import Root.Models exposing (initWithRoute)
+import Root.Update exposing (update)
+import Root.Messages exposing (Msg(RouteChange))
 import Root.Subscriptions exposing (subscriptions)
-import Root.Update exposing (update, urlUpdate)
 
-main : Program Never
+
+main : Program Never Model Msg
 main =
-  Navigation.program parser
-    { init = initWithRoute
-    , view = view
-    , update = update
-    , subscriptions = subscriptions
-    , urlUpdate = urlUpdate
-    }
+    Navigation.program (RouteChange << Router.parse)
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }
