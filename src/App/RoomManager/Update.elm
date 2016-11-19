@@ -12,7 +12,7 @@ update msg model =
         ReceiveRoom roomString ->
             let
                 room =
-                    JD.decodeString Room.roomDecoder roomString
+                    JD.decodeString Room.itemDecoder roomString
                         |> Result.toMaybe
             in
                 { model | room = room, stage = Base }

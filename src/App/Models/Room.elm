@@ -109,31 +109,31 @@ setReady playerId room =
 -- Encoders
 
 
-roomEncoder : Room -> JE.Value
-roomEncoder { id, round, roundData, hostId, players } =
+itemEncoder : Room -> JE.Value
+itemEncoder { id, round, roundData, hostId, players } =
     JE.object
         [ ( "id", JE.string id )
         , ( "round", JE.int round )
-        , ( "roundData", RoundData.roundDataEncoder roundData )
+        , ( "roundData", RoundData.itemEncoder roundData )
         , ( "hostId", JE.string hostId )
-        , ( "players", Player.playersEncoder players )
+        , ( "players", Player.itemsEncoder players )
         ]
 
 
-encodeRoom : Room -> String
-encodeRoom =
-    (JE.encode 0) << roomEncoder
+encodeItem : Room -> String
+encodeItem =
+    (JE.encode 0) << itemEncoder
 
 
 
 -- Decoders
 
 
-roomDecoder : JD.Decoder Room
-roomDecoder =
+itemDecoder : JD.Decoder Room
+itemDecoder =
     JD.map5 Room
         (JD.field "id" JD.string)
         (JD.field "round" JD.int)
-        (JD.field "roundData" RoundData.roundDataDecoder)
+        (JD.field "roundData" RoundData.itemDecoder)
         (JD.field "hostId" JD.string)
-        (JD.field "players" Player.playersDecoder)
+        (JD.field "players" Player.itemsDecoder)

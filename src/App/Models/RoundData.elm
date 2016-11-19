@@ -15,22 +15,14 @@ getDummy s =
     }
 
 
-
--- Decoders
-
-
-roundDataDecoder : JD.Decoder RoundData
-roundDataDecoder =
+itemDecoder : JD.Decoder RoundData
+itemDecoder =
     JD.map RoundData
         (JD.field "word" JD.string)
 
 
-
--- Encoders
-
-
-roundDataEncoder : RoundData -> JE.Value
-roundDataEncoder { word } =
+itemEncoder : RoundData -> JE.Value
+itemEncoder { word } =
     JE.object
         [ ( "word", JE.string word )
         ]

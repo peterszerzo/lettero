@@ -11,11 +11,11 @@ import Game.Models exposing (Model)
 sendPlayerStatusUpdate : Model -> Cmd Msg
 sendPlayerStatusUpdate model =
     let
-        encodedPlayer =
+        encodedItem =
             model.room
                 |> Maybe.map .players
                 |> Maybe.map (Player.unsafeFindById model.playerId)
-                |> Maybe.map Player.encodePlayer
+                |> Maybe.map Player.encodeItem
                 |> Maybe.withDefault ""
     in
         sendGameCommand
@@ -23,7 +23,7 @@ sendPlayerStatusUpdate model =
                 ++ ", \"roomId\": \""
                 ++ model.roomId
                 ++ "\", \"payload\": "
-                ++ encodedPlayer
+                ++ encodedItem
                 ++ "}"
             )
 
@@ -47,7 +47,7 @@ requestNewRound room =
             ++ room.id
             ++ "\""
             ++ ", \"payload\": "
-            ++ (Room.encodeRoom room)
+            ++ (Room.encodeItem room)
             ++ "}"
         )
 

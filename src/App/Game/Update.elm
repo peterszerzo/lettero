@@ -32,7 +32,7 @@ update msg model =
         ReceiveRoomState roomState ->
             let
                 newRoom =
-                    decodeString Room.roomDecoder roomState
+                    decodeString Room.itemDecoder roomState
                         |> Result.toMaybe
 
                 didRoundChange =

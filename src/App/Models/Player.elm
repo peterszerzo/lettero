@@ -128,49 +128,49 @@ didAllGuess players =
 -- Decoders
 
 
-playerDecoder : JD.Decoder Player
-playerDecoder =
+itemDecoder : JD.Decoder Player
+itemDecoder =
     JD.map5 Player
         (JD.field "id" JD.string)
         (JD.field "roomId" JD.string)
         (JD.field "score" JD.int)
-        (JD.field "guess" Guess.guessDecoder)
+        (JD.field "guess" Guess.itemDecoder)
         (JD.field "isReady" JD.bool)
 
 
-playersDecoder : JD.Decoder Players
-playersDecoder =
-    JD.dict playerDecoder
+itemsDecoder : JD.Decoder Players
+itemsDecoder =
+    JD.dict itemDecoder
 
 
 
 -- Encoders
 
 
-playerEncoder : Player -> JE.Value
-playerEncoder { id, roomId, score, guess, isReady } =
+itemEncoder : Player -> JE.Value
+itemEncoder { id, roomId, score, guess, isReady } =
     JE.object
         [ ( "roomId", JE.string roomId )
         , ( "id", JE.string id )
         , ( "score", JE.int score )
-        , ( "guess", Guess.guessEncoder guess )
+        , ( "guess", Guess.itemEncoder guess )
         , ( "isReady", JE.bool isReady )
         ]
 
 
-playersEncoder : Players -> JE.Value
-playersEncoder players =
+itemsEncoder : Players -> JE.Value
+itemsEncoder players =
     players
         |> Dict.toList
-        |> List.map (\( key, player ) -> ( key, playerEncoder player ))
+        |> List.map (\( key, player ) -> ( key, itemEncoder player ))
         |> JE.object
 
 
-encodePlayer : Player -> String
-encodePlayer =
-    (JE.encode 0) << playerEncoder
+encodeItem : Player -> String
+encodeItem =
+    (JE.encode 0) << itemEncoder
 
 
-encodePlayers : Players -> String
-encodePlayers =
-    (JE.encode 0) << playersEncoder
+encodeItems : Players -> String
+encodeItems =
+    (JE.encode 0) << itemsEncoder

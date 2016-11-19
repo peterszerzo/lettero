@@ -52,7 +52,7 @@ update msg model =
                     | status = Processing
                     , room = Just room
                 }
-                    ! [ createRoomRequest (Room.encodeRoom room) ]
+                    ! [ createRoomRequest (Room.encodeItem room) ]
 
         ReceiveFormStatus statusString ->
             { model

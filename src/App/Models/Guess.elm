@@ -57,8 +57,8 @@ toMaybe guess =
 -- Encoders
 
 
-guessEncoder : Guess -> JE.Value
-guessEncoder { value, time } =
+itemEncoder : Guess -> JE.Value
+itemEncoder { value, time } =
     let
         encodedValue =
             case value of
@@ -77,10 +77,10 @@ guessEncoder { value, time } =
             ]
 
 
-encodeGuess : Guess -> String
-encodeGuess guess =
+encodeItem : Guess -> String
+encodeItem guess =
     guess
-        |> guessEncoder
+        |> itemEncoder
         |> JE.encode 0
 
 
@@ -106,8 +106,8 @@ valueDecoder =
         ]
 
 
-guessDecoder : Decoder Guess
-guessDecoder =
+itemDecoder : Decoder Guess
+itemDecoder =
     JD.map2 Guess
         (JD.field "value" valueDecoder)
         (JD.field "time" JD.float)
