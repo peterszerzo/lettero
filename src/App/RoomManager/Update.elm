@@ -6,22 +6,17 @@ import RoomManager.Messages exposing (Msg(..))
 import RoomManager.Models exposing (Model, Stage(..))
 
 
-update : Msg -> Model -> ( Model, Cmd Msg, Maybe String )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model
-            , Cmd.none
-            , Nothing
-            )
-
         ReceiveRoom roomString ->
             let
                 room =
                     JD.decodeString Room.roomDecoder roomString
                         |> Result.toMaybe
             in
-                ( { model | room = room, stage = Base }
-                , Cmd.none
-                , Nothing
-                )
+                { model | room = room, stage = Base }
+                ! [ Cmd.none ]
+
+        Navigate str ->
+          model ! [ Cmd.none ]

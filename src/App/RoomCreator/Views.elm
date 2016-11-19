@@ -1,11 +1,39 @@
-module RoomCreator.Views.CreateForm exposing (view)
+module RoomCreator.Views exposing (view)
 
 import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input, span)
-import Html.Attributes exposing (class, classList, type_, disabled)
+import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
-import UiKit.LabeledInput
+import Models.Room as Room
+import Router
+import RoomCreator.Models exposing (Model, Status(..), canSubmit)
 import RoomCreator.Messages exposing (Msg(..))
-import RoomCreator.Models exposing (Model, canSubmit)
+import UiKit.LabeledInput
+
+
+view : Model -> Html Msg
+view model =
+    div
+        [ class "app__page"
+        ]
+        [ viewContent model
+        ]
+
+
+viewContent : Model -> Html Msg
+viewContent model =
+    case model.status of
+        Success ->
+            model.room
+                |> Maybe.withDefault (Room.getDummy "1")
+                |> viewSuccess
+
+        Error ->
+            model.room
+                |> Maybe.withDefault (Room.getDummy "1")
+                |> viewError
+
+        _ ->
+            viewCreateForm model
 
 
 viewAddButton : Html Msg
@@ -40,8 +68,8 @@ viewPlayers playerIds =
             )
 
 
-view : Model -> Html Msg
-view model =
+viewCreateForm : Model -> Html Msg
+viewCreateForm model =
     div
         [ class "basic-content"
         ]
@@ -71,5 +99,42 @@ view model =
                 , onClick SubmitCreateForm
                 ]
                 [ text "Submit" ]
+            ]
+        ]
+
+
+viewSuccess : Room.Room -> Html Msg
+viewSuccess room =
+    div
+        [ class "basic-content"
+        ]
+        [ h2 [] [ text "Success!" ]
+        , p [] [ text <| "Yes, indeed, " ++ room.id ++ " is all yours! And now:" ]
+        , button
+            [ class "button"
+            , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
+            ]
+            [ text "Go to your room!! ☞"
+            ]
+        ]
+
+viewError : Room.Room -> Html Msg
+viewError room =
+    div
+        [ class "basic-content"
+        ]
+        [ h2 [] [ text "Well that didn’t go so well.." ]
+        , p [] [ text "Things go wrong from time to time.. anyways, care to try again?" ]
+        , button
+            [ class "button"
+            , onClick (Navigate ("/" ++ Router.newPath))
+            ]
+            [ text "Yes"
+            ]
+        , button
+            [ class "button"
+            , onClick (Navigate ("/" ++ Router.newPath))
+            ]
+            [ text "No"
             ]
         ]

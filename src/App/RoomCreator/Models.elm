@@ -2,6 +2,7 @@ module RoomCreator.Models exposing (..)
 
 import String
 import Models.Room as Room
+import RoomCreator.Messages exposing (Msg)
 
 
 type Status
@@ -19,18 +20,14 @@ type alias Model =
     }
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
     { roomId = ""
     , playerIds = [ "", "" ]
     , room = Nothing
     , status = Editing
     }
-
-
-getDummy : String -> Model
-getDummy s =
-    init
+        ! [ Cmd.none ]
 
 
 

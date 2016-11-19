@@ -1,5 +1,6 @@
 module Tutorial.Models exposing (..)
 
+import Tutorial.Messages exposing (Msg)
 
 type Stage
     = Start
@@ -12,20 +13,15 @@ type alias Model =
     }
 
 
-init : Model
+init : (Model, Cmd Msg)
 init =
     { stage = Start
     , guess = Nothing
-    }
+    } ! [ Cmd.none ]
 
 
 
 -- Helpers
-
-
-getDummy : String -> Model
-getDummy s =
-    init
 
 
 getDialogContent : Model -> String

@@ -3,6 +3,8 @@ module Game.Models exposing (..)
 import Time exposing (Time)
 import Models.Room as Room
 import Models.Guess as Guess
+import Game.Messages exposing (Msg)
+import Game.Ports exposing (sendGameCommand)
 
 
 type Error
@@ -19,6 +21,28 @@ type alias Model =
     , currentRoundTime : Time
     , error : Maybe Error
     }
+
+
+init : { roomId : String, playerId : String } -> ( Model, Cmd Msg )
+init { roomId, playerId } =
+    let
+        model =
+            { room = Nothing
+            , roomId = roomId
+            , playerId = playerId
+            , currentRoundRandom = 0
+            , currentRoundTime = 0
+            , error = Nothing
+            }
+    in
+        model
+            ! [ sendGameCommand
+                ("{\"type\": \"requestRoomState\""
+                    ++ ", \"roomId\": \""
+                    ++ model.roomId
+                    ++ "\""
+                    ++ "}"
+                ) ]
 
 
 

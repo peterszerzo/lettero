@@ -3,18 +3,14 @@ module Views exposing (view)
 import Html exposing (Html, div, text, h1, h2, h3, p, button, nav, map)
 import Html.Attributes exposing (class, classList)
 import Html.Events exposing (onClick)
+import Markdown
 import Router
 import Messages exposing (Msg(..))
 import Models exposing (Model)
-import Game.Views.Main
-import Game.Models
-import RoomCreator.Views.Main
-import RoomCreator.Models
-import RoomManager.Models
+import Game.Views
+import RoomCreator.Views
 import RoomManager.Views
 import Tutorial.Views
-import Tutorial.Models
-import Markdown
 import Content
 import UiKit.Background
 import UiKit.Spinner
@@ -41,27 +37,23 @@ view model =
                 Router.Ui ->
                     viewUi
 
-                Router.NewRoom ->
-                    model.roomCreator
-                        |> Maybe.withDefault (RoomCreator.Models.getDummy "1")
-                        |> RoomCreator.Views.Main.view
+                Router.RoomCreator rc ->
+                    rc
+                        |> RoomCreator.Views.view
                         |> map RoomCreatorMsg
 
-                Router.Room roomId ->
-                    model.roomManager
-                        |> Maybe.withDefault (RoomManager.Models.getDummy "1")
+                Router.RoomManager rm ->
+                    rm
                         |> RoomManager.Views.view
                         |> map RoomManagerMsg
 
-                Router.GamePlay roomId playerId ->
-                    model.game
-                        |> Maybe.withDefault (Game.Models.getDummy "1")
-                        |> Game.Views.Main.view
+                Router.Game gm ->
+                    gm
+                        |> Game.Views.view
                         |> map GameMsg
 
-                Router.Tutorial ->
-                    model.tutorial
-                        |> Maybe.withDefault (Tutorial.Models.getDummy "1")
+                Router.Tutorial tut ->
+                    tut
                         |> Tutorial.Views.view
                         |> map TutorialMsg
     in

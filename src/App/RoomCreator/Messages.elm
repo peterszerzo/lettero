@@ -9,4 +9,13 @@ type Msg
     | SubmitCreateForm
     | ReceiveFormStatus String
     | Navigate String
-    | NoOp
+
+
+newPath : Msg -> Maybe String
+newPath msg =
+    case msg of
+        Navigate pth ->
+            Just pth
+
+        _ ->
+            Nothing

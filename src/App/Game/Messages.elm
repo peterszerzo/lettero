@@ -11,3 +11,13 @@ type Msg
     | SetReady
     | LeaveRoom String
     | Navigate String
+
+
+newPath : Msg -> Maybe String
+newPath msg =
+    case msg of
+        Navigate pth ->
+            Just pth
+
+        _ ->
+            Nothing

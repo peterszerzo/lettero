@@ -26,7 +26,7 @@ augmentCommand model newModel cmd =
             ]
 
 
-update : Msg -> Model -> ( Model, Cmd Msg, Maybe String )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ReceiveRoomState roomState ->
@@ -64,18 +64,14 @@ update msg model =
                 cmd_ =
                     augmentCommand model newModel cmd
             in
-                ( newModel
-                , cmd_
-                , Nothing
-                )
+                newModel
+                    ! [ cmd_ ]
 
         ReceiveRoundRandom roundRandom ->
-            ( { model
+            { model
                 | currentRoundRandom = roundRandom
-              }
-            , Cmd.none
-            , Nothing
-            )
+            }
+                ! [ Cmd.none ]
 
         MakeGuess guessValue ->
             let
@@ -98,10 +94,8 @@ update msg model =
                     )
                         |> augmentCommand model newModel
             in
-                ( newModel
-                , cmd
-                , Nothing
-                )
+                newModel
+                    ! [ cmd ]
 
         Tick tick ->
             let
@@ -142,10 +136,8 @@ update msg model =
                     )
                         |> augmentCommand model newModel
             in
-                ( newModel
-                , cmd
-                , Nothing
-                )
+                newModel
+                    ! [ cmd ]
 
         SetReady ->
             let
@@ -162,10 +154,8 @@ update msg model =
                 command =
                     sendPlayerStatusUpdate newModel
             in
-                ( newModel
-                , command
-                , Nothing
-                )
+                newModel
+                    ! [ command ]
 
         LeaveRoom _ ->
             let
@@ -190,13 +180,9 @@ update msg model =
                 command =
                     sendPlayerStatusUpdate newModel
             in
-                ( newModel
-                , command
-                , Nothing
-                )
+                newModel
+                    ! [ command ]
 
         Navigate newUrl ->
-            ( model
-            , Cmd.none
-            , Just newUrl
-            )
+            model
+                ! [ Cmd.none ]

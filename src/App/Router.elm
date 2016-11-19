@@ -2,16 +2,20 @@ module Router exposing (..)
 
 import Navigation
 import UrlParser exposing (..)
+import Game.Models
+import RoomCreator.Models
+import RoomManager.Models
+import Tutorial.Models
 
 
 type Route
     = Home
     | Start
     | About
-    | Tutorial
-    | NewRoom
-    | Room String
-    | GamePlay String String
+    | Tutorial Tutorial.Models.Model
+    | RoomCreator RoomCreator.Models.Model
+    | RoomManager RoomManager.Models.Model
+    | Game Game.Models.Model
     | Ui
     | NotFound
 
@@ -62,11 +66,19 @@ matchers =
         [ s homePath |> map Home
         , s startPath |> map Start
         , s aboutPath |> map About
-        , s tryPath |> map Tutorial
+        , s tryPath |> map (Tutorial <| Tuple.first Tutorial.Models.init)
         , s uiPath |> map Ui
-        , s roomsPath </> string </> string |> map GamePlay
-        , s roomsPath </> string |> map Room
-        , s newPath |> map NewRoom
+        , s roomsPath
+            </> string
+            </> string
+            |> map
+                (\roomId playerId ->
+                    Game.Models.init { roomId = roomId, playerId = playerId }
+                        |> Tuple.first
+                        |> Game
+                )
+        , s roomsPath </> string |> map (\roomId -> RoomManager (RoomManager.Models.init roomId |> Tuple.first))
+        , s newPath |> map (RoomCreator <| Tuple.first RoomCreator.Models.init)
         ]
 
 
