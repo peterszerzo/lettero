@@ -81,8 +81,8 @@ layout children =
 viewHome : Html Msg
 viewHome =
     layout
-        [ h1 [] [ text "Lettero" ]
-        , h3 [] [ text "Playground for the social wordnerd" ]
+        [ h1 [] [ text Content.homePageTitle ]
+        , h3 [] [ text Content.homePageSubtitle ]
         , div
             [ class "basic-content__nav"
             ]
@@ -90,13 +90,13 @@ viewHome =
                 [ class "button"
                 , onClick (Navigate ("/" ++ Router.startPath))
                 ]
-                [ text "Play"
+                [ text Content.homePagePlayButtonText
                 ]
             , button
                 [ class "button"
                 , onClick (Navigate ("/" ++ Router.aboutPath))
                 ]
-                [ text "About"
+                [ text Content.homePageAboutButtonText
                 ]
             ]
         ]
@@ -105,8 +105,8 @@ viewHome =
 viewNotFound : Html Msg
 viewNotFound =
     layout
-        [ h2 [] [ text "Not found :/" ]
-        , p [] [ text "Uh, boy, looks like we sent you to the wrong place.." ]
+        [ h2 [] [ text Content.notFoundPageTitle ]
+        , p [] [ text Content.notFoundPageBody ]
         ]
 
 
@@ -126,14 +126,14 @@ viewNav model =
 viewStart : Html Msg
 viewStart =
     layout
-        [ p [] [ text "Shall we start with a 15-second tutorial?" ]
+        [ p [] [ text Content.startPageTutorialPrompt ]
         , button
             [ class "button"
             , onClick (Navigate ("/" ++ Router.tryPath))
             ]
             [ text "Tutorial"
             ]
-        , p [] [ text "If you’ve got the hang of it, create a room. No login required." ]
+        , p [] [ text Content.startPageCreateRoomPrompt ]
         , button
             [ class "button"
             , onClick (Navigate ("/" ++ Router.newPath))
@@ -146,17 +146,17 @@ viewStart =
 viewAbout : Html Msg
 viewAbout =
     layout
-        [ Markdown.toHtml [] (Content.about)
+        [ Markdown.toHtml [] (Content.aboutPageContent)
         , button
             [ class "button"
             , onClick (Navigate <| "/" ++ Router.homePath)
             ]
-            [ text "☜ Back" ]
+            [ text Content.aboutPageBackButtonText ]
         , button
             [ class "button"
             , onClick (Navigate <| "/" ++ Router.startPath)
             ]
-            [ text "Play ☞" ]
+            [ text Content.aboutPagePlayButtonText ]
         ]
 
 

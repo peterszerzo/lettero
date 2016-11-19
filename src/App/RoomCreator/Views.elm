@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
 import Models.Room as Room
 import Router
+import Content
 import RoomCreator.Models exposing (Model, Status(..), canSubmit)
 import RoomCreator.Messages exposing (Msg(..))
 import UiKit.LabeledInput
@@ -73,8 +74,8 @@ viewCreateForm model =
     div
         [ class "basic-content"
         ]
-        [ h2 [] [ text "Create a room in a jiffy" ]
-        , p [] [ text "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only." ]
+        [ h2 [] [ text Content.roomCreatorPageTitle ]
+        , p [] [ text Content.roomCreatorPageBody ]
         , div
             [ class "form" ]
             [ fieldset

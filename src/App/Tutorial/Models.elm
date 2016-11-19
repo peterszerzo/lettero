@@ -1,6 +1,7 @@
 module Tutorial.Models exposing (..)
 
 import Tutorial.Messages exposing (Msg)
+import Content
 
 type Stage
     = Start
@@ -28,15 +29,15 @@ getDialogContent : Model -> String
 getDialogContent { stage, guess } =
     case stage of
         Start ->
-            "Heyyo, ready? Just click me to get your very first word."
+            Content.tutorialStart
 
         ShowWord ->
             case guess of
                 Nothing ->
-                    "Holy moly, who writes like that? Anyways, see if you can find the first letter."
+                    Content.tutorialShow
 
                 Just i ->
                     if i == 0 then
-                        "Cool, you got it - click me again to create your very own room."
+                        Content.tutorialCorrect
                     else
-                        "Not quite, not quite. Give it one more go?"
+                        Content.tutorialIncorrect
