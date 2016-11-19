@@ -1,10 +1,10 @@
-module Root.Models exposing (..)
+module Models exposing (..)
 
 import RoomCreator.Models
 import RoomManager.Models
 import Tutorial.Models
 import Router
-import Root.Messages
+import Messages
 import Game.Models
 import Game.Init
 import Navigation
@@ -24,7 +24,7 @@ maybeLiftFirstInTuple ( a, b ) =
     ( Just a, b )
 
 
-setRoute : Router.Route -> Model -> ( Model, Cmd Root.Messages.Msg )
+setRoute : Router.Route -> Model -> ( Model, Cmd Messages.Msg )
 setRoute route model =
     let
         ( gameModel, gameCmd ) =
@@ -72,15 +72,15 @@ setRoute route model =
             , tutorial = tutorialModel
           }
         , Cmd.batch
-            [ Cmd.map Root.Messages.GameMsg gameCmd
-            , Cmd.map Root.Messages.RoomCreatorMsg roomCreatorCmd
-            , Cmd.map Root.Messages.RoomManagerMsg roomManagerCmd
-            , Cmd.map Root.Messages.TutorialMsg tutorialCmd
+            [ Cmd.map Messages.GameMsg gameCmd
+            , Cmd.map Messages.RoomCreatorMsg roomCreatorCmd
+            , Cmd.map Messages.RoomManagerMsg roomManagerCmd
+            , Cmd.map Messages.TutorialMsg tutorialCmd
             ]
         )
 
 
-init : Navigation.Location -> ( Model, Cmd Root.Messages.Msg )
+init : Navigation.Location -> ( Model, Cmd Messages.Msg )
 init loc =
     let
         route = Router.parse loc

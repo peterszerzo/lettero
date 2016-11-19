@@ -1,7 +1,7 @@
-module Root.Subscriptions exposing (..)
+module Subscriptions exposing (..)
 
-import Root.Models exposing (Model)
-import Root.Messages exposing (Msg(..))
+import Models exposing (Model)
+import Messages exposing (Msg(..))
 import Game.Subscriptions
 import RoomCreator.Subscriptions
 import RoomManager.Subscriptions

@@ -1,8 +1,8 @@
-module Root.Update exposing (..)
+module Update exposing (..)
 
 import Navigation
-import Root.Models exposing (Model, setRoute)
-import Root.Messages exposing (Msg(..))
+import Models exposing (Model, setRoute)
+import Messages exposing (Msg(..))
 import Game.Update
 import RoomCreator.Update
 import RoomManager.Update

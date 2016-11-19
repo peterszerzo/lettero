@@ -1,4 +1,4 @@
-module Root.Views.Background exposing (view)
+module UiKit.Background exposing (view)
 
 import Html exposing (Html, div, text, h1, p, button, nav)
 import Html.Attributes exposing (class, style)

@@ -3,11 +3,11 @@ module Main exposing (..)
 import Platform exposing (Program)
 import Navigation
 import Router
-import Root.Models exposing (Model, init)
-import Root.Views.Main exposing (view)
-import Root.Update exposing (update)
-import Root.Messages exposing (Msg(RouteChange))
-import Root.Subscriptions exposing (subscriptions)
+import Models exposing (Model, init)
+import Views exposing (view)
+import Update exposing (update)
+import Messages exposing (Msg(RouteChange))
+import Subscriptions exposing (subscriptions)
 
 
 main : Program Never Model Msg

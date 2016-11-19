@@ -1,4 +1,4 @@
-module Root.Messages exposing (..)
+module Messages exposing (..)
 
 import Game.Messages
 import RoomCreator.Messages
