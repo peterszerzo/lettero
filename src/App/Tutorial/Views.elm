@@ -4,6 +4,7 @@ import Html exposing (Html, div, text, h2)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Dict
+import Router
 import Tutorial.Messages exposing (Msg(..))
 import Tutorial.Models exposing (Model, getDialogContent)
 import UiKit.Notification
@@ -20,12 +21,18 @@ view model =
 
                 Nothing ->
                     Dict.empty
+
+        clickHandler =
+            if (model.guess == Just 0) then
+                (Navigate Router.newPath)
+            else
+                Proceed
     in
         div
             [ class "app__page"
             ]
             [ div
-                [ onClick Proceed
+                [ onClick clickHandler
                 ]
                 [ UiKit.Notification.view (getDialogContent model) True
                 ]
