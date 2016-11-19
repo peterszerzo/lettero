@@ -1,7 +1,7 @@
 {
-    "version": "0.1.0",
+    "version": "0.3.0",
     "summary": "Multiplayer wordgame",
-    "repository": "https://github.com/user/project.git",
+    "repository": "https://github.com/pickled-plugins/lettero.git",
     "license": "ISC",
     "source-directories": [
         "./src/App"
