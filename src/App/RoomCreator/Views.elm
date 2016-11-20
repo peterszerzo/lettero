@@ -1,5 +1,6 @@
 module RoomCreator.Views exposing (view)
 
+import Regex
 import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input, span)
 import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
@@ -109,23 +110,24 @@ viewSuccess room =
     div
         [ class "basic-content"
         ]
-        [ h2 [] [ text "Success!" ]
-        , p [] [ text <| "Yes, indeed, " ++ room.id ++ " is all yours! And now:" ]
+        [ h2 [] [ text Content.roomCreatorPageSuccessTitle ]
+        , p [] [ Content.roomCreatorPageSuccessBody |> Regex.replace Regex.All (Regex.regex "${}") (\_ -> room.id) |> text ]
         , button
             [ class "button"
             , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
             ]
-            [ text "Go to your room!! ☞"
+            [ text Content.roomCreatorPageSuccessButtonText
             ]
         ]
+
 
 viewError : Room.Room -> Html Msg
 viewError room =
     div
         [ class "basic-content"
         ]
-        [ h2 [] [ text "Well that didn’t go so well.." ]
-        , p [] [ text "Things go wrong from time to time.. anyways, care to try again?" ]
+        [ h2 [] [ text Content.roomCreatorPageErrorTitle ]
+        , p [] [ text Content.roomCreatorPageErrorBody ]
         , button
             [ class "button"
             , onClick (Navigate ("/" ++ Router.newPath))

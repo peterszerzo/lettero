@@ -74,6 +74,46 @@ roomCreatorPageBody =
     "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only."
 
 
+roomCreatorPageErrorTitle : String
+roomCreatorPageErrorTitle =
+    "Well that didn’t go so well.."
+
+
+roomCreatorPageErrorBody : String
+roomCreatorPageErrorBody =
+    "Things go wrong from time to time.. anyways, care to try again?"
+
+
+roomCreatorPageSuccessTitle : String
+roomCreatorPageSuccessTitle =
+    "Success!"
+
+
+roomCreatorPageSuccessBody : String
+roomCreatorPageSuccessBody =
+    "Yes, indeed, ${} is all yours! And now:"
+
+
+roomCreatorPageSuccessButtonText : String
+roomCreatorPageSuccessButtonText =
+    "Go to your room!! ☞"
+
+
+roomManagerPageTitle : String
+roomManagerPageTitle =
+    "Welcome to ${}"
+
+
+roomManagerPagePlayLinksIntro : String
+roomManagerPagePlayLinksIntro =
+    "Your room is ready. Play under these links:"
+
+
+roomManagerPageInviteLinksIntro : String
+roomManagerPageInviteLinksIntro =
+    "Or invite your opponent by email:"
+
+
 tutorialStart : String
 tutorialStart =
     "Heyyo, ready? Just click me to get your very first word."

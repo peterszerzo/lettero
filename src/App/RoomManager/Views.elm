@@ -1,7 +1,9 @@
 module RoomManager.Views exposing (view)
 
+import Regex
 import Html exposing (Html, a, div, text, h2, p)
 import Html.Attributes exposing (class, href)
+import Content
 import RoomManager.Models exposing (Model, Stage(..))
 import RoomManager.Messages exposing (Msg)
 import Models.Player as Player
@@ -49,13 +51,13 @@ view model =
 
                 Base ->
                     div []
-                        ([ p [] [ text "Your room is ready. Play under these links:" ]
+                        ([ p [] [ text Content.roomManagerPagePlayLinksIntro ]
                          ]
                             ++ (model.room
                                     |> Maybe.map (viewPlayers viewPlayerPlay)
                                     |> Maybe.withDefault []
                                )
-                            ++ [ p [] [ text "Or invite your opponent by email:" ]
+                            ++ [ p [] [ text Content.roomManagerPageInviteLinksIntro ]
                                ]
                             ++ (model.room
                                     |> Maybe.map (viewPlayers viewPlayerEmail)
@@ -72,7 +74,7 @@ view model =
             [ div
                 [ class "basic-content"
                 ]
-                [ h2 [] [ text ("Welcome to " ++ model.roomId) ]
+                [ h2 [] [ Content.roomManagerPageTitle |> Regex.replace Regex.All (Regex.regex "${}") (\_ -> model.roomId) |> text ]
                 , content
                 ]
             ]
