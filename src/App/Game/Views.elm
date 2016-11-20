@@ -6,6 +6,7 @@ import Html.Lazy exposing (lazy, lazy2)
 import Html.Attributes exposing (style, class, classList, attribute, disabled)
 import Html.Events exposing (onClick)
 import Content
+import Utilities
 import Game.Constants exposing (roundDuration)
 import Models.Room as Room
 import Models.Guess as Guess
@@ -63,9 +64,9 @@ viewError error =
 getNotificationContent : String -> String -> String
 getNotificationContent winner self =
     if winner == self then
-        "Nice going, " ++ winner ++ "!"
+        Utilities.textTemplate Content.gameRoundWinNotification winner
     else
-        "This one goes to " ++ winner
+        Utilities.textTemplate Content.gameRoundLoseNotification winner
 
 
 viewNotification : Model -> Room.Room -> Html Msg

@@ -144,13 +144,13 @@ gameReadyScreenBody =
     "The game will start as soon as everybody marks ready."
 
 
-gameWinNotification : String
-gameWinNotification =
+gameRoundWinNotification : String
+gameRoundWinNotification =
     "Nice going, ${}!"
 
 
-gameLoseNotification : String
-gameLoseNotification =
+gameRoundLoseNotification : String
+gameRoundLoseNotification =
     "This one goes to ${}"
 
 

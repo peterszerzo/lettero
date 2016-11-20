@@ -1,9 +1,9 @@
 module RoomManager.Views exposing (view)
 
-import Regex
 import Html exposing (Html, a, div, text, h2, p)
 import Html.Attributes exposing (class, href)
 import Content
+import Utilities
 import RoomManager.Models exposing (Model, Stage(..))
 import RoomManager.Messages exposing (Msg)
 import Models.Player as Player
@@ -74,7 +74,7 @@ view model =
             [ div
                 [ class "basic-content"
                 ]
-                [ h2 [] [ Content.roomManagerPageTitle |> Regex.replace Regex.All (Regex.regex "${}") (\_ -> model.roomId) |> text ]
+                [ h2 [] [ Utilities.textTemplate Content.roomManagerPageTitle model.roomId |> text ]
                 , content
                 ]
             ]

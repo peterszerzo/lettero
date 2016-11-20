@@ -1,12 +1,12 @@
 module RoomCreator.Views exposing (view)
 
-import Regex
 import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input, span)
 import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
 import Models.Room as Room
 import Router
 import Content
+import Utilities
 import RoomCreator.Models exposing (Model, Status(..), canSubmit)
 import RoomCreator.Messages exposing (Msg(..))
 import UiKit.LabeledInput
@@ -111,7 +111,7 @@ viewSuccess room =
         [ class "basic-content"
         ]
         [ h2 [] [ text Content.roomCreatorPageSuccessTitle ]
-        , p [] [ Content.roomCreatorPageSuccessBody |> Regex.replace Regex.All (Regex.regex "${}") (\_ -> room.id) |> text ]
+        , p [] [ Utilities.textTemplate Content.roomCreatorPageSuccessBody room.id |> text ]
         , button
             [ class "button"
             , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
