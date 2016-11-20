@@ -10,6 +10,7 @@ import Models.Player as Player
 import Models.Room as Room
 import Constants exposing (baseUrl)
 import UiKit.Spinner
+import UiKit.PageLayout
 
 
 viewPlayerPlay : String -> Player.Player -> Html Msg
@@ -68,13 +69,7 @@ view model =
                 _ ->
                     div [] []
     in
-        div
-            [ class "app__page"
-            ]
-            [ div
-                [ class "basic-content"
-                ]
-                [ h2 [] [ Utilities.textTemplate Content.roomManagerPageTitle model.roomId |> text ]
-                , content
-                ]
+        UiKit.PageLayout.view
+            [ h2 [] [ Utilities.textTemplate Content.roomManagerPageTitle model.roomId |> text ]
+            , content
             ]

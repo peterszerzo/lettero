@@ -15,6 +15,7 @@ import Content
 import UiKit.Background
 import UiKit.Spinner
 import UiKit.Icons exposing (logo)
+import UiKit.PageLayout
 
 
 view : Model -> Html Msg
@@ -66,21 +67,9 @@ view model =
             ]
 
 
-layout : List (Html Msg) -> Html Msg
-layout children =
-    div
-        [ class "app__page"
-        ]
-        [ div
-            [ class "basic-content"
-            ]
-            children
-        ]
-
-
 viewHome : Html Msg
 viewHome =
-    layout
+    UiKit.PageLayout.view
         [ h1 [] [ text Content.homePageTitle ]
         , h3 [] [ text Content.homePageSubtitle ]
         , div
@@ -104,7 +93,7 @@ viewHome =
 
 viewNotFound : Html Msg
 viewNotFound =
-    layout
+    UiKit.PageLayout.view
         [ h2 [] [ text Content.notFoundPageTitle ]
         , p [] [ text Content.notFoundPageBody ]
         ]
@@ -125,7 +114,7 @@ viewNav model =
 
 viewStart : Html Msg
 viewStart =
-    layout
+    UiKit.PageLayout.view
         [ p [] [ text Content.startPageTutorialPrompt ]
         , button
             [ class "button"
@@ -145,7 +134,7 @@ viewStart =
 
 viewAbout : Html Msg
 viewAbout =
-    layout
+    UiKit.PageLayout.view
         [ Markdown.toHtml [] (Content.aboutPageContent)
         , button
             [ class "button"
@@ -162,7 +151,7 @@ viewAbout =
 
 viewUi : Html Msg
 viewUi =
-    layout
+    UiKit.PageLayout.view
         [ h2 [] [ text "Lettero UI kit" ]
         , p [] [ text "A list of UI elements used in the game." ]
         , div

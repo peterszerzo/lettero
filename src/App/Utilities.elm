@@ -5,8 +5,4 @@ import Regex
 
 textTemplate : String -> String -> String
 textTemplate template value =
-    Regex.replace
-        Regex.All
-        (Regex.regex "${}")
-        (\_ -> value)
-        template
+    Regex.replace Regex.All (Regex.regex "${}") (\_ -> value) template

@@ -10,18 +10,16 @@ import Utilities
 import RoomCreator.Models exposing (Model, Status(..), canSubmit)
 import RoomCreator.Messages exposing (Msg(..))
 import UiKit.LabeledInput
+import UiKit.PageLayout
 
 
 view : Model -> Html Msg
 view model =
-    div
-        [ class "app__page"
-        ]
-        [ viewContent model
-        ]
+    viewContent model
+        |> UiKit.PageLayout.view
 
 
-viewContent : Model -> Html Msg
+viewContent : Model -> List (Html Msg)
 viewContent model =
     case model.status of
         Success ->
@@ -70,74 +68,65 @@ viewPlayers playerIds =
             )
 
 
-viewCreateForm : Model -> Html Msg
+viewCreateForm : Model -> List (Html Msg)
 viewCreateForm model =
-    div
-        [ class "basic-content"
-        ]
-        [ h2 [] [ text Content.roomCreatorPageTitle ]
-        , p [] [ text Content.roomCreatorPageBody ]
-        , div
-            [ class "form" ]
-            [ fieldset
-                []
-                [ UiKit.LabeledInput.view
-                    { id = "roomId"
-                    , label = "Room name"
-                    , type_ = "text"
-                    , value = model.roomId
-                    , autofocus = True
-                    , placeholder = "E.g. theroom"
-                    , onInput = InputRoomId
-                    , delete = Nothing
-                    }
-                ]
-            , fieldset
-                []
-                (List.concat [ (viewPlayers model.playerIds), [ viewAddButton ] ])
-            , input
-                [ type_ "submit"
-                , disabled (canSubmit model |> not)
-                , onClick SubmitCreateForm
-                ]
-                [ text "Submit" ]
+    [ h2 [] [ text Content.roomCreatorPageTitle ]
+    , p [] [ text Content.roomCreatorPageBody ]
+    , div
+        [ class "form" ]
+        [ fieldset
+            []
+            [ UiKit.LabeledInput.view
+                { id = "roomId"
+                , label = "Room name"
+                , type_ = "text"
+                , value = model.roomId
+                , autofocus = True
+                , placeholder = "E.g. theroom"
+                , onInput = InputRoomId
+                , delete = Nothing
+                }
             ]
+        , fieldset
+            []
+            (List.concat [ (viewPlayers model.playerIds), [ viewAddButton ] ])
+        , input
+            [ type_ "submit"
+            , disabled (canSubmit model |> not)
+            , onClick SubmitCreateForm
+            ]
+            [ text "Submit" ]
         ]
+    ]
 
 
-viewSuccess : Room.Room -> Html Msg
+viewSuccess : Room.Room -> List (Html Msg)
 viewSuccess room =
-    div
-        [ class "basic-content"
+    [ h2 [] [ text Content.roomCreatorPageSuccessTitle ]
+    , p [] [ Utilities.textTemplate Content.roomCreatorPageSuccessBody room.id |> text ]
+    , button
+        [ class "button"
+        , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
         ]
-        [ h2 [] [ text Content.roomCreatorPageSuccessTitle ]
-        , p [] [ Utilities.textTemplate Content.roomCreatorPageSuccessBody room.id |> text ]
-        , button
-            [ class "button"
-            , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
-            ]
-            [ text Content.roomCreatorPageSuccessButtonText
-            ]
+        [ text Content.roomCreatorPageSuccessButtonText
         ]
+    ]
 
 
-viewError : Room.Room -> Html Msg
+viewError : Room.Room -> List (Html Msg)
 viewError room =
-    div
-        [ class "basic-content"
+    [ h2 [] [ text Content.roomCreatorPageErrorTitle ]
+    , p [] [ text Content.roomCreatorPageErrorBody ]
+    , button
+        [ class "button"
+        , onClick (Navigate ("/" ++ Router.newPath))
         ]
-        [ h2 [] [ text Content.roomCreatorPageErrorTitle ]
-        , p [] [ text Content.roomCreatorPageErrorBody ]
-        , button
-            [ class "button"
-            , onClick (Navigate ("/" ++ Router.newPath))
-            ]
-            [ text "Yes"
-            ]
-        , button
-            [ class "button"
-            , onClick (Navigate ("/" ++ Router.newPath))
-            ]
-            [ text "No"
-            ]
+        [ text "Yes"
         ]
+    , button
+        [ class "button"
+        , onClick (Navigate ("/" ++ Router.newPath))
+        ]
+        [ text "No"
+        ]
+    ]
