@@ -27,11 +27,3 @@ init roomId =
     , stage = FetchingRoom
     }
         ! [ roomRequest roomId ]
-
-
-getDummy : String -> Model
-getDummy roomId =
-    { roomId = roomId
-    , room = Nothing
-    , stage = FetchingRoom
-    }

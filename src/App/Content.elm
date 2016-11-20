@@ -92,3 +92,43 @@ tutorialCorrect =
 tutorialIncorrect : String
 tutorialIncorrect =
     "Not quite, not quite. Give it one more go?"
+
+
+gameReadyScreenTitle : String
+gameReadyScreenTitle =
+    "Ready, fellas?"
+
+
+gameReadyScreenBody : String
+gameReadyScreenBody =
+    "The game will start as soon as everybody marks ready."
+
+
+gameWinNotification : String
+gameWinNotification =
+    "Nice going, ${}!"
+
+
+gameLoseNotification : String
+gameLoseNotification =
+    "This one goes to ${}"
+
+
+gameTieNotification : String
+gameTieNotification =
+    "It’s a tie, folks"
+
+
+gameIdleNotification : String
+gameIdleNotification =
+    "Oupsie, ran out of time there :/"
+
+
+gameIncorrectGuessNotification : String
+gameIncorrectGuessNotification =
+    "Not quite what we were looking for :("
+
+
+defaultErrorMessage : String
+defaultErrorMessage =
+    "Hi, this is an error"

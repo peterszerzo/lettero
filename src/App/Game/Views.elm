@@ -5,6 +5,7 @@ import Html exposing (Html, div, p, h1, h2, text, button, span)
 import Html.Lazy exposing (lazy, lazy2)
 import Html.Attributes exposing (style, class, classList, attribute, disabled)
 import Html.Events exposing (onClick)
+import Content
 import Game.Constants exposing (roundDuration)
 import Models.Room as Room
 import Models.Guess as Guess
@@ -16,6 +17,22 @@ import UiKit.TickTockTickTock
 import UiKit.Notification
 import UiKit.ScoreBoard
 import UiKit.Word
+
+
+view : Model -> Html Msg
+view model =
+    div
+        [ class "app__page"
+        ]
+        (case model.error of
+            Just err ->
+                viewError err
+
+            Nothing ->
+                model.room
+                    |> Maybe.map (viewGame model)
+                    |> Maybe.withDefault [ div [] [ UiKit.Spinner.view ] ]
+        )
 
 
 viewGame : Model -> Room.Room -> List (Html Msg)
@@ -38,25 +55,9 @@ viewGame model room =
             ]
 
 
-view : Model -> Html Msg
-view model =
-    div
-        [ class "app__page"
-        ]
-        (case model.error of
-            Just err ->
-                viewError err
-
-            Nothing ->
-                model.room
-                    |> Maybe.map (viewGame model)
-                    |> Maybe.withDefault [ div [] [ UiKit.Spinner.view ] ]
-        )
-
-
 viewError : Error -> List (Html Msg)
 viewError error =
-    [ div [ class "basic-content" ] [ h2 [] [ text "Hi, this is an error" ] ] ]
+    [ div [ class "basic-content" ] [ h2 [] [ text Content.defaultErrorMessage ] ] ]
 
 
 getNotificationContent : String -> String -> String
@@ -75,15 +76,15 @@ viewNotification model room =
 
         ( isActive, content ) =
             if Player.isDraw room.players then
-                ( True, "It’s a tie, folks" )
+                ( True, Content.gameTieNotification )
             else if (Player.getWinnerId room.players /= Nothing) then
                 Player.getWinnerId room.players
                     |> Maybe.map (\id -> ( True, getNotificationContent id model.playerId ))
                     |> Maybe.withDefault ( False, "" )
             else if (ownGuess |> Maybe.map .value |> (==) (Just Guess.Idle)) then
-                ( True, "Oupsie, ran out of time there :/" )
+                ( True, Content.gameIdleNotification )
             else if (ownGuess |> Maybe.map Guess.isIncorrect |> (==) (Just True)) then
-                ( True, "Not quite what we were looking for :(" )
+                ( True, Content.gameIncorrectGuessNotification )
             else
                 ( False, "" )
     in
@@ -171,11 +172,11 @@ viewReadyScreen players playerId =
         []
         [ h2
             []
-            [ text "Ready, fellas?"
+            [ text Content.gameReadyScreenTitle
             ]
         , p
             []
-            [ text "The game will start as soon as everybody marks ready."
+            [ text Content.gameReadyScreenBody
             ]
         , div []
             (players

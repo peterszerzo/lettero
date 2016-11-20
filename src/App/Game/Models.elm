@@ -37,16 +37,13 @@ init { roomId, playerId } =
     in
         model
             ! [ sendGameCommand
-                ("{\"type\": \"requestRoomState\""
-                    ++ ", \"roomId\": \""
-                    ++ model.roomId
-                    ++ "\""
-                    ++ "}"
-                ) ]
-
-
-
--- Helpers
+                    ("{\"type\": \"requestRoomState\""
+                        ++ ", \"roomId\": \""
+                        ++ model.roomId
+                        ++ "\""
+                        ++ "}"
+                    )
+              ]
 
 
 getDummy : String -> Model
