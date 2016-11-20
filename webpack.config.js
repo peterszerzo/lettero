@@ -11,6 +11,8 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 dotenv.load();
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const commonPlugins = [
   new webpack.DefinePlugin({
     'process.env.FIREBASE_API_KEY': `"${process.env.FIREBASE_API_KEY}"`,
@@ -57,7 +59,7 @@ const config = {
       },
       {
         test: /\.elm$/,
-        loader: 'elm-webpack'
+        loader: isDev ? 'elm-webpack?debug=true' : 'elm-webpack'
       },
       {
         test: /\.(ico|html)$/,
@@ -80,7 +82,7 @@ const config = {
       })
     ];
   },
-  plugins: commonPlugins.concat(process.env.NODE_ENV === 'production' ? prodPlugins : []),
+  plugins: commonPlugins.concat(isDev ? [] : prodPlugins),
   resolve: {
     extensions: ['', '.js', '.elm']
   },
