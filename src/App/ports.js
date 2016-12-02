@@ -2,7 +2,7 @@ import {getDb} from '../utilities/firebase'
 
 import talkToGame from './Game/ports'
 
-export default function talk (ports) {
+export default (ports) => {
   const db = getDb()
   ports.roomRequest.subscribe(roomId => {
     db.ref(`/rooms/${roomId}`)
