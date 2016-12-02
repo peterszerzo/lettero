@@ -73,7 +73,7 @@ matchers =
             </> string
             |> map
                 (\roomId playerId ->
-                    Game.Models.init { roomId = roomId, playerId = playerId }
+                    Game.Models.init roomId playerId
                         |> Tuple.first
                         |> Game
                 )

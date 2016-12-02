@@ -18,7 +18,7 @@ getCmdOnRouteChange : Router.Route -> Cmd Msg
 getCmdOnRouteChange rt =
     case rt of
         Router.Game gm ->
-            Game.Models.init { roomId = gm.roomId, playerId = gm.playerId }
+            Game.Models.init gm.roomId gm.playerId
                 |> Tuple.second
                 |> Cmd.map GameMsg
 
@@ -46,8 +46,7 @@ init loc =
     let
         route =
             Router.parse loc
-
-        cmd =
-            getCmdOnRouteChange route
     in
-        ( Model route, cmd )
+        ( Model route
+        , getCmdOnRouteChange route
+        )

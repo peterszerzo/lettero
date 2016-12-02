@@ -23,8 +23,8 @@ type alias Model =
     }
 
 
-init : { roomId : String, playerId : String } -> ( Model, Cmd Msg )
-init { roomId, playerId } =
+init : String -> String -> ( Model, Cmd Msg )
+init roomId playerId =
     let
         model =
             { room = Nothing
