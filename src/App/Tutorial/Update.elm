@@ -15,14 +15,14 @@ update msg model =
                     else
                         model.stage
             }
-                ! [ Cmd.none ]
+                ! []
 
         Navigate newUrl ->
-            model ! [ Cmd.none ]
+            model ! []
 
         Guess i ->
             { model
                 | guess =
                     Just i
             }
-                ! [ Cmd.none ]
+                ! []

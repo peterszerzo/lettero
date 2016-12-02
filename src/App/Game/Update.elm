@@ -185,4 +185,4 @@ update msg model =
 
         Navigate newUrl ->
             model
-                ! [ Cmd.none ]
+                ! []

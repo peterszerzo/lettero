@@ -16,7 +16,7 @@ update msg model =
                         |> Result.toMaybe
             in
                 { model | room = room, stage = Base }
-                ! [ Cmd.none ]
+                    ! []
 
         Navigate str ->
-          model ! [ Cmd.none ]
+            model ! []

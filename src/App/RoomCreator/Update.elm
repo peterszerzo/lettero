@@ -33,15 +33,15 @@ update msg model =
                         )
                         model.playerIds
             }
-                ! [ Cmd.none ]
+                ! []
 
         AddPlayer ->
             { model | playerIds = List.append model.playerIds [ "" ] }
-                ! [ Cmd.none ]
+                ! []
 
         RemovePlayer i ->
             { model | playerIds = lTake i model.playerIds }
-                ! [ Cmd.none ]
+                ! []
 
         SubmitCreateForm ->
             let
@@ -62,7 +62,7 @@ update msg model =
                     else
                         Error
             }
-                ! [ Cmd.none ]
+                ! []
 
         Navigate newUrl ->
-            model ! [ Cmd.none ]
+            model ! []
