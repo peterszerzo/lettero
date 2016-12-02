@@ -4,9 +4,7 @@ A mildly frustrating, yet somehow delightful multiplayer word game. Click on the
 
 Jumpstarted with the generous support and encouragement of [Airtame](https://airtame.com), during a [hackathon](http://blog.airtame.com/hackairthon-2/#wordsnakeamultiplayerwordgame). Carried on as a weekend project afterwards.
 
-## Just a little experiment
-
-This is a modest, front-end focused project that experiments with multiplayer games using [Elm](http://elm-lang.org/). The back-end recently migrated from a tiny Express-concoction into a Google Firebase server.
+This is a front-end focused project that experiments with multiplayer games made in [Elm](http://elm-lang.org/). The back-end recently migrated from a tiny Express-concoction into a Google Firebase server.
 
 Some of the interesting bits:
 

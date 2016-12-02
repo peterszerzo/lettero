@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const webpack = require('webpack');
-const validate = require('webpack-validator');
-const postCssCssNext = require('postcss-cssnext');
-const dotenv = require('dotenv');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const validate = require('webpack-validator')
+const postCssCssNext = require('postcss-cssnext')
+const dotenv = require('dotenv')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 
-dotenv.load();
+dotenv.load()
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 
 const commonPlugins = [
   new webpack.DefinePlugin({
@@ -23,11 +23,11 @@ const commonPlugins = [
   }),
   new HtmlWebpackPlugin({
     template: './src/index.pug',
-    inject: false,
+    inject: true,
     hash: true
   }),
   new ExtractTextWebpackPlugin('styles.css')
-];
+]
 
 const prodPlugins = [
   new webpack.optimize.UglifyJsPlugin({}),
@@ -35,7 +35,7 @@ const prodPlugins = [
     logo: './src/favicon.png',
     inject: true
   })
-];
+]
 
 const config = {
   entry: [
@@ -75,18 +75,18 @@ const config = {
       }
     ]
   },
-  postcss() {
+  postcss () {
     return [
       postCssCssNext({
         browsers: ['ie >= 10', 'last 3 versions']
       })
-    ];
+    ]
   },
   plugins: commonPlugins.concat(isDev ? [] : prodPlugins),
   resolve: {
     extensions: ['', '.js', '.elm']
   },
   devtool: 'source-map'
-};
+}
 
-module.exports = validate(config);
+module.exports = validate(config)
