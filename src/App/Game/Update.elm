@@ -108,13 +108,13 @@ update msg model =
 
                 isPlayerGuessPending =
                     getOwnGuess model
-                        |> Maybe.map .value
+                        |> Maybe.map .status
                         |> (==) (Just Guess.Pending)
 
                 ( newRoom, shouldSendStatusUpdate ) =
                     if didRoundTimeJustRunOut && isPlayerGuessPending then
                         ( model.room
-                            |> Maybe.map (Room.setGuess { time = newRoundTime, value = Guess.Idle } model.playerId)
+                            |> Maybe.map (Room.setGuess { time = newRoundTime, status = Guess.Idle } model.playerId)
                         , True
                         )
                     else

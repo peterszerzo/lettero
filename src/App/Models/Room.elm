@@ -83,7 +83,7 @@ setNewRound : Room -> Room
 setNewRound room =
     { room
         | round = room.round + 1
-        , players = Dict.map (\id p -> { p | guess = { time = 0, value = Guess.Pending } }) room.players
+        , players = Dict.map (\id p -> { p | guess = { time = 0, status = Guess.Pending } }) room.players
     }
 
 
@@ -92,7 +92,7 @@ canGuess playerId room =
     let
         playerDidNotGuess =
             Player.unsafeFindById playerId room.players
-                |> ((==) Guess.Pending << .value << .guess)
+                |> ((==) Guess.Pending << .status << .guess)
     in
         playerDidNotGuess && (not (isRoundOver room))
 

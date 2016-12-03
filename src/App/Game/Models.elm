@@ -61,7 +61,7 @@ setOwnGuess : Int -> Model -> Model
 setOwnGuess guessValue model =
     let
         guess =
-            { value = Guess.Made guessValue
+            { status = Guess.Made guessValue
             , time = model.currentRoundTime
             }
     in

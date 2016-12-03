@@ -82,7 +82,7 @@ viewNotification model room =
                 Player.getWinnerId room.players
                     |> Maybe.map (\id -> ( True, getNotificationContent id model.playerId ))
                     |> Maybe.withDefault ( False, "" )
-            else if (ownGuess |> Maybe.map .value |> (==) (Just Guess.Idle)) then
+            else if (ownGuess |> Maybe.map .status |> (==) (Just Guess.Idle)) then
                 ( True, Content.gameIdleNotification )
             else if (ownGuess |> Maybe.map Guess.isIncorrect |> (==) (Just True)) then
                 ( True, Content.gameIncorrectGuessNotification )

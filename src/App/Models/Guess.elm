@@ -5,23 +5,24 @@ import Json.Encode as JE
 import Json.Decode as JD exposing (Decoder, map2)
 
 
-type GuessValue
+type alias GuessValue = Int
+
+
+type GuessStatus
     = Pending
     | Idle
     | Made Int
 
 
 type alias Guess =
-    { value : GuessValue
+    { status : GuessStatus
     , time : Time
     }
 
 
 getDummy : String -> Guess
 getDummy s =
-    { value = Pending
-    , time = 0
-    }
+  Guess Pending 0
 
 
 
@@ -30,12 +31,12 @@ getDummy s =
 
 isCorrect : Guess -> Bool
 isCorrect guess =
-    guess.value == (Made 0)
+    guess.status == (Made 0)
 
 
 isPending : Guess -> Bool
 isPending guess =
-    guess.value == Pending
+    guess.status == Pending
 
 
 isIncorrect : Guess -> Bool
@@ -45,7 +46,7 @@ isIncorrect guess =
 
 toMaybe : Guess -> Maybe Int
 toMaybe guess =
-    case guess.value of
+    case guess.status of
         Made i ->
             Just i
 
@@ -58,10 +59,10 @@ toMaybe guess =
 
 
 itemEncoder : Guess -> JE.Value
-itemEncoder { value, time } =
+itemEncoder { status, time } =
     let
         encodedValue =
-            case value of
+            case status of
                 Pending ->
                     JE.string "pending"
 
@@ -72,7 +73,7 @@ itemEncoder { value, time } =
                     JE.int i
     in
         JE.object
-            [ ( "value", encodedValue )
+            [ ( "status", encodedValue )
             , ( "time", JE.float time )
             ]
 
@@ -88,26 +89,26 @@ encodeItem guess =
 -- Decoders
 
 
-valueStringDecoder : String -> JD.Decoder GuessValue
-valueStringDecoder s =
+valueDecoder : String -> JD.Decoder GuessStatus
+valueDecoder s =
     if s == "pending" then
         JD.succeed Pending
     else
         JD.succeed Idle
 
 
-valueDecoder : Decoder GuessValue
-valueDecoder =
+statusDecoder : Decoder GuessStatus
+statusDecoder =
     JD.oneOf
         [ JD.int
             |> JD.andThen (\i -> Made i |> JD.succeed)
         , JD.string
-            |> JD.andThen valueStringDecoder
+            |> JD.andThen valueDecoder
         ]
 
 
 itemDecoder : Decoder Guess
 itemDecoder =
     JD.map2 Guess
-        (JD.field "value" valueDecoder)
+        (JD.field "status" statusDecoder)
         (JD.field "time" JD.float)
