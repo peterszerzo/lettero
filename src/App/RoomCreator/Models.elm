@@ -1,7 +1,6 @@
 module RoomCreator.Models exposing (..)
 
 import String
-import Models.Room as Room
 import RoomCreator.Messages exposing (Msg)
 
 
@@ -15,7 +14,6 @@ type Status
 type alias Model =
     { roomId : String
     , playerIds : List String
-    , room : Maybe Room.Room
     , status : Status
     }
 
@@ -24,10 +22,9 @@ init : ( Model, Cmd Msg )
 init =
     { roomId = ""
     , playerIds = [ "", "" ]
-    , room = Nothing
     , status = Editing
     }
-        ! [ Cmd.none ]
+        ! []
 
 
 

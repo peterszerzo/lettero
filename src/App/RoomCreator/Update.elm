@@ -50,7 +50,6 @@ update msg model =
             in
                 { model
                     | status = Processing
-                    , room = Just room
                 }
                     ! [ createRoomRequest (Room.encodeItem room) ]
 

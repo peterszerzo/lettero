@@ -25,8 +25,8 @@
 
   --panel-skin {
     border-radius: var(--border-radius);
-    box-shadow: var(--standard-box-shadow);
     background-color: var(--white);
+    padding: .5rem 1.5rem;
   }
 
   --root-z-index: 0;
@@ -183,6 +183,16 @@ button:focus {
   z-index: var(--page-z-index);
 }
 
+.app__page-content {
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+
+  & > * {
+    margin: auto;
+  }
+}
+
 
 /* Background */
 
@@ -224,7 +234,7 @@ button:focus {
   border-radius: var(--border-radius);
   position: absolute;
   bottom: 30px;
-  padding: 6px;
+  padding: .75rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   text-align: center;
@@ -232,10 +242,10 @@ button:focus {
   @media (--desktop) {
     text-align: left;
     transform: none;
-    padding: 18px;
+    padding: 1rem;
     left: auto;
-    right: 20px;
-    bottom: 20px;
+    right: 1.5rem;
+    bottom: 1.5rem;
   }
 }
 
@@ -249,11 +259,9 @@ button:focus {
   padding: 4px;
   line-height: 1.35;
   margin: 0;
-
-  & > * {
-    display: inline-block;
-    vertical-align: middle;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:not(:first-of-type) {
     border-top: 1px solid var(--transparent-white);
@@ -261,23 +269,26 @@ button:focus {
 }
 
 .score-board__mark {
+  display: none;
   width: 24px;
   position: relative;
   text-align: center;
 
   @media (--desktop) {
+    display: inline;
     top: -12px;
   }
 }
 
 .score-board__player {
-  width: 110px;
+  flex: 1;
   text-align: center;
 }
 
 .score-board__score {
   font-size: 1.25rem;
-  width: 48px;
+  width: 30px;
+  flex: 0;
   text-align: right;
 
   @media (--desktop) {
@@ -354,8 +365,8 @@ button:focus {
   cursor: pointer;
   margin: auto .5rem;
   color: var(--dark);
-  padding: .5rem 1.5rem;
   @apply --panel-skin;
+  box-shadow: var(--standard-box-shadow);
   border: 0;
 }
 
@@ -435,9 +446,7 @@ button:focus {
 .basic-content {
   text-align: center;
   max-width: 600px;
-  max-height: 100%;
-  overflow: auto;
-  padding: 1rem;
+  padding: 3rem 1rem;
 }
 
 .basic-content__nav {
@@ -494,6 +503,7 @@ button:focus {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  padding: .5rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,7 +513,6 @@ button:focus {
   border-radius: var(--border-radius);
 
   & p {
-    padding: 12px 24px;
     margin: 0;
     text-align: center;
   }
@@ -546,43 +555,35 @@ button:focus {
 
 .form {
   text-align: left;
-  max-width: 400px;
   margin: 1rem auto 0;
-  padding: 24px;
+  padding: 2rem;
   border-radius: var(--border-radius);
   background: var(--faint-white);
+
+  & > * {
+    display: block;
+    margin: 2rem 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.form__add {
-  display: inline-block;
-  text-align: center;
+.form__button {
   cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  vertical-align: top;
-  background: var(--faint-white);
-  color: var(--white);
+  width: 100%;
+  @apply --panel-skin;
+  color: var(--dark);
   outline: 0;
   border: 0;
-  position: relative;
-  top: 30px;
-  left: 4px;
-
-  & span {
-    position: relative;
-    font-size: 3rem;
-    line-height: .6;
-  }
-
-  &:hover {
-    background: var(--white);
-    color: var(--dark);
-  }
 }
 
 fieldset {
-  margin: 0 -.5rem;
   outline: 0;
   border: 0;
   padding: 0;
@@ -596,11 +597,9 @@ input {
 }
 
 .textinput {
-  display: inline-block;
-  max-width: 120px;
+  display: block;
   border: 0;
   outline: 0;
-  margin: .5rem;
   padding: 0;
   position: relative;
 
@@ -622,7 +621,7 @@ input {
 
 .textinput__label {
   padding-left: 18px;
-  font-size: .75rem;
+  font-size: 1.25rem;
   width: 100%;
   display: block;
   color: var(--white);
@@ -636,7 +635,7 @@ input {
   position: absolute;
   top: 1px;
   right: 12px;
-  font-size: .75rem;
+  font-size: 1.25rem;
 
   &:hover {
     opacity: 1;
@@ -645,7 +644,6 @@ input {
 
 input[type='submit'] {
   width: 100%;
-  margin: 1rem auto 0;
   background: var(--white);
   color: var(--dark);
   box-shadow: var(--standard-box-shadow);

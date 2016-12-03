@@ -3,7 +3,6 @@ module RoomCreator.Views exposing (view)
 import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input, span)
 import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
-import Models.Room as Room
 import Router
 import Content
 import Utilities
@@ -23,26 +22,13 @@ viewContent : Model -> List (Html Msg)
 viewContent model =
     case model.status of
         Success ->
-            model.room
-                |> Maybe.withDefault (Room.getDummy "1")
-                |> viewSuccess
+            viewSuccess model
 
         Error ->
-            model.room
-                |> Maybe.withDefault (Room.getDummy "1")
-                |> viewError
+            viewError
 
         _ ->
             viewCreateForm model
-
-
-viewAddButton : Html Msg
-viewAddButton =
-    button
-        [ onClick AddPlayer
-        , class "form__add"
-        ]
-        [ span [] [ text "+" ] ]
 
 
 viewPlayers : List String -> List (Html Msg)
@@ -74,47 +60,49 @@ viewCreateForm model =
     , p [] [ text Content.roomCreatorPageBody ]
     , div
         [ class "form" ]
-        [ fieldset
-            []
-            [ UiKit.LabeledInput.view
-                { id = "roomId"
-                , label = "Room name"
-                , type_ = "text"
-                , value = model.roomId
-                , autofocus = True
-                , placeholder = "E.g. theroom"
-                , onInput = InputRoomId
-                , delete = Nothing
-                }
-            ]
-        , fieldset
-            []
-            (List.concat [ (viewPlayers model.playerIds), [ viewAddButton ] ])
-        , input
-            [ type_ "submit"
-            , disabled (canSubmit model |> not)
-            , onClick SubmitCreateForm
-            ]
-            [ text "Submit" ]
+      <|
+        [ UiKit.LabeledInput.view
+            { id = "roomId"
+            , label = "Room name"
+            , type_ = "text"
+            , value = model.roomId
+            , autofocus = True
+            , placeholder = "E.g. theroom"
+            , onInput = InputRoomId
+            , delete = Nothing
+            }
         ]
+            ++ (viewPlayers model.playerIds)
+            ++ [ button
+                    [ onClick AddPlayer
+                    , class "form__button"
+                    ]
+                    [ span [] [ text Content.roomCreatorPageAddPlayerPrompt ] ]
+               , input
+                    [ type_ "submit"
+                    , disabled (canSubmit model |> not)
+                    , onClick SubmitCreateForm
+                    ]
+                    [ text "Submit" ]
+               ]
     ]
 
 
-viewSuccess : Room.Room -> List (Html Msg)
-viewSuccess room =
+viewSuccess : Model -> List (Html Msg)
+viewSuccess model =
     [ h2 [] [ text Content.roomCreatorPageSuccessTitle ]
-    , p [] [ Utilities.textTemplate Content.roomCreatorPageSuccessBody room.id |> text ]
+    , p [] [ Utilities.textTemplate Content.roomCreatorPageSuccessBody model.roomId |> text ]
     , button
         [ class "button"
-        , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ room.id))
+        , onClick (Navigate ("/" ++ Router.roomsPath ++ "/" ++ model.roomId))
         ]
         [ text Content.roomCreatorPageSuccessButtonText
         ]
     ]
 
 
-viewError : Room.Room -> List (Html Msg)
-viewError room =
+viewError : List (Html Msg)
+viewError =
     [ h2 [] [ text Content.roomCreatorPageErrorTitle ]
     , p [] [ text Content.roomCreatorPageErrorBody ]
     , button

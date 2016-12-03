@@ -69,6 +69,11 @@ roomCreatorPageTitle =
     "Create a room in a jiffy"
 
 
+roomCreatorPageAddPlayerPrompt : String
+roomCreatorPageAddPlayerPrompt =
+    "Add player"
+
+
 roomCreatorPageBody : String
 roomCreatorPageBody =
     "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only."

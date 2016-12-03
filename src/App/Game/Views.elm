@@ -170,7 +170,7 @@ viewReadyScreenPlayer playerId player =
 viewReadyScreen : Player.Players -> String -> Html Msg
 viewReadyScreen players playerId =
     div
-        []
+        [ class "basic-content" ]
         [ h2
             []
             [ text Content.gameReadyScreenTitle
