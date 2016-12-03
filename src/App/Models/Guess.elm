@@ -3,15 +3,13 @@ module Models.Guess exposing (..)
 import Time exposing (Time)
 import Json.Encode as JE
 import Json.Decode as JD exposing (Decoder, map2)
-
-
-type alias GuessValue = Int
+import Models.GuessValue as GuessValue
 
 
 type GuessStatus
     = Pending
     | Idle
-    | Made Int
+    | Made GuessValue.GuessValue
 
 
 type alias Guess =
@@ -22,7 +20,7 @@ type alias Guess =
 
 getDummy : String -> Guess
 getDummy s =
-  Guess Pending 0
+    Guess Pending 0
 
 
 
@@ -31,7 +29,7 @@ getDummy s =
 
 isCorrect : Guess -> Bool
 isCorrect guess =
-    guess.status == (Made 0)
+    guess.status == (Made GuessValue.correct)
 
 
 isPending : Guess -> Bool
@@ -58,8 +56,8 @@ toMaybe guess =
 -- Encoders
 
 
-itemEncoder : Guess -> JE.Value
-itemEncoder { status, time } =
+encoder : Guess -> JE.Value
+encoder { status, time } =
     let
         encodedValue =
             case status of
@@ -70,7 +68,7 @@ itemEncoder { status, time } =
                     JE.string "idle"
 
                 Made i ->
-                    JE.int i
+                    GuessValue.encoder i
     in
         JE.object
             [ ( "status", encodedValue )
@@ -81,7 +79,7 @@ itemEncoder { status, time } =
 encodeItem : Guess -> String
 encodeItem guess =
     guess
-        |> itemEncoder
+        |> encoder
         |> JE.encode 0
 
 
@@ -89,26 +87,18 @@ encodeItem guess =
 -- Decoders
 
 
-valueDecoder : String -> JD.Decoder GuessStatus
-valueDecoder s =
-    if s == "pending" then
-        JD.succeed Pending
-    else
-        JD.succeed Idle
-
-
 statusDecoder : Decoder GuessStatus
 statusDecoder =
     JD.oneOf
-        [ JD.int
+        [ GuessValue.decoder
             |> JD.andThen (\i -> Made i |> JD.succeed)
         , JD.string
-            |> JD.andThen valueDecoder
+            |> JD.andThen (\s -> JD.succeed <| if s == "pending" then Pending else Idle)
         ]
 
 
-itemDecoder : Decoder Guess
-itemDecoder =
+decoder : Decoder Guess
+decoder =
     JD.map2 Guess
         (JD.field "status" statusDecoder)
         (JD.field "time" JD.float)

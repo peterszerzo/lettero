@@ -134,7 +134,7 @@ itemDecoder =
         (JD.field "id" JD.string)
         (JD.field "roomId" JD.string)
         (JD.field "score" JD.int)
-        (JD.field "guess" Guess.itemDecoder)
+        (JD.field "guess" Guess.decoder)
         (JD.field "isReady" JD.bool)
 
 
@@ -153,7 +153,7 @@ itemEncoder { id, roomId, score, guess, isReady } =
         [ ( "roomId", JE.string roomId )
         , ( "id", JE.string id )
         , ( "score", JE.int score )
-        , ( "guess", Guess.itemEncoder guess )
+        , ( "guess", Guess.encoder guess )
         , ( "isReady", JE.bool isReady )
         ]
 
