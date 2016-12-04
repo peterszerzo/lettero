@@ -146,7 +146,7 @@ gameReadyScreenTitle =
 
 gameReadyScreenBody : String
 gameReadyScreenBody =
-    "The game will start as soon as everybody marks ready."
+    "Once you feel ready, tap your name. This game can get a little stressful, so feel free to take a deep breath or two before you do so. Letterhunting begins immediately once all players marked ready."
 
 
 gameRoundWinNotification : String
