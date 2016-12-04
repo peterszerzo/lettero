@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import Dict
 import Router
 import Tutorial.Messages exposing (Msg(..))
-import Tutorial.Models exposing (Model, getDialogContent)
+import Tutorial.Models exposing (Model, getNotificationState)
 import UiKit.Notification
 import UiKit.Word
 
@@ -27,6 +27,9 @@ view model =
                 (Navigate Router.newPath)
             else
                 Proceed
+
+        ( notificationContent, isNotificationHighlighted ) =
+            getNotificationState model
     in
         div
             [ class "app__page"
@@ -34,7 +37,7 @@ view model =
             [ div
                 [ onClick clickHandler
                 ]
-                [ UiKit.Notification.view (getDialogContent model) True
+                [ UiKit.Notification.view notificationContent True isNotificationHighlighted
                 ]
             , if model.stage /= Tutorial.Models.Start then
                 UiKit.Word.view

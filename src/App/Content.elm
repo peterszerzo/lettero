@@ -131,7 +131,7 @@ tutorialShow =
 
 tutorialCorrect : String
 tutorialCorrect =
-    "Cool, you got it - click me again to create your very own room."
+    "Well done - shall we create a game room now?"
 
 
 tutorialIncorrect : String

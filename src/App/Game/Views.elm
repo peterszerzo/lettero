@@ -89,7 +89,7 @@ viewNotification model room =
             else
                 ( False, "" )
     in
-        UiKit.Notification.view content isActive
+        UiKit.Notification.view content isActive False
 
 
 viewScoreBoard : String -> Player.Players -> Html Msg

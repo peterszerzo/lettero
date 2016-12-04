@@ -78,9 +78,11 @@ viewCreateForm model =
                     , class "form__button"
                     ]
                     [ span [] [ text Content.roomCreatorPageAddPlayerPrompt ] ]
-               , input
-                    [ type_ "submit"
-                    , disabled (canSubmit model |> not)
+               , button
+                    [ classList
+                        [ ( "form__button", True )
+                        , ( "form__button--disabled", canSubmit model |> not )
+                        ]
                     , onClick SubmitCreateForm
                     ]
                     [ text "Submit" ]

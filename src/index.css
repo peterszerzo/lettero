@@ -7,9 +7,9 @@
   --nav-circle-radius-mobile: 120px;
   --word-max-size: calc(90vmin);
   --word-offset-mobile: 0;
-  --letter-size: calc(5.5vh + 5.5vw);
-  --letter-font-size: calc(4vh + 4vw);
-  --letter-padding-top: calc(.7vh + .7vw);
+
+  --letter-size: calc(6.4vh + 6.4vw);
+  --letter-font-size: calc(4.8vh + 4.8vw);
 
   --dark: #054766;
   --black: #000000;
@@ -20,14 +20,12 @@
 
   --background-letter-opacity: .05;
 
+  --default-letter-rotation: 18deg;
+
   --standard-box-shadow: 0 0 6px color(var(--black) alpha(-80%)), 0 0 12px color(var(--black) alpha(-90%));
   --white-box-shadow: 0 0 6px color(var(--white) alpha(-60%)), 0 0 12px color(var(--white) alpha(-80%));
 
-  --panel-skin {
-    border-radius: var(--border-radius);
-    background-color: var(--white);
-    padding: .5rem 1.5rem;
-  }
+  --standard-padding: .5rem 1.5rem;
 
   --root-z-index: 0;
   --page-z-index: 2;
@@ -198,11 +196,11 @@ button:focus {
 
 @keyframes background-float {
   0% {
-    transform: translate3d(-calc(50% - 1.25%), -calc(50% + 5%), 0) rotate(15deg);
+    transform: translate3d(-calc(50% - 1.25%), -calc(50% + 5%), 0) rotate(var(--default-letter-rotation));
   }
 
   100% {
-    transform: translate3d(-calc(50% + 1.25%), -calc(50% - 5%), 0) rotate(15deg);
+    transform: translate3d(-calc(50% + 1.25%), -calc(50% - 5%), 0) rotate(var(--default-letter-rotation));
   }
 }
 
@@ -221,8 +219,7 @@ button:focus {
   backface-visibility: hidden;
   position: absolute;
   font-size: var(--letter-font-size);
-  transform: translate3d(-50%, -50%, 0) rotate(15deg) scale(1);
-  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) rotate(24deg) scale(1);
   animation: background-float 2s ease-in-out infinite alternate forwards;
 }
 
@@ -270,13 +267,13 @@ button:focus {
 
 .score-board__mark {
   display: none;
-  width: 24px;
+  width: 1.5rem;
   position: relative;
   text-align: center;
 
   @media (--desktop) {
     display: inline;
-    top: -12px;
+    top: -.75rem;
   }
 }
 
@@ -324,7 +321,6 @@ button:focus {
 }
 
 .word__letter {
-  box-sizing: border-box;
   border-radius: 50%;
   position: absolute;
   color: var(--white);
@@ -332,7 +328,7 @@ button:focus {
   width: var(--letter-size);
   height: var(--letter-size);
   text-align: center;
-  padding: var(--letter-padding-top) 0 0 0;
+  padding: calc(var(--letter-size) / 2 - var(--letter-font-size) / 2) 0 0 0;
   margin: 0;
   transform: translate3d(-50%, -50%, 0);
   line-height: 1;
@@ -365,8 +361,10 @@ button:focus {
   cursor: pointer;
   margin: auto .5rem;
   color: var(--dark);
-  @apply --panel-skin;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
   box-shadow: var(--standard-box-shadow);
+  padding: var(--standard-padding);
   border: 0;
 }
 
@@ -447,6 +445,7 @@ button:focus {
   text-align: center;
   max-width: 600px;
   padding: 3rem 1rem;
+  overflow: hidden;
 }
 
 .basic-content__nav {
@@ -503,7 +502,7 @@ button:focus {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  padding: .5rem 1.5rem;
+  padding: var(--standard-padding);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -511,6 +510,7 @@ button:focus {
   z-index: 100;
   background: var(--faint-white);
   border-radius: var(--border-radius);
+  transition: all .3s;
 
   & p {
     margin: 0;
@@ -526,7 +526,13 @@ button:focus {
 
 .notification--active {
   opacity: 1;
-  transition: opacity .3s;
+  transition: all .3s;
+}
+
+.notification--highlighted {
+  background: var(--white);
+  color: var(--dark);
+  box-shadow: var(--standard-box-shadow);
 }
 
 
@@ -551,7 +557,7 @@ button:focus {
 }
 
 
-/* Forms */
+/* Form */
 
 .form {
   text-align: left;
@@ -577,24 +583,20 @@ button:focus {
 .form__button {
   cursor: pointer;
   width: 100%;
-  @apply --panel-skin;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  padding: var(--standard-padding);
   color: var(--dark);
   outline: 0;
   border: 0;
 }
 
-fieldset {
-  outline: 0;
-  border: 0;
-  padding: 0;
+.form__button--disabled {
+  opacity: .6;
 }
 
-input {
-  outline: 0;
-  border: 0;
-  padding: 10px 15px;
-  border-radius: var(--border-radius);
-}
+
+/* TextInput */
 
 .textinput {
   display: block;
@@ -617,10 +619,18 @@ input {
   background: color(var(--white) alpha(5%));
   color: var(--white);
   transition: opacity .5s;
+  padding: var(--standard-padding);
+  border-radius: var(--border-radius);
+
+  &:focus {
+    background: var(--white);
+    color: var(--dark);
+    transition: all .3s;
+  }
 }
 
 .textinput__label {
-  padding-left: 18px;
+  padding-left: 1.125rem;
   font-size: 1.25rem;
   width: 100%;
   display: block;
@@ -640,15 +650,4 @@ input {
   &:hover {
     opacity: 1;
   }
-}
-
-input[type='submit'] {
-  width: 100%;
-  background: var(--white);
-  color: var(--dark);
-  box-shadow: var(--standard-box-shadow);
-}
-
-input[type='submit']:disabled {
-  opacity: .6;
 }

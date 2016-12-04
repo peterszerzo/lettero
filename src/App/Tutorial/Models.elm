@@ -3,6 +3,7 @@ module Tutorial.Models exposing (..)
 import Tutorial.Messages exposing (Msg)
 import Content
 
+
 type Stage
     = Start
     | ShowWord
@@ -14,30 +15,31 @@ type alias Model =
     }
 
 
-init : (Model, Cmd Msg)
+init : ( Model, Cmd Msg )
 init =
     { stage = Start
     , guess = Nothing
-    } ! [ Cmd.none ]
+    }
+        ! [ Cmd.none ]
 
 
 
 -- Helpers
 
 
-getDialogContent : Model -> String
-getDialogContent { stage, guess } =
+getNotificationState : Model -> ( String, Bool )
+getNotificationState { stage, guess } =
     case stage of
         Start ->
-            Content.tutorialStart
+            ( Content.tutorialStart, False )
 
         ShowWord ->
             case guess of
                 Nothing ->
-                    Content.tutorialShow
+                    ( Content.tutorialShow, False )
 
                 Just i ->
                     if i == 0 then
-                        Content.tutorialCorrect
+                        ( Content.tutorialCorrect, True )
                     else
-                        Content.tutorialIncorrect
+                        ( Content.tutorialIncorrect, False )
