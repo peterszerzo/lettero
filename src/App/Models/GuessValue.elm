@@ -20,7 +20,7 @@ correct =
 
 isCorrect : GuessValue -> Bool
 isCorrect =
-    (==) 0
+    (==) correct
 
 
 encoder : GuessValue -> JE.Value

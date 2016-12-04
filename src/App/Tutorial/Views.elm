@@ -5,8 +5,9 @@ import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Dict
 import Router
+import Content
 import Tutorial.Messages exposing (Msg(..))
-import Tutorial.Models exposing (Model, getNotificationState)
+import Tutorial.Models exposing (Model(..), isCorrectGuess)
 import UiKit.Notification
 import UiKit.Word
 
@@ -15,34 +16,44 @@ view : Model -> Html Msg
 view model =
     let
         highlights =
-            case model.guess of
-                Just i ->
+            case model of
+                Guessed i ->
                     Dict.fromList [ ( i, "highlighted" ) ]
 
-                Nothing ->
+                _ ->
                     Dict.empty
 
-        clickHandler =
-            if (model.guess == Just 0) then
+        isCorrectGuess_ = isCorrectGuess model
+
+        onNotificationClick =
+            if isCorrectGuess_ then
                 (Navigate Router.newPath)
             else
-                Proceed
+                Start
 
-        ( notificationContent, isNotificationHighlighted ) =
-            getNotificationState model
+
+        notificationContent =
+          case model of
+            Intro ->
+              Content.tutorialStart
+            Show ->
+              Content.tutorialShow
+            Guessed _ ->
+              if isCorrectGuess_ then Content.tutorialCorrect else Content.tutorialIncorrect
+
     in
         div
             [ class "app__page"
             ]
             [ div
-                [ onClick clickHandler
+                [ onClick onNotificationClick
                 ]
-                [ UiKit.Notification.view notificationContent True isNotificationHighlighted
+                [ UiKit.Notification.view notificationContent True isCorrectGuess_
                 ]
-            , if model.stage /= Tutorial.Models.Start then
+            , if model /= Intro then
                 UiKit.Word.view
                     { word = "berry"
-                    , onLetterClick = Guess
+                    , onGuess = Guess
                     , isDisabled = False
                     , startAngle = 0
                     , highlights = highlights

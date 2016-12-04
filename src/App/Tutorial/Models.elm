@@ -1,45 +1,25 @@
 module Tutorial.Models exposing (..)
 
 import Tutorial.Messages exposing (Msg)
-import Content
+import Models.GuessValue as GuessValue
 
 
-type Stage
-    = Start
-    | ShowWord
-
-
-type alias Model =
-    { stage : Stage
-    , guess : Maybe Int
-    }
+type Model
+    = Intro
+    | Show
+    | Guessed GuessValue.GuessValue
 
 
 init : ( Model, Cmd Msg )
 init =
-    { stage = Start
-    , guess = Nothing
-    }
-        ! [ Cmd.none ]
+    Intro ! [ Cmd.none ]
 
 
+isCorrectGuess : Model -> Bool
+isCorrectGuess model =
+    case model of
+        Guessed val ->
+            GuessValue.isCorrect val
 
--- Helpers
-
-
-getNotificationState : Model -> ( String, Bool )
-getNotificationState { stage, guess } =
-    case stage of
-        Start ->
-            ( Content.tutorialStart, False )
-
-        ShowWord ->
-            case guess of
-                Nothing ->
-                    ( Content.tutorialShow, False )
-
-                Just i ->
-                    if i == 0 then
-                        ( Content.tutorialCorrect, True )
-                    else
-                        ( Content.tutorialIncorrect, False )
+        _ ->
+            False

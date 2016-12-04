@@ -220,5 +220,5 @@ viewWord model room =
             , startAngle = startAngle
             , highlights = highlights
             , isDisabled = isRoundOver
-            , onLetterClick = MakeGuess
+            , onGuess = MakeGuess
             }

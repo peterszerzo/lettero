@@ -13,7 +13,7 @@ type alias StyleDec =
 
 type alias Options a =
     { word : String
-    , onLetterClick : Int -> a
+    , onGuess : Int -> a
     , isDisabled : Bool
     , startAngle : Float
     , highlights : Dict.Dict Int String
@@ -86,7 +86,7 @@ viewLetter startAngle highlights onLetterClick len index letter =
 
 
 view : Options msg -> Html msg
-view { word, startAngle, isDisabled, onLetterClick, highlights } =
+view { word, startAngle, isDisabled, onGuess, highlights } =
     let
         letters =
             String.split "" word
@@ -97,4 +97,4 @@ view { word, startAngle, isDisabled, onLetterClick, highlights } =
                 , ( "word--disabled", isDisabled )
                 ]
             ]
-            (List.indexedMap (viewLetter startAngle highlights onLetterClick (List.length letters)) letters)
+            (List.indexedMap (viewLetter startAngle highlights onGuess (List.length letters)) letters)
