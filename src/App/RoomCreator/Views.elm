@@ -1,6 +1,6 @@
 module RoomCreator.Views exposing (view)
 
-import Html exposing (Html, div, text, h1, h2, p, a, button, fieldset, input, span)
+import Html exposing (Html, div, text, h1, h2, p, a, button, input, span)
 import Html.Attributes exposing (class, classList, type_, disabled, href)
 import Html.Events exposing (onClick, onWithOptions)
 import Router
@@ -10,6 +10,7 @@ import RoomCreator.Models exposing (Model, Status(..), canSubmit)
 import RoomCreator.Messages exposing (Msg(..))
 import UiKit.LabeledInput
 import UiKit.PageLayout
+import UiKit.Form
 
 
 view : Model -> Html Msg
@@ -58,8 +59,8 @@ viewCreateForm : Model -> List (Html Msg)
 viewCreateForm model =
     [ h2 [] [ text Content.roomCreatorPageTitle ]
     , p [] [ text Content.roomCreatorPageBody ]
-    , div
-        [ class "form" ]
+    , UiKit.Form.view
+      (if model.status == Processing then UiKit.Form.Processing else UiKit.Form.Enabled)
       <|
         [ UiKit.LabeledInput.view
             { id = "roomId"
