@@ -104,6 +104,11 @@ roomCreatorPageSuccessButtonText =
     "Go to your room!! ☞"
 
 
+roomCreatorFormValidationError : String
+roomCreatorFormValidationError =
+    "Lowercase letters only, please!"
+
+
 roomManagerPageTitle : String
 roomManagerPageTitle =
     "Welcome to ${}"

@@ -60,7 +60,12 @@ viewCreateForm model =
     [ h2 [] [ text Content.roomCreatorPageTitle ]
     , p [] [ text Content.roomCreatorPageBody ]
     , UiKit.Form.view
-      (if model.status == Processing then UiKit.Form.Processing else UiKit.Form.Enabled)
+        (if model.status == Processing then
+            UiKit.Form.Processing
+         else
+            UiKit.Form.Enabled
+        )
+        Nothing
       <|
         [ UiKit.LabeledInput.view
             { id = "roomId"

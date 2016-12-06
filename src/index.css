@@ -12,6 +12,7 @@
   --letter-font-size: calc(4.8vh + 4.8vw);
 
   --dark: #054766;
+  --red: #E83613;
   --black: #000000;
   --white: #FFFFFF;
   --faint-white: rgba(255, 255, 255, .05);
@@ -562,10 +563,24 @@ button:focus {
 .form {
   text-align: left;
   margin: 1rem auto 0;
-  padding: 2rem;
+  padding: 3rem 2rem 2rem;
   border-radius: var(--border-radius);
   background: var(--faint-white);
   position: relative;
+}
+
+.form__notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  padding: .5rem;
+  background: var(--red);
+  font-size: .875rem;
+  letter-spacing: .05rem;
+  text-align: center;
 }
 
 .form__content {
