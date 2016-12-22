@@ -1,5 +1,6 @@
 node_modules
 elm-stuff
+dist
 build
 .DS_Store
 *.log
