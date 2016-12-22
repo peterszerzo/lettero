@@ -22,7 +22,7 @@ const commonPlugins = [
     'process.env.FIREBASE_MESSAGING_SENDER_ID': `"${process.env.FIREBASE_MESSAGING_SENDER_ID}"`
   }),
   new HtmlWebpackPlugin({
-    template: './src/index.pug',
+    template: './src/index.html',
     inject: true,
     hash: true
   }),
@@ -42,7 +42,7 @@ const config = {
     path.join(__dirname, 'src/index.js')
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'dist'),
     publicPath: '/',
     filename: 'index.js'
   },
@@ -60,18 +60,6 @@ const config = {
       {
         test: /\.elm$/,
         loader: isDev ? 'elm-webpack?debug=true' : 'elm-webpack'
-      },
-      {
-        test: /\.(ico|html)$/,
-        loader: 'file?name=[name].[ext]'
-      },
-      {
-        test: /\.md/,
-        loader: 'raw'
-      },
-      {
-        test: /\.pug/,
-        loader: 'pug'
       }
     ]
   },
