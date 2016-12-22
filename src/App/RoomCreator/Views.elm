@@ -43,7 +43,11 @@ viewPlayers playerIds =
                     , type_ = "text"
                     , value = playerId
                     , autofocus = False
-                    , placeholder = "E.g. alfred"
+                    , placeholder =
+                        if (i % 2 == 0) then
+                            "e.g. alfred"
+                        else
+                            "e.g. samantha"
                     , onInput = InputPlayer i
                     , delete =
                         if (List.length playerIds > 2) then
@@ -57,43 +61,55 @@ viewPlayers playerIds =
 
 viewCreateForm : Model -> List (Html Msg)
 viewCreateForm model =
-    [ h2 [] [ text Content.roomCreatorPageTitle ]
-    , p [] [ text Content.roomCreatorPageBody ]
-    , UiKit.Form.view
-        (if model.status == Processing then
-            UiKit.Form.Processing
-         else
-            UiKit.Form.Enabled
-        )
-        Nothing
-      <|
-        [ UiKit.LabeledInput.view
-            { id = "roomId"
-            , label = "Room name"
-            , type_ = "text"
-            , value = model.roomId
-            , autofocus = False
-            , placeholder = "E.g. theroom"
-            , onInput = InputRoomId
-            , delete = Nothing
-            }
-        ]
-            ++ (viewPlayers model.playerIds)
-            ++ [ button
-                    [ onClick AddPlayer
-                    , class "form__button"
-                    ]
-                    [ span [] [ text Content.roomCreatorPageAddPlayerPrompt ] ]
-               , button
-                    [ classList
-                        [ ( "form__button", True )
-                        , ( "form__button--disabled", canSubmit model |> not )
+    let
+        isValidInput =
+            Utilities.isAllLowercaseLetter model.roomId
+                && (model.playerIds
+                        |> List.map Utilities.isAllLowercaseLetter
+                        |> List.all identity
+                   )
+    in
+        [ h2 [] [ text Content.roomCreatorPageTitle ]
+        , UiKit.Form.view
+            (if model.status == Processing then
+                UiKit.Form.Processing
+             else
+                UiKit.Form.Enabled
+            )
+            (if isValidInput then
+                Nothing
+             else
+                Just Content.roomCreatorFormValidationError
+            )
+          <|
+            [ UiKit.LabeledInput.view
+                { id = "roomId"
+                , label = "Room name"
+                , type_ = "text"
+                , value = model.roomId
+                , autofocus = False
+                , placeholder = "e.g. mycoolroomxyz"
+                , onInput = InputRoomId
+                , delete = Nothing
+                }
+            ]
+                ++ (viewPlayers model.playerIds)
+                ++ [ button
+                        [ onClick AddPlayer
+                        , class "form__button"
                         ]
-                    , onClick SubmitCreateForm
-                    ]
-                    [ text "Submit" ]
-               ]
-    ]
+                        [ span [] [ text Content.roomCreatorPageAddPlayerPrompt ] ]
+                   , button
+                        [ classList
+                            [ ( "form__button", True )
+                            , ( "form__button--disabled", canSubmit model |> not )
+                            ]
+                        , onClick SubmitCreateForm
+                        ]
+                        [ text "Submit" ]
+                   ]
+        , p [] [ text Content.roomCreatorPageBody ]
+        ]
 
 
 viewSuccess : Model -> List (Html Msg)

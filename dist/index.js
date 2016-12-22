@@ -15752,13 +15752,13 @@
 	var _pickled_plugins$lettero$Content$roomManagerPageInviteLinksIntro = 'Or invite your opponent by email:';
 	var _pickled_plugins$lettero$Content$roomManagerPagePlayLinksIntro = 'Your room is ready. Play under these links:';
 	var _pickled_plugins$lettero$Content$roomManagerPageTitle = 'Welcome to ${}';
-	var _pickled_plugins$lettero$Content$roomCreatorFormValidationError = 'Lowercase letters only, please!';
+	var _pickled_plugins$lettero$Content$roomCreatorFormValidationError = '(your playmates will hop on board quicker if you use lowercase letters only)';
 	var _pickled_plugins$lettero$Content$roomCreatorPageSuccessButtonText = 'Go to your room!! ☞';
 	var _pickled_plugins$lettero$Content$roomCreatorPageSuccessBody = 'Yes, indeed, ${} is all yours! And now:';
 	var _pickled_plugins$lettero$Content$roomCreatorPageSuccessTitle = 'Success!';
 	var _pickled_plugins$lettero$Content$roomCreatorPageErrorBody = 'Things go wrong from time to time.. anyways, care to try again?';
 	var _pickled_plugins$lettero$Content$roomCreatorPageErrorTitle = 'Well that didn’t go so well..';
-	var _pickled_plugins$lettero$Content$roomCreatorPageBody = 'Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only.';
+	var _pickled_plugins$lettero$Content$roomCreatorPageBody = '“How many jiffies are there in a flash?” (George Carlin)';
 	var _pickled_plugins$lettero$Content$roomCreatorPageAddPlayerPrompt = 'Add player';
 	var _pickled_plugins$lettero$Content$roomCreatorPageTitle = 'Create a room in a jiffy';
 	var _pickled_plugins$lettero$Content$startPageCreateRoomPrompt = 'If you’ve got the hang of it, create a room. No login required.';
@@ -18122,7 +18122,9 @@
 							type_: 'text',
 							value: playerId,
 							autofocus: false,
-							placeholder: 'E.g. alfred',
+							placeholder: _elm_lang$core$Native_Utils.eq(
+								A2(_elm_lang$core$Basics_ops['%'], i, 2),
+								0) ? 'e.g. alfred' : 'e.g. samantha',
 							onInput: _pickled_plugins$lettero$RoomCreator_Messages$InputPlayer(i),
 							$delete: (_elm_lang$core$Native_Utils.cmp(
 								_elm_lang$core$List$length(playerIds),
@@ -18133,6 +18135,10 @@
 			playerIds);
 	};
 	var _pickled_plugins$lettero$RoomCreator_Views$viewCreateForm = function (model) {
+		var isValidInput = _pickled_plugins$lettero$Utilities$isAllLowercaseLetter(model.roomId) && A2(
+			_elm_lang$core$List$all,
+			_elm_lang$core$Basics$identity,
+			A2(_elm_lang$core$List$map, _pickled_plugins$lettero$Utilities$isAllLowercaseLetter, model.playerIds));
 		return {
 			ctor: '::',
 			_0: A2(
@@ -18145,90 +18151,90 @@
 				}),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$p,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(_pickled_plugins$lettero$Content$roomCreatorPageBody),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A3(
-						_pickled_plugins$lettero$UiKit_Form$view,
-						_elm_lang$core$Native_Utils.eq(model.status, _pickled_plugins$lettero$RoomCreator_Models$Processing) ? _pickled_plugins$lettero$UiKit_Form$Processing : _pickled_plugins$lettero$UiKit_Form$Enabled,
-						_elm_lang$core$Maybe$Nothing,
+				_0: A3(
+					_pickled_plugins$lettero$UiKit_Form$view,
+					_elm_lang$core$Native_Utils.eq(model.status, _pickled_plugins$lettero$RoomCreator_Models$Processing) ? _pickled_plugins$lettero$UiKit_Form$Processing : _pickled_plugins$lettero$UiKit_Form$Enabled,
+					isValidInput ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(_pickled_plugins$lettero$Content$roomCreatorFormValidationError),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						{
+							ctor: '::',
+							_0: _pickled_plugins$lettero$UiKit_LabeledInput$view(
+								{id: 'roomId', label: 'Room name', type_: 'text', value: model.roomId, autofocus: false, placeholder: 'e.g. mycoolroomxyz', onInput: _pickled_plugins$lettero$RoomCreator_Messages$InputRoomId, $delete: _elm_lang$core$Maybe$Nothing}),
+							_1: {ctor: '[]'}
+						},
 						A2(
 							_elm_lang$core$Basics_ops['++'],
+							_pickled_plugins$lettero$RoomCreator_Views$viewPlayers(model.playerIds),
 							{
 								ctor: '::',
-								_0: _pickled_plugins$lettero$UiKit_LabeledInput$view(
-									{id: 'roomId', label: 'Room name', type_: 'text', value: model.roomId, autofocus: false, placeholder: 'E.g. theroom', onInput: _pickled_plugins$lettero$RoomCreator_Messages$InputRoomId, $delete: _elm_lang$core$Maybe$Nothing}),
-								_1: {ctor: '[]'}
-							},
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								_pickled_plugins$lettero$RoomCreator_Views$viewPlayers(model.playerIds),
-								{
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_pickled_plugins$lettero$RoomCreator_Messages$AddPlayer),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('form__button'),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$span,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(_pickled_plugins$lettero$Content$roomCreatorPageAddPlayerPrompt),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$button,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(_pickled_plugins$lettero$RoomCreator_Messages$AddPlayer),
+											_0: _elm_lang$html$Html_Attributes$classList(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'form__button', _1: true},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: 'form__button--disabled',
+															_1: !_pickled_plugins$lettero$RoomCreator_Models$canSubmit(model)
+														},
+														_1: {ctor: '[]'}
+													}
+												}),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('form__button'),
+												_0: _elm_lang$html$Html_Events$onClick(_pickled_plugins$lettero$RoomCreator_Messages$SubmitCreateForm),
 												_1: {ctor: '[]'}
 											}
 										},
 										{
 											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$span,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text(_pickled_plugins$lettero$Content$roomCreatorPageAddPlayerPrompt),
-													_1: {ctor: '[]'}
-												}),
+											_0: _elm_lang$html$Html$text('Submit'),
 											_1: {ctor: '[]'}
 										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$button,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$classList(
-													{
-														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'form__button', _1: true},
-														_1: {
-															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: 'form__button--disabled',
-																_1: !_pickled_plugins$lettero$RoomCreator_Models$canSubmit(model)
-															},
-															_1: {ctor: '[]'}
-														}
-													}),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onClick(_pickled_plugins$lettero$RoomCreator_Messages$SubmitCreateForm),
-													_1: {ctor: '[]'}
-												}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Submit'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}))),
+									_1: {ctor: '[]'}
+								}
+							}))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(_pickled_plugins$lettero$Content$roomCreatorPageBody),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}
 			}

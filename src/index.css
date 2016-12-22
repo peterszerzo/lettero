@@ -13,6 +13,7 @@
 
   --dark: #054766;
   --red: #E83613;
+  --orange: #FF590D;
   --black: #000000;
   --white: #FFFFFF;
   --faint-white: rgba(255, 255, 255, .05);
@@ -563,7 +564,7 @@ button:focus {
 .form {
   text-align: left;
   margin: 1rem auto 0;
-  padding: 3rem 2rem 2rem;
+  padding: 4.5rem 2.5rem;
   border-radius: var(--border-radius);
   background: var(--faint-white);
   position: relative;
@@ -576,9 +577,10 @@ button:focus {
   width: 100%;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
-  padding: .5rem;
-  background: var(--red);
-  font-size: .875rem;
+  padding: .75rem .5rem;
+  background: var(--orange);
+  font-size: 1rem;
+  line-height: 1.2;
   letter-spacing: .05rem;
   text-align: center;
 }

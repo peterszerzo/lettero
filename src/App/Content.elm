@@ -76,7 +76,7 @@ roomCreatorPageAddPlayerPrompt =
 
 roomCreatorPageBody : String
 roomCreatorPageBody =
-    "Now that’s a very short time, if you care to lend us a hand: please use lowercase letters only."
+    "“How many jiffies are there in a flash?” (George Carlin)"
 
 
 roomCreatorPageErrorTitle : String
@@ -106,7 +106,7 @@ roomCreatorPageSuccessButtonText =
 
 roomCreatorFormValidationError : String
 roomCreatorFormValidationError =
-    "Lowercase letters only, please!"
+    "(your playmates will hop on board quicker if you use lowercase letters only)"
 
 
 roomManagerPageTitle : String

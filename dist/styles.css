@@ -582,7 +582,7 @@ button:focus {
 .form {
   text-align: left;
   margin: 1rem auto 0;
-  padding: 3rem 2rem 2rem;
+  padding: 4.5rem 2.5rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, .05);
   position: relative;
@@ -595,9 +595,10 @@ button:focus {
   width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: .5rem;
-  background: #E83613;
-  font-size: .875rem;
+  padding: .75rem .5rem;
+  background: #FF590D;
+  font-size: 1rem;
+  line-height: 1.2;
   letter-spacing: .05rem;
   text-align: center;
 }
