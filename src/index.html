@@ -4,6 +4,116 @@
     <meta charset="utf-8">
     <title>Lettero | A wordgame</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: 'Dosis', sans-serif;
+        box-sizing: border-box;
+        text-decoration: none;
+      }
+
+      html,
+      body,
+      #app {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        color: #FFFFFF;
+      }
+
+      h1 {
+        font-size: 3rem;
+        letter-spacing: .2rem;
+        font-weight: 400;
+        text-align: center;
+        line-height: .9;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: .2rem;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        letter-spacing: .2rem;
+        text-align: center;
+      }
+
+      p,
+      input,
+      label,
+      button,
+      a,
+      span {
+        font-size: 1rem;
+        line-height: 1.5;
+        letter-spacing: .05rem;
+      }
+
+      a {
+        text-decoration: none;
+        color: currentColor;
+        font-weight: 600;
+        border-bottom: 1px solid currentColor;
+      }
+
+      ul {
+        margin-top: 2rem;
+        padding: 0;
+      }
+
+      li {
+        list-style-type: none;
+        display: inline-block;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 1rem 0;
+      }
+
+      a:focus,
+      button:focus {
+        outline: 0;
+        box-shadow: var(--white-box-shadow);
+      }
+
+      @media (min-width: 600px) {
+        h1 {
+          font-size: 4rem;
+        }
+
+        h2 {
+          font-size: 3rem;
+        }
+
+        h3 {
+          font-size: 2rem;
+        }
+
+        p,
+        input,
+        label,
+        button,
+        a,
+        span {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis" type="text/css">
   </head>
   <body>

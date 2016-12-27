@@ -1,11 +1,11 @@
-import domReady from 'domready'
-import attachFastClick from 'fastclick'
-import './index.css'
-import App from './App'
-import {start as startFirebase} from './utilities/firebase'
+require('./index.compiled.css')
+var domReady = require('domready')
+var attachFastClick = require('fastclick')
+var App = require('./App')
+var fb = require('./utilities/firebase')
 
-domReady(() => {
-  startFirebase()
+domReady(function () {
+  fb.start()
   attachFastClick.attach(document.body)
   App(document.getElementById('app'))
 })

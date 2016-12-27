@@ -1,31 +1,30 @@
-import {getDb} from '../utilities/firebase'
+var fb = require('../utilities/firebase')
 
-import talkToGame from './Game/ports'
+var talkToGame = require('./Game/ports')
 
-export default (ports) => {
-  const db = getDb()
-  ports.roomRequest.subscribe(roomId => {
-    db.ref(`/rooms/${roomId}`)
+module.exports = function (ports) {
+  const db = fb.getDb()
+  ports.roomRequest.subscribe(function (roomId) {
+    db.ref('/rooms/' + roomId)
       .once('value')
-      .then(s => s.val())
-      .then(s => JSON.stringify(s))
-      .then(s => {
+      .then(function (s) { return JSON.stringify(s.val()) })
+      .then(function (s) {
         ports.roomResponse.send(s)
       })
   })
 
-  ports.createRoomRequest.subscribe(msg => {
+  ports.createRoomRequest.subscribe(function (msg) {
     const room = JSON.parse(msg)
-    db.ref(`/rooms/${room.id}`).set(room).then(() => {
+    db.ref('/rooms/' + room.id).set(room).then(function () {
       ports.createRoomResponse.send('success')
-    }).catch(() => {
+    }).catch(function () {
       ports.createRoomResponse.send('error')
     })
   })
 
   talkToGame(ports)
 
-  global.onbeforeunload = () => {
+  global.onbeforeunload = function () {
     ports.closeTab.send('')
   }
 }

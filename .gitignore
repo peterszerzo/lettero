@@ -1,5 +1,6 @@
 node_modules
 elm-stuff
+src/index.compiled.css
 dist
 build
 .DS_Store

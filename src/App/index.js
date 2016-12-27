@@ -1,8 +1,8 @@
-import Elm from './Main.elm'
-import talk from './ports.js'
+var Elm = require('./Main.elm')
+var talk = require('./ports.js')
 
-export default (domNode) => {
+module.exports = function (domNode) {
   domNode.innerHTML = ''
-  const {ports} = Elm.Main.embed(domNode)
-  talk(ports)
+  const elmApp = Elm.Main.embed(domNode)
+  talk(elmApp.ports)
 }

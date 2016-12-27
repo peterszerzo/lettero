@@ -1,35 +1,34 @@
 /* eslint max-len : "off" */
-import {
-  scheduleNewRound,
-  getRoom,
-  watchRoom,
-  updatePlayer
-} from './controllers'
-import {getDb} from '../../utilities/firebase'
+var ctrl = require('./controllers')
 
-export default (ports) => {
-  const db = getDb()
+var fb = require('../../utilities/firebase')
 
-  const shipToElm = (obj) => {
+module.exports = function (ports) {
+  var db = fb.getDb()
+
+  var shipToElm = function (obj) {
     ports.roomStateUpdate.send(JSON.stringify(obj))
   }
 
-  const subscribedRoomIds = []
+  var subscribedRoomIds = []
 
-  ports.sendGameCommand.subscribe((msgString) => {
-    const {type, roomId, payload} = JSON.parse(msgString)
+  ports.sendGameCommand.subscribe(function (msgString) {
+    var msgObj = JSON.parse(msgString)
+    var type = msgObj.type
+    var roomId = msgObj.roomId
+    var payload = msgObj.payload
     if (subscribedRoomIds.indexOf(roomId) === -1) {
-      watchRoom(db, roomId, shipToElm)
+      ctrl.watchRoom(db, roomId, shipToElm)
       subscribedRoomIds.push(roomId)
     }
     if (type === 'requestRoomState') {
-      return getRoom(db, roomId).then(shipToElm)
+      return ctrl.getRoom(db, roomId).then(shipToElm)
     }
     if (type === 'requestNewRound') {
-      return scheduleNewRound(db, payload).then(shipToElm)
+      return ctrl.scheduleNewRound(db, payload).then(shipToElm)
     }
     if (type === 'player') {
-      updatePlayer(db, roomId, payload)
+      ctrl.updatePlayer(db, roomId, payload)
     }
   })
 }

@@ -2,10 +2,10 @@
   "name": "Lettero",
   "version": "0.3.0",
   "description": "Multiplayer wordgame",
-  "main": "server/index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pickled-plugins/lettero.git"
+    "url": "https://github.com/peterszerzo/lettero.git"
   },
   "dependencies": {
     "domready": "^1.0.8",
@@ -13,37 +13,12 @@
     "firebase": "^3.5.1"
   },
   "devDependencies": {
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
-    "css-loader": "^0.25.0",
-    "dotenv": "^2.0.0",
-    "elm-webpack-loader": "^3.1.0",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "favicons-webpack-plugin": "^0.0.7",
-    "file-loader": "^0.9.0",
-    "html-webpack-plugin": "^2.24.0",
-    "postcss": "^5.2.0",
-    "postcss-cssnext": "^2.8.0",
-    "postcss-loader": "^1.1.1",
-    "raw-loader": "^0.5.1",
-    "standard": "^8.6.0",
-    "style-loader": "^0.13.1",
-    "stylelint": "^7.2.0",
-    "webpack": "^1.13.2",
-    "webpack-validator": "^2.2.7"
+    "standard": "^8.6.0"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/standard --fix",
-    "dev": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js"
+    "watchcss": "postcss src/index.css --use postcss-cssnext --output src/index.compiled.css --watch",
+    "lint": "./node_modules/.bin/standard --fix"
   },
   "author": "Peter Szerzo",
-  "license": "ISC",
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  }
+  "license": "ISC"
 }

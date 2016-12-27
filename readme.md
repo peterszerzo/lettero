@@ -14,15 +14,13 @@ Some of the interesting bits:
 
 ## Run locally
 
-You'll need to have Elm installed globally (`npm install -g elm`). Afterwards, some setup:
+Install dependencies:
 
-`git clone <repository>`
-`npm install`
-`elm package install`
+`npm i -g elm create-elm-app postcss postcss-cli postcss-cssnext`
 
-Run `firebase serve` (server) and `npm run dev` (client) in two separate terminal windows. Refresh every time front-end has changed. Stay tuned for a nicer setup.
+Run `firebase serve` (server) and `elm-app start` (client) in two separate terminal windows. Refresh every time front-end has changed. Stay tuned for a nicer setup.
 
-Oh, you might also need a firebase app with the following schema already defined in the database:
+The app relies on the following firebase database:
 
 ```json
 {
@@ -38,5 +36,3 @@ Oh, you might also need a firebase app with the following schema already defined
   }
 }
 ```
-
-The game will fill in the rest while you go through the room creation steps.
