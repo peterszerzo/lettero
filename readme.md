@@ -1,3 +1,5 @@
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 # Lettero
 
 A mildly frustrating, yet somehow delightful multiplayer word game. Click on the first letter of a word that is written in a circle. Now try to make it faster than your opponent. Watch out for mental blocks. Enjoy!
