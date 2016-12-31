@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "6.0.0"
+before_script:
+  - npm install -g elm@0.18.0
+  - npm install -g create-elm-app@0.2.3
+  - npm install -g postcss@5.2.8
+  - npm install -g postcss-cli@2.6.0
+  - npm install -g postcss-cssnext@2.9.0
+  - npm install -g firebase-tools
+script:
+  - chmod +x prod.sh
+  - ./prod.sh
+after_success:
+  - firebase deploy

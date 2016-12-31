@@ -8,7 +8,6 @@
     "url": "https://github.com/peterszerzo/lettero.git"
   },
   "dependencies": {
-    "domready": "^1.0.8",
     "fastclick": "^1.0.6",
     "firebase": "^3.5.1"
   },
@@ -16,7 +15,6 @@
     "standard": "^8.6.0"
   },
   "scripts": {
-    "watchcss": "postcss src/index.css --use postcss-cssnext --output src/index.compiled.css --watch",
     "lint": "./node_modules/.bin/standard --fix"
   },
   "author": "Peter Szerzo",
