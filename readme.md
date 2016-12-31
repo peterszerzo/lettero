@@ -16,13 +16,9 @@ Some of the interesting bits:
 
 ## Run locally
 
-Install dependencies:
+Install dependencies as per `./travis.yml`. Run `./dev.sh`.
 
-`npm i -g elm create-elm-app postcss postcss-cli postcss-cssnext`
-
-Run `firebase serve` (server) and `elm-app start` (client) in two separate terminal windows. Refresh every time front-end has changed. Stay tuned for a nicer setup.
-
-The app relies on the following firebase database:
+The app relies on the following Firebase database:
 
 ```json
 {
