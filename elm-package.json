@@ -15,6 +15,5 @@
         "evancz/elm-markdown": "3.0.0 <= v < 4.0.0",
         "evancz/url-parser": "2.0.0 <= v < 3.0.0"
     },
-    "elm-version": "0.18.0 <= v < 0.19.0",
-    "proxy": "http://localhost:5000"
+    "elm-version": "0.18.0 <= v < 0.19.0"
 }
