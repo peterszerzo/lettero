@@ -1,3 +1,5 @@
+Deprecated in favor of [elm-gameroom](https://github.com/peterszerzo/elm-gameroom), which this project inspired.
+
 # Lettero
 
 [![Build Status](https://travis-ci.org/peterszerzo/lettero.svg?branch=master)](https://travis-ci.org/peterszerzo/lettero)
